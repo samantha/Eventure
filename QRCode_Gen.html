@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width>
+    <link rel="stylesheet" href="main.css">
+	<script src="libraries/qrcode.js"></script>
+</head>
+<body>
+	<header>
+		<h1><center>QR Code:</center></h1>
+	</header>
+	<main>
+			<div id="qrcode"></div>
+	</main>
+	<script>
+		let qrcode = new QRCode("qrcode", {
+			text: "https://www.google.com/",
+			width: 256,
+			height: 256,
+			colorDark : "#7b91b6",
+			colorLight : "#ffffff",
+			correctLevel : QRCode.CorrectLevel.L
+		});
+	</script>
+</body>
+</html>
