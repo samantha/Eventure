@@ -8,16 +8,23 @@
 </head>
 <body>
 	<header>
-		<h1><center>QR Code:</center></h1>
+		<h1>QR Code:</h1>
 	</header>
+	
+	<div id="fb-root"></div>
+	<script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v6.0"></script>
+	
 	<main>
 			<div id="qrcode"></div>
+			<div class="fb-share-button" data-href="https://google.com/" data-layout="button_count" data-size="large">
+				<a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fplugins%2F&amp;src=sdkpreparse" 
+				class="fb-xfbml-parse-ignore">Share</a></div>
 	</main>
 	<script>
 		let qrcode = new QRCode("qrcode", {
-			text: "https://www.google.com/",
-			width: 256,
-			height: 256,
+			text: "https://google.com/",
+			width: 128,
+			height: 128,
 			colorDark : "#7b91b6",
 			colorLight : "#ffffff",
 			correctLevel : QRCode.CorrectLevel.L
