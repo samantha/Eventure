@@ -1,0 +1,25 @@
+.nav-container {
+    box-shadow: 0px 2px 5px #CCCCCC;
+    color: #54524d;
+}
+
+.nav {
+    display: flex; /*flex-box*/
+    justify-content: space-between;
+    flex-direction: row;
+    align-items: baseline;
+    /**background-color: #7bb6a0;**/
+}
+
+.nav div {
+    padding: 0.5em 0.7em 0.5em 0.7em;
+}
+
+input[type=text] {
+    border-radius: 20px;
+    height: 2em;
+}
+
+FontAwesomeIcon{
+    margin-right: 5px;
+}
