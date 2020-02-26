@@ -1,3 +1,7 @@
+.nav-mobile {
+    display: none;
+}
+
 .nav-container {
     box-shadow: 0px 2px 5px #CCCCCC;
     color: #54524d;
@@ -22,4 +26,62 @@ input[type=text] {
 
 FontAwesomeIcon{
     margin-right: 5px;
+}
+
+/**
+/*hide hamburger icon in big screens
+#hamburger {
+    display: none;
+}
+
+/*hide input check box
+toggle {
+    display: none;
+}
+
+#search {
+    display: none;
+}
+
+.menu {
+    display: none;
+}
+**/
+
+@media only screen and (max-width: 500px) {
+    .nav-mobile {
+        display: block;
+    }
+
+    #nav-desktop {
+        display: none;
+    }
+    /*#hamburger {
+        display: block;
+        cursor: pointer;
+        margin-left: 15px;
+    }
+    #search {
+        display: block;
+    }
+    .right-nav {
+        flex-direction: column;
+        text-align: center;
+        width: 100%;
+        margin: 0;
+    }
+    input[type=text] {
+        display: none;
+    }
+    .nav li {
+
+    }
+    .right-nav li {
+        display: none;
+        border-top: 1px solid #CCCCCC;
+    }
+    #toggle:checked + label {
+        display: block;
+    }
+    */
 }
