@@ -9,6 +9,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Navigation from "./components/navbar";
 import Home from "./components/home";
 import CreateEvent from "./components/create-event";
+import SignUp from "./components/signup";
 
 
 
@@ -18,6 +19,7 @@ function App() {
       <Navigation />
       <Route path="/" exact component = {Home} />
       <Route path="/create" component = {CreateEvent} />
+      <Route path="/signup" component = {SignUp} />
 
     </Router>
   );
