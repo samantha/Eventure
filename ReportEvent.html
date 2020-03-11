@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="ReportEvent.css">
+</head>
+
+<body>
+
+	<button onclick="document.getElementById('ev-report').style.display='block'" style="width:auto;">Report Event</button>
+
+	<div id="ev-report" class="modal">
+		<span onclick="document.getElementById('ev-report').style.display='none'" class="close" title="Close Modal">&times;</span>
+		<form class="modal-content" action="/action_page.php">
+			<div class="container">
+				<h1>Report Event</h1>
+				<p>Please explain why you are reporting this event below:</p>
+				
+				<fieldset>      
+					<legend>Issue:</legend>      
+					<input type="checkbox" name="ev-issue1" value="ev-issue1">The event doesn't meet Eventure guidelines.<br> 	     
+					<input type="checkbox" name="ev-issue2" value="ev-issue2">The event has been cancelled and hasn't been updated.<br>      
+					<input type="checkbox" name="ev-issue3" value="ev-issue3">The event page has incorrect or misleading info.<br>    
+				</fieldset>   
+				
+				<p>Additional Comments:</p>
+				<input type="text" placeholder="I am reporting this event because..." name="event-report" required>
+
+				<div class="clearfix">
+					<button type="button" onclick="document.getElementById('ev-report').style.display='none'" class="cancelbtn">Cancel</button>
+					<button type="submit" class="reportbtn">Report</button>
+				</div>
+			</div>
+		</form>
+	</div>
+
+</body>
+</html>
