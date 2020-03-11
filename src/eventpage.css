@@ -1,0 +1,72 @@
+main {
+    width: 80%;
+    margin: 3em auto; /*Space before h1*/
+    color: #54524d;
+}
+
+p {
+    margin: 0em;
+    padding: 0em;
+}
+
+section {
+    border-bottom: 1px solid #CCCCCC;
+}
+
+#container {
+    border: 1px solid #CCCCCC;
+    border-radius: 1%;
+    padding: 1em;
+}
+
+#org-logo {
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+}
+
+.banner img {
+    width: 100%;
+    height: auto;
+    margin: 5px 0px 10px 0px;
+    border-radius: 0%;
+}
+
+.description {
+    margin-top: 2em;
+}
+
+.rsvp-bar {
+    height: 15%;
+    background-color: white;
+    padding: 1.5em;
+    box-shadow: -1px -1px 1px #CCCCCC;
+}
+
+.rsvp-content {
+    width: 80%;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+}
+
+.event-flex {
+    display: flex;
+}
+
+.event-info {
+    width: 35%;
+}
+
+.rsvp-button {
+    background-color: #7b91b6;
+}
+
+.second-line {
+    margin-right: 10px;
+}
+
+.event-info .first-line {
+    margin-top: 30px;
+}
