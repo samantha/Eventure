@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="ReportForms.css">
+</head>
+
+<body>
+
+	<button onclick="document.getElementById('user-report').style.display='block'" style="width:auto;">Report User</button>
+
+	<div id="user-report" class="modal">
+		<span onclick="document.getElementById('user-report').style.display='none'" class="close" title="Close Modal">&times;</span>
+		<form class="modal-content" action="/action_page.php">
+			<div class="container">
+				<h1>Report User</h1>
+				<p>Please explain why you are reporting this user below:</p>
+				
+				<fieldset>      
+					<legend>Issue:</legend>      
+					<input type="checkbox" name="usr-issue1" value="usr-issue1">This user has posted content against Eventure guidelines.<br> 	     
+					<input type="checkbox" name="usr-issue2" value="usr-issue2">This user is pretending to be someone else.<br>      
+					<input type="checkbox" name="usr-issue3" value="usr-issue3">This user has been inactive for over a year.<br>    
+				</fieldset>   
+				
+				<p>Additional Comments:</p>
+				<input type="text" placeholder="I am reporting this user because..." name="user-report" required>
+
+				<div class="clearfix">
+					<button type="button" onclick="document.getElementById('ev-report').style.display='none'" class="cancelbtn">Cancel</button>
+					<button type="submit" class="reportbtn">Report</button>
+				</div>
+			</div>
+		</form>
+	</div>
+
+</body>
+</html>
