@@ -11,6 +11,12 @@ import {
   Route,
   Link
 } from "react-router-dom";
+import {
+  FacebookShareButton,
+  FacebookIcon,
+  TwitterShareButton,
+  TwitterIcon,
+} from "react-share";
 
 export default class EventPage extends Component {
     render() {
@@ -24,7 +30,26 @@ export default class EventPage extends Component {
                             <div class="event-flex">
                                 <section class="event-info">
                                     <p><img src="https://cdn.pixabay.com/photo/2019/06/27/21/14/logo-4303138_1280.png" alt="organization logo" id="org-logo"/> by Sample Organization</p>
-                                    <div>
+                                    
+									<div>
+									  <FacebookShareButton
+										url={"https://google.com/"}
+										quote={"Eventure Event!"}
+									  >
+										<FacebookIcon size={32} round />
+										</FacebookShareButton>
+									</div>
+									
+									<div>
+									  <TwitterShareButton
+										url={"https://google.com/"}
+										title={"Eventure Event!"}
+									  >
+										<TwitterIcon size={32} round />
+										</TwitterShareButton>
+									</div>
+									
+									<div>
                                         <div><FontAwesomeIcon icon={faCalendar}/> <b>Saturday, March 7</b></div>
                                         <div class="second-line">7:00 pm - 8:00 pm</div>
                                     </div>

@@ -4,12 +4,13 @@ import logo from './logo.svg';
 import './App.css';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faHome } from '@fortawesome/fontawesome-free';
+import EventPage from "./components/eventpage";
 
 //library.add(faHome),
 
 /// COMPONENTS ///
 import Home from "./components/home";
-import Dashboard from "./components/dashboard";
+import Dashboard from "./components/eventpage";
 
 function App() {
   return (
