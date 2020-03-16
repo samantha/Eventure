@@ -1,0 +1,57 @@
+#settings  {
+    width: 400px;
+    color: #54524d;
+    margin: 2rem auto;
+}
+
+#settings h2 {
+    font-size: 1.5em;
+}
+
+#settings h3 {
+    font-size: 1em !important;
+}
+
+#settings button, p, .form-group {
+    margin-left: 25px;
+}
+
+#settings form {
+    display: inline-block;
+}
+
+#settings section {
+    margin-bottom: 50px;
+    border-bottom: none;
+}
+
+#settings small {
+    display: block;
+}
+
+#settings .password-group {
+    margin-bottom: 10px;
+}
+
+#settings input[type=password], input[type=email] {
+    width: 375px;
+    height: 30px;
+    border-radius: 5px;
+    border: 1px solid #CCCCCC;
+    padding: 2px;
+}
+
+@media only screen and (max-width: 400px) {
+    #settings {
+        width: 90%;
+    }
+
+    #settings input[type=password], input[type=email] {
+        width: 90%;
+        height: 30px;
+        border-radius: 5px;
+        border: 1px solid #CCCCCC;
+        padding: 2px;
+    }
+
+}

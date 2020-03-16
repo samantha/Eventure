@@ -4,6 +4,7 @@ import Logo from '../logo.svg';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEnvelope, faBell, faUserCircle, faBars, faSearch } from '@fortawesome/free-solid-svg-icons';
 import {Navbar, NavDropdown, Form, FormControl, Button, Nav} from 'react-bootstrap';
+import { BrowserRouter as Router, Link } from "react-router-dom";
 
 export default class TopNav extends Component {
     render() {
@@ -11,7 +12,7 @@ export default class TopNav extends Component {
             <div>
                 <div class="nav nav-container" id="nav-desktop">
                     <div class="nav">
-                        <div><a href="./dashboard.js"><img src="" alt="Eventure Logo"/></a></div>
+                        <div><Link to="/"><img src="" alt="Eventure Logo"/></Link></div>
                         <div><input class="form-control" type="text" placeholder="Search"></input></div>
                     </div>
                     <div class="nav">
@@ -38,7 +39,7 @@ export default class TopNav extends Component {
                         </Navbar.Collapse> 
                     </Navbar>
                 </div>
-            </div>               
+            </div>              
         );
     }
 }
