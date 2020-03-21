@@ -15,23 +15,23 @@ export default class EventPage extends Component {
             <main>
                 <div id="container">
                     <h1>Sample Event Name: This is just a Test</h1>
-                        <div class="event-flex">
-                            <section class="event-info">
+                        <div className="event-flex">
+                            <section className="event-info">
                                 <p><img src="https://cdn.pixabay.com/photo/2019/06/27/21/14/logo-4303138_1280.png" alt="organization logo" id="org-logo"/> by Sample Organization</p>
                                 <div>
                                     <div><FontAwesomeIcon icon={faCalendar}/> <b>Saturday, March 7</b></div>
-                                    <div class="second-line">7:00 pm - 8:00 pm</div>
+                                    <div className="second-line">7:00 pm - 8:00 pm</div>
                                 </div>
                                 <div>
-                                    <div class="first-line"><FontAwesomeIcon icon={faMapMarkerAlt}/> <b>California State University, Long Beach</b></div>
-                                    <div class="second-line">1250 Bellflower Blvd,<br/> Long Beach, CA 90840</div>
+                                    <div className="first-line"><FontAwesomeIcon icon={faMapMarkerAlt}/> <b>California State University, Long Beach</b></div>
+                                    <div className="second-line">1250 Bellflower Blvd,<br/> Long Beach, CA 90840</div>
                                 </div>
                             </section>
-                            <section class="banner">
+                            <section className="banner">
                                 <img src="https://blogmedia.evbstatic.com/wp-content/uploads/wpmulti/sites/8/Screen-Shot-2015-06-29-at-13.58.37.png"></img>
                             </section>
                         </div>
-                        <section class="description">
+                        <section className="description">
                             <h2>Description</h2>
                             <p>Manor we shall merit by chief wound no or would. Oh towards between subject passage sending mention or it. Sight happy do burst fruit to woody begin at. Assurance perpetual he in oh determine as. The year paid met him does eyes same. Own marianne improved sociable not out. Thing do sight blush mr an. Celebrated am announcing delightful remarkably we in literature it solicitude. Design use say piqued any gay supply. Front sex match vexed her those great.</p>
 
@@ -59,10 +59,10 @@ export default class EventPage extends Component {
                         </section>
                 </div>
             </main>
-            <section class="rsvp-bar fixed-bottom">
-                <div class="rsvp-content">
+            <section className="rsvp-bar fixed-bottom">
+                <div className="rsvp-content">
                     <p><b>Free</b></p>
-                    <Button variant="primary" class="rsvp-button">Attend</Button>
+                    <Button variant="primary" className="rsvp-button">Attend</Button>
                 </div>
             </section>
             </div>

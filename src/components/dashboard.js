@@ -12,11 +12,11 @@ export default class Dashboard extends Component {
             <TopNav/>
             <main>
               <h1>UPCOMING EVENTS</h1>
-              <section class="event-tiles">
+              <section className="event-tiles">
                 <Link to="/event">
-                  <section class="tile">
+                  <section className="tile">
                     <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Golden_Gate_Bridge_at_sunset_1.jpg/1600px-Golden_Gate_Bridge_at_sunset_1.jpg"></img>
-                    <section class="event-details">
+                    <section className="event-details">
                       <h2>Event Name</h2>
                       <p>Organization</p>
                       <p><FontAwesomeIcon icon={faCalendar}/><time datetime=""> Date</time></p>
@@ -26,9 +26,9 @@ export default class Dashboard extends Component {
                   </section>
                   </Link>
                   <Link to="/event">
-                  <section class="tile">
+                  <section className="tile">
                     <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Golden_Gate_Bridge_at_sunset_1.jpg/1600px-Golden_Gate_Bridge_at_sunset_1.jpg"></img>
-                    <section class="event-details">
+                    <section className="event-details">
                       <h2>Event Name</h2>
                       <p>Organization</p>
                       <p><FontAwesomeIcon icon={faCalendar}/><time datetime=""> Date</time></p>
@@ -38,9 +38,9 @@ export default class Dashboard extends Component {
                   </section>
                   </Link>
                   <Link to="/event">
-                  <section class="tile">
+                  <section className="tile">
                     <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Golden_Gate_Bridge_at_sunset_1.jpg/1600px-Golden_Gate_Bridge_at_sunset_1.jpg"></img>
-                    <section class="event-details">
+                    <section className="event-details">
                       <h2>Event Name</h2>
                       <p>Organization</p>
                       <p><FontAwesomeIcon icon={faCalendar}/><time datetime=""> Date</time></p>
@@ -50,9 +50,9 @@ export default class Dashboard extends Component {
                   </section>
                   </Link>
                   <Link to="/event">
-                  <section class="tile">
+                  <section className="tile">
                     <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Golden_Gate_Bridge_at_sunset_1.jpg/1600px-Golden_Gate_Bridge_at_sunset_1.jpg"></img>
-                    <section class="event-details">
+                    <section className="event-details">
                       <h2>Event Name</h2>
                       <p>Organization</p>
                       <p><FontAwesomeIcon icon={faCalendar}/><time datetime=""> Date</time></p>
@@ -62,9 +62,9 @@ export default class Dashboard extends Component {
                   </section>
                   </Link>
                   <Link to="/event">
-                  <section class="tile">
+                  <section className="tile">
                     <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Golden_Gate_Bridge_at_sunset_1.jpg/1600px-Golden_Gate_Bridge_at_sunset_1.jpg"></img>
-                    <section class="event-details">
+                    <section className="event-details">
                       <h2>Event Name</h2>
                       <p>Organization</p>
                       <p><FontAwesomeIcon icon={faCalendar}/><time datetime=""> Date</time></p>
