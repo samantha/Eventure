@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import ReactDOM from "react-dom";
+import Popup from "reactjs-popup";
 import TopNav from "./topnav.js";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCalendar, faClock, faMapMarkerAlt, faMap } from '@fortawesome/free-solid-svg-icons';
@@ -26,29 +27,46 @@ export default class EventPage extends Component {
                 <TopNav/>
                 <main>
                     <div id="container">
+						<Popup modal trigger={<Button variant="secondary" id = "report-btn">Report Event</Button>}>
+							<div class="container">
+								<h1>Report Event</h1>
+								<p>Please explain why you are reporting this event below:</p>
+								<fieldset>      
+									<legend>Issue:</legend>      
+									<input type="checkbox" name="ev-issue1" value="ev-issue1" />The event doesn't meet Eventure guidelines.<br /> 	     
+									<input type="checkbox" name="ev-issue2" value="ev-issue2" />The event has been cancelled and hasn't been updated.<br />      
+									<input type="checkbox" name="ev-issue3" value="ev-issue3" />The event page has incorrect or misleading info.<br />    
+								</fieldset> 
+								<p>Additional Comments:</p>
+								<input type="text" placeholder="I am reporting this event because..." name="event-report" required />
+								<div class="clearfix">
+									<button type="submit" class="reportbtn">Report</button>
+								</div>
+							</div>
+						</Popup>
+					
                         <h1>Sample Event Name: This is just a Test</h1>
                             <div class="event-flex">
                                 <section class="event-info">
                                     <p><img src="https://cdn.pixabay.com/photo/2019/06/27/21/14/logo-4303138_1280.png" alt="organization logo" id="org-logo"/> by Sample Organization</p>
-                                    
-									<div>
-									  <FacebookShareButton
-										url={"https://google.com/"}
-										quote={"Eventure Event!"}
-									  >
-										<FacebookIcon size={32} round />
-										</FacebookShareButton>
+									<div class="share-buttons">
+										<div>
+										  <FacebookShareButton
+											url={"https://google.com/"}
+											quote={"Eventure Event!"}
+										  >
+											<FacebookIcon size={32} round />
+											</FacebookShareButton>
+										</div>										
+										<div>
+										  <TwitterShareButton
+											url={"https://google.com/"}
+											title={"Eventure Event!"}
+										  >
+											<TwitterIcon size={32} round />
+											</TwitterShareButton>
+										</div>
 									</div>
-									
-									<div>
-									  <TwitterShareButton
-										url={"https://google.com/"}
-										title={"Eventure Event!"}
-									  >
-										<TwitterIcon size={32} round />
-										</TwitterShareButton>
-									</div>
-									
 									<div>
                                         <div><FontAwesomeIcon icon={faCalendar}/> <b>Saturday, March 7</b></div>
                                         <div class="second-line">7:00 pm - 8:00 pm</div>
@@ -101,3 +119,4 @@ export default class EventPage extends Component {
         );
     }
 }
+
