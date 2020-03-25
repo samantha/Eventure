@@ -1,0 +1,78 @@
+#organization-page {
+    width: 70%;
+    margin: 5vh auto; /*Space before h1*/
+    color: #54524d;
+    border: 1px solid #cccccc;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+}
+
+#organization-events {
+    font-size: small;
+}
+
+#top-half {
+    border-bottom: 1px solid #cccccc;
+    padding: 3vw;
+}
+
+#org-info {
+    display: flex;
+    flex-direction: column;
+}
+
+#org-info img {
+    height: 15vw;
+    width: 15vw;
+    border-radius: 50%;
+    margin-right: 2vw;
+}
+
+#top-section {
+    display: flex;
+    margin-bottom: 1em;
+}
+
+.interact-buttons {
+    margin-right: 2vw !important;
+    margin-top: 5vh !important;
+    width: 13vw;
+    height: 3.5vw;
+}
+
+p {
+    margin: 0px;
+    text-align: justify;
+}
+
+.eventure-blue {
+    background-color: #7B91B6 !important;
+    border-color: #7B91B6 !important;
+}
+
+.social-link {
+    margin-right: 1vw;
+    border-radius: 50%;
+    border: none;
+    background-color:#7B91B6;
+    height: 40px;
+    width: 40px;
+    padding: 0.3em;
+}
+
+#events {
+    padding: 3vw 8vw;
+}
+
+#events h1{
+    font-size: x-large;
+}
+
+#events h2{
+    font-size: large;
+}
+
+#events p {
+    font-size: medium;
+}

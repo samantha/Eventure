@@ -1,15 +1,15 @@
-main {
+#event-page {
     width: 80%;
     margin: 3em auto; /*Space before h1*/
     color: #54524d;
 }
 
-p {
+#event-page p {
     margin: 0em;
     padding: 0em;
 }
 
-section {
+#event-page section {
     border-bottom: 1px solid #CCCCCC;
 }
 

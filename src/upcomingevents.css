@@ -1,0 +1,44 @@
+main {
+    width: inherit;
+    /* margin: 3em auto; Space before h1 */
+    margin: inherit;
+    color: #54524d
+}
+
+.event-tiles {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.tile {  
+    flex-wrap: wrap;
+    /* flex-basis: 300px; */
+    border: 1px solid #CCCCCC;
+    border-radius: 10px;
+    box-shadow: 1px 2px 5px #CCCCCC;
+    margin: 2em 2em 0em 0em;
+}
+
+.event-details {
+    padding: 1em 1em 1em 1em;
+}
+
+/* .event-image { don't think this is doing anything
+    width: 300px;
+    height: 100px;
+    border-radius: 10px 10px 0px 0px;
+} */
+
+img {
+    width: 300px;
+    height: 100px;
+    border-radius: 10px 10px 0px 0px;
+    object-fit: cover;
+    object-position: center;
+}
+
+h1 {
+    color: #32363b;
+    font-size: inherit;
+}
+

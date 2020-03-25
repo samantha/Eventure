@@ -12,7 +12,7 @@ export default class EventPage extends Component {
         return (
             <div>
             <TopNav/>
-            <main>
+            <main id="event-page">
                 <div id="container">
                     <h1>Sample Event Name: This is just a Test</h1>
                         <div className="event-flex">
