@@ -1,0 +1,17 @@
+<html>
+    <head>
+        <Title>Google Test</Title>
+        <meta name="google-signin-client_id" content ="183397534053-5ls2h7j5i1chvcsst4cdmla9iissnkh6.apps.googleusercontent.com">
+        <script src = "https://apis.google.com/js/platform.js" async defer></script>
+    </head>
+    <body>
+        <h1>Testing Google</h1>
+        <div class = "g-signin2" data-onsuccess="onSignIn"></div>
+    </body>
+
+    <script>
+        function onSignIn(googleUser){
+            console.log('User is ' + JSON.stringify(googleUser.getBasicProfile()))
+        }
+    </script>
+</html>
