@@ -1,10 +1,11 @@
 {
-  "name": "backend",
+  "name": "Eventure",
   "version": "1.0.0",
   "description": "",
   "main": "server.js",
   "scripts": {
-    “start”: “nodemon server.js”
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon server.js"
   },
   "keywords": [],
   "author": "",
@@ -18,5 +19,8 @@
     "knex": "^0.20.13",
     "morgan": "^1.10.0",
     "pg": "^8.0.2"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.3"
   }
 }

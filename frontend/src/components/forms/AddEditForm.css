@@ -1,0 +1,12 @@
+.table{
+	color: blue;
+}
+
+label{
+	color: blue;
+}
+
+.table-hover tbody tr:hover
+{
+	color: gray;
+}

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import '../home.css';
+import '../styles/home.css';
 
 const background_img = "img/homepage.jpg";
 

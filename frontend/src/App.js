@@ -10,6 +10,7 @@ import Navigation from "./components/navbar";
 import Home from "./components/home";
 import CreateEvent from "./components/create-event";
 import SignUp from "./components/signup";
+import Test from "./components/test";
 
 /*var auth = require('./auth'); // looks at index.js
 */
@@ -22,6 +23,7 @@ function App() {
       <Route path="/" exact component = {Home} />
       <Route path="/create" component = {CreateEvent} />
       <Route path="/signup" component = {SignUp} />
+      <Route path="/test" component = {Test} />
 
     </Router>
   );
