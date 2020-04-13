@@ -11,6 +11,8 @@ import Home from "./components/home";
 import CreateEvent from "./components/create-event";
 import SignUp from "./components/signup";
 
+/*var auth = require('./auth'); // looks at index.js
+*/
 
 
 function App() {
