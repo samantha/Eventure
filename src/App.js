@@ -9,13 +9,17 @@ import { faHome } from '@fortawesome/fontawesome-free';
 
 /// COMPONENTS ///
 import Home from "./components/home";
+import TopNav from "./components/topnav";
 import Dashboard from "./components/dashboard";
+import EventPage from "./components/eventpage";
+import Settings from "./components/settings";
 
 function App() {
   return (
-    
     <Router>
       <Route path="/" exact component = {Dashboard} />
+      <Route path="/event" component={EventPage} />
+      <Route path="/settings" component={Settings} />
     </Router>
   );
 }
