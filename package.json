@@ -13,6 +13,7 @@
     "react-dom": "^16.13.1",
     "react-qr-reader": "^2.2.1",
     "react-scripts": "3.4.1",
+    "react-sidebar": "^3.0.2",
     "reactjs-popup": "^1.5.0"
   },
   "scripts": {

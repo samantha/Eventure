@@ -4,6 +4,7 @@ import './App.css';
 import Popup from "reactjs-popup";
 import Button from 'react-bootstrap/Button';
 import QrReader from 'react-qr-reader'
+import Sidebar from "react-sidebar";
 
 var QRCode = require('qrcode.react');
 
@@ -20,14 +21,57 @@ handleScan = data => {
       })
     }
 }
-  
+
 handleError = err => {
     console.error(err)
 }
 
+
+//sidebar
+constructor(props) {
+    super(props);
+    this.state = {
+		sidebarOpen: true
+    };
+    this.onSetSidebarOpen = this.onSetSidebarOpen.bind(this);
+}
+ 
+onSetSidebarOpen(open) {
+	this.setState({ sidebarOpen: open });
+}
+  
+
 render(){
   return (
-    <div>
+	<div>
+		<Sidebar
+			sidebar={
+				<div>
+				<center>
+					<img height="125" width="125" src={ require('./icon.png') } />
+					<h2>Full Name</h2>
+					<h4>Title Name</h4>
+					<br/>
+					<p>City, State</p>
+					<p>+1 (123) 456-7890</p>
+					<p>email@example.com</p>
+					<br/>
+					<Button variant="primary">Edit</Button>
+				</center>
+				</div>
+			}
+			open={this.state.sidebarOpen}
+			onSetOpen={this.onSetSidebarOpen}
+			styles={{ 
+				sidebar: { 
+					background: "white",
+					padding: 24
+				}
+			}}
+		 >
+			<Button variant="dark" onClick={() => this.onSetSidebarOpen(true)}>Open Sidebar</Button>
+		</Sidebar>
+		<br />
         <Popup modal trigger={<Button variant="secondary">QR Code</Button>}>
 			<center>
 				<h1>QR Code:</h1>
@@ -42,7 +86,7 @@ render(){
 				/>
 			</center>
 		</Popup>
-		
+		<br />
 		<Popup modal trigger={<Button variant="secondary">QR Scanner</Button>}>
 			<center>
 				<h1>QR Scanner:</h1>
