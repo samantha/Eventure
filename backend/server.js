@@ -27,20 +27,21 @@ const morgan = require('morgan') // logs requests
 // });
 
 // db Connection w/ localhost
-var db = require('knex')({
-  client: 'pg',
-  connection: {
-    host : '127.0.0.1',
-    user : 'postgres',
-    password : 'postgres',
-    database : 'eventure'
-  }
-});
+// var db = require('knex')({
+//   client: 'pg',
+//   connection: {
+//     host : '127.0.0.1',
+//     user : 'postgres',
+//     password : 'postgres',
+//     database : 'eventure'
+//   }
+// });
 
 // Controllers - aka, the db queries
-const test = require('./controllers/test')
+const test = require('./controllers/test');
 // ADD more controls
 const users  = require('./controllers/users');
+const organizations = ('./controllers/organizations');
 
 // App
 const app = express()
@@ -72,6 +73,12 @@ app.get('/users', (req, res) => users.getTableData(req, res, db))
 app.post('/users', (req, res) => users.postTableData(req, res, db))
 app.put('/users', (req, res) => users.putTableData(req, res, db))
 app.delete('/users', (req, res) => users.deleteTableData(req, res, db))
+// Organization Routes
+app.get('/organizations', (req, res) => organizations.getOrganizations(req, res, db));
+app.get('/organizations', (req, res) => organizatinos.getOrganization(req, res, db))
+app.post('/organizations', (req, res) => organizatinos.postOrganizations(req, res, db))
+app.put('/organizations', (req, res) => organizatinos.putOrganization(req, res, db))
+app.delete('/organizations', (req, res) => organizatinos.deleteOrganization(req, res, db))
 
 // App Server Connection
 app.listen(process.env.PORT || 3000, () => {
