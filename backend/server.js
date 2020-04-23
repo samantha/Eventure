@@ -27,15 +27,15 @@ const morgan = require('morgan') // logs requests
 // });
 
 // db Connection w/ localhost
-// var db = require('knex')({
-//   client: 'pg',
-//   connection: {
-//     host : '127.0.0.1',
-//     user : 'postgres',
-//     password : 'postgres',
-//     database : 'eventure'
-//   }
-// });
+var db = require('knex')({
+  client: 'pg',
+  connection: {
+    host : '127.0.0.1',
+    user : 'postgres',
+    password : 'postgres',
+    database : 'eventure'
+  }
+});
 
 // Controllers - aka, the db queries
 const test = require('./controllers/test');
