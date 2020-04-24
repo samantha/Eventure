@@ -74,11 +74,11 @@ app.post('/users', (req, res) => users.postTableData(req, res, db))
 app.put('/users', (req, res) => users.putTableData(req, res, db))
 app.delete('/users', (req, res) => users.deleteTableData(req, res, db))
 // Organization Routes
-app.get('/organizations', (req, res) => organizations.getOrganizations(req, res, db));
-app.get('/organizations', (req, res) => organizatinos.getOrganization(req, res, db))
-app.post('/organizations', (req, res) => organizatinos.postOrganizations(req, res, db))
-app.put('/organizations', (req, res) => organizatinos.putOrganization(req, res, db))
-app.delete('/organizations', (req, res) => organizatinos.deleteOrganization(req, res, db))
+app.get('/organizations', (req, res) => organizations.getOrganizations(req, res, db))
+app.get('/organizations', (req, res) => organizations.getOrganization(req, res, db))
+app.post('/organizations', (req, res) => organizations.postOrganization(req, res, db))
+app.put('/organizations', (req, res) => organizations.putOrganization(req, res, db))
+app.delete('/organizations', (req, res) => organizations.deleteOrganization(req, res, db))
 
 // App Server Connection
 app.listen(process.env.PORT || 3000, () => {
