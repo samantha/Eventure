@@ -1,6 +1,6 @@
 //  GET function that returns all data from the db table
 const getTableData = (req, res, db) => {
-    db.select('*').from('testtable1')
+    db.select('*').from('events')
       .then(items => {
         if(items.length){
           res.json(items)
@@ -10,40 +10,40 @@ const getTableData = (req, res, db) => {
       })
       .catch(err => res.status(400).json({dbError: 'db error'}))
   }
-  
+
   // POST function that will add a row to the table
   const postTableData = (req, res, db) => {
-    const { name, date, description, location, banner, organization, tags, policy } = req.body
+    const { name, from_date, to_date, description, street, city, state, zipcode, banner, org_id, cancellation_policy } = req.body
     const added = new Date()
-    db('testtable1').insert({name, date, description, location, banner, organization, tags, policy, added})
+    db('events').insert({ name, from_date, to_date, description, street, city, state, zipcode, banner, org_id, cancellation_policy, added})
       .returning('*')
       .then(item => {
         res.json(item)
       })
-      .catch(err => res.status(400).json({dbError: 'db error'}))
+      .catch(err => res.status(400).json({dbError: 'Can not add event!'}))
   }
-  
+
   // PUT function that will update a row with a given id
   const putTableData = (req, res, db) => {
     const { name, date, description, location, banner, organization, tags, policy } = req.body
-    db('testtable1').where({id}).update({name, date, description, location, banner, organization, tags, policy})
+    db('events').where({id}).update({name, date, description, location, banner, organization, tags, policy})
       .returning('*')
       .then(item => {
         res.json(item)
       })
       .catch(err => res.status(400).json({dbError: 'db error'}))
   }
-  
+
   // DELETE function that will delete a row with a given id
   const deleteTableData = (req, res, db) => {
     const { id } = req.body
-    db('testtable1').where({id}).del()
+    db('events').where({id}).del()
       .then(() => {
         res.json({delete: 'true'})
       })
       .catch(err => res.status(400).json({dbError: 'db error'}))
   }
-  
+
   module.exports = {
     getTableData,
     postTableData,

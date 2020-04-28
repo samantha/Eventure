@@ -42,6 +42,7 @@ const test = require('./controllers/test');
 // ADD more controls
 const users  = require('./controllers/users');
 const orgs  = require('./controllers/orgs');
+const events  = require('./controllers/events');
 
 // const organizations = ('./controllers/organizations');
 
@@ -80,6 +81,11 @@ app.get('/orgs', (req, res) => orgs.getTableData(req, res, db))
 app.post('/orgs', (req, res) => orgs.postTableData(req, res, db))
 app.put('/orgs', (req, res) => orgs.putTableData(req, res, db))
 app.delete('/orgs', (req, res) => orgs.deleteTableData(req, res, db))
+// Events Routes
+app.get('/events', (req, res) => events.getTableData(req, res, db))
+app.post('/events', (req, res) => events.postTableData(req, res, db))
+app.put('/events', (req, res) => events.putTableData(req, res, db))
+app.delete('/events', (req, res) => events.deleteTableData(req, res, db))
 
 
 // app.get('/organizations', (req, res) => organizations.getTableData(req, res, db))

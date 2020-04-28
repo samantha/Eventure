@@ -1,0 +1,21 @@
+{
+       "name": "Association of Picnic Enthusiasts",
+       "description": "We love to have picnics. Anywhere. Anytime.",
+       "city": "Los Angeles",
+       "state": "California"
+}
+
+
+
+{
+       "name": "Picnic",
+       "from_date": "4/27/2020",
+       "to_date": "5/15/2020",
+       "description": "Picnic at the beach",
+       "street": "98763 Peace St.",
+       "city": "Los Angeles",
+       "state": "California",
+       "zipcode": "91053",
+       "org_id": 12
+
+}
