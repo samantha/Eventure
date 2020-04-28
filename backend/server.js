@@ -44,6 +44,8 @@ const users  = require('./controllers/users');
 const orgs  = require('./controllers/orgs');
 const events  = require('./controllers/events');
 const socials  = require('./controllers/socials');
+const memberships  = require('./controllers/memberships');
+const tags  = require('./controllers/tags');
 
 // const organizations = ('./controllers/organizations');
 
@@ -92,7 +94,16 @@ app.get('/socials', (req, res) => socials.getTableData(req, res, db))
 app.post('/socials', (req, res) => socials.postTableData(req, res, db))
 app.put('/socials', (req, res) => socials.putTableData(req, res, db))
 app.delete('/socials', (req, res) => socials.deleteTableData(req, res, db))
-
+// Memberships Routes
+app.get('/memberships', (req, res) => memberships.getTableData(req, res, db))
+app.post('/memberships', (req, res) => memberships.postTableData(req, res, db))
+app.put('/memberships', (req, res) => memberships.putTableData(req, res, db))
+app.delete('/memberships', (req, res) => memberships.deleteTableData(req, res, db))
+// Tags Routes
+app.get('/tags', (req, res) => tags.getTableData(req, res, db))
+app.post('/tags', (req, res) => tags.postTableData(req, res, db))
+app.put('/tags', (req, res) => tags.putTableData(req, res, db))
+app.delete('/tags', (req, res) => tags.deleteTableData(req, res, db))
 
 // app.get('/organizations', (req, res) => organizations.getTableData(req, res, db))
 // app.post('/organizations', (req, res) => organizations.postTableData(req, res, db))
