@@ -1,0 +1,48 @@
+// POST organizations
+{
+       "name": "Association of Picnic Enthusiasts",
+       "description": "We love to have picnics. Anywhere. Anytime.",
+       "city": "Los Angeles",
+       "state": "California"
+}
+
+// POST events
+{
+       "name": "Picnic",
+       "from_date": "4/27/2020",
+       "to_date": "5/15/2020",
+       "description": "Picnic at the beach",
+       "street": "98763 Peace St.",
+       "city": "Los Angeles",
+       "state": "California",
+       "zipcode": "91053",
+       "org_id": 3
+
+}
+
+// POST socials
+{
+       "id": 3,
+       "facebook": "https://www.facebook.com/picnic.supermarket/",
+       "twitter": "https://twitter.com/picnic",
+       "instagram": "https://www.instagram.com/picnic/"
+}
+
+// POST memberships
+{
+       "org_id": 3,
+       "user_email": "robbie@gmail.com"
+}
+// POST tags
+{
+       "tag": "food",
+       "event_id": 4
+}
+{
+       "tag": "drinks",
+       "event_id": 4
+}
+{
+       "tag": "beach",
+       "event_id": 4
+}

@@ -173,69 +173,6 @@ export default class SignUp extends Component {
                             onChange = {this.onChangeEvent}
                             />
                     </div>
-
-
-                    {/*<div className="form-group">
-                        <label>Date: </label>
-                        <div>
-                            <DatePicker
-                            value = {this.state.date}
-                            onChange = {this.onChangeDate}
-                            />
-                        </div>
-                   </div>
-                   <div className="form-group">
-                        <label>Description: </label>
-                        <input type = "text"
-                            required
-                            className = "form-control"
-                            value = {this.state.description}
-                            onChange = {this.onChangeDescription}
-                            />
-                    </div>
-                    <div className="form-group">
-                        <label>Location: </label>
-                        <input type = "text"
-                            className = "form-control"
-                            value = {this.state.img}
-                            onChange = {this.onChangeImg}
-                            />
-                    </div>
-                    <div className="form-group">
-                        <label>Event banner picture link: </label>
-                        <input type = "text"
-                            className = "form-control"
-                            value = {this.state.url}
-                            onChange = {this.onChangeURL}
-                            />
-                    </div>
-                    <div className="input-group mb-3">
-                        <div class="input-group-prepend">
-                            <label class="input-group-text" for="inputGroupSelect01">Organization</label>
-                        </div>
-                        <select class="custom-select" id="inputGroupSelect01" onChange={this.onChangeText} value={this.state.text}>
-                            <option selected>Choose...</option>
-                            <option value="1">org 1</option>
-                            <option value="2">org 2</option>
-                            <option value="3">org 3</option>
-                        </select>
-                    </div>
-                    <div className="form-group">
-                        <label>Tags: </label>
-                        <input type = "text"
-                            className = "form-control"
-                            value = {this.state.tags}
-                            onChange = {this.onChangeTags}
-                            />
-                    </div>
-                    <div className="form-group">
-                        <label>Cancellation/refund policy: </label>
-                        <input type = "text"
-                            className = "form-control"
-                            value = {this.state.color}
-                            onChange = {this.onChangeColor}
-                            />
-                    </div> */}
                     <p>By creating an account you agree to our Terms & Conditions.</p>
 
                     <div className = "form-group">

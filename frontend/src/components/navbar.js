@@ -18,6 +18,8 @@ export default class Navigation extends Component {
                 <Nav className="mr-auto">
                     <Nav.Link href="signup">Sign Up</Nav.Link>
                     <Nav.Link href="create">Create Event</Nav.Link>
+                    <Nav.Link href="test">Test Database</Nav.Link>
+                    <Nav.Link href="register">Sign Up</Nav.Link>
 
                     {/*<NavDropdown title="Multimedia" id="collasible-nav-dropdown">
                         <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
