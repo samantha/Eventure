@@ -43,6 +43,7 @@ const test = require('./controllers/test');
 const users  = require('./controllers/users');
 const orgs  = require('./controllers/orgs');
 const events  = require('./controllers/events');
+const socials  = require('./controllers/socials');
 
 // const organizations = ('./controllers/organizations');
 
@@ -86,6 +87,11 @@ app.get('/events', (req, res) => events.getTableData(req, res, db))
 app.post('/events', (req, res) => events.postTableData(req, res, db))
 app.put('/events', (req, res) => events.putTableData(req, res, db))
 app.delete('/events', (req, res) => events.deleteTableData(req, res, db))
+// Socials Routes
+app.get('/socials', (req, res) => socials.getTableData(req, res, db))
+app.post('/socials', (req, res) => socials.postTableData(req, res, db))
+app.put('/socials', (req, res) => socials.putTableData(req, res, db))
+app.delete('/socials', (req, res) => socials.deleteTableData(req, res, db))
 
 
 // app.get('/organizations', (req, res) => organizations.getTableData(req, res, db))
