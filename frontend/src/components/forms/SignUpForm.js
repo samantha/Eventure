@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
-import '../create-event.css'
+import '../../create-event.css'
 
 class SignUpForm extends React.Component {
   state = {

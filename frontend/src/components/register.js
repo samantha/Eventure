@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
-import '../create-event.css'
-import SignUpModals from './modals/SignUpModal'
+import '../styles/register.css'
+import SignUpModal from './modals/SignUpModal'
 
 
 // in a more complicated app you would want to create classes and add them to your index.css file (or create other css files).
@@ -55,12 +55,20 @@ class Register extends Component {
 
   render() {
     return (
-      <div>
-        <h1>Sign Up Here</h1>
-        <SignUpModal buttonLabel="Sign Up" addItemToState={this.addItemToState}/>
+     <div className="event-container">
+        <h3>Register for an account</h3>
+        <p>Start your eventure here!</p>
+         <div className="signup-button">
+            <SignUpModal buttonLabel="Sign Up" addItemToState={this.addItemToState}/>
+         </div>
+          <div>
+             <img src="adventure.png" alt="adventure"/>
+
+        </div>
       </div>
     )
   }
 }
+
 
 export default Register

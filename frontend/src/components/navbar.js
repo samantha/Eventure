@@ -11,7 +11,7 @@ export default class Navigation extends Component {
     return (
     <div className="container-fluid">
         {/*<Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">*/}
-        <Navbar collapseOnSelect expand="lg" variant="dark">
+        <Navbar collapseOnSelect expand="lg" variant="light">
             <Navbar.Brand href="/">Eventure</Navbar.Brand>
             <Navbar.Toggle aria-controls="responsive-navbar-nav" />
             <Navbar.Collapse id="responsive-navbar-nav">
