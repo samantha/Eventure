@@ -2,7 +2,7 @@ import React from 'react';
 import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
 import '../styles/login.css'
 
-class Register extends React.Component {
+class LogIn extends React.Component {
   state = {
     first: '',
     last: '',
@@ -78,16 +78,8 @@ class Register extends React.Component {
   render() {
     return (
       <div className="event-container">
-       <h1>Start your eventure here.</h1>
+       <h1>Continue your eventure here.</h1>
         <Form onSubmit={this.props.item ? this.submitFormEdit : this.submitFormAdd}>
-          <FormGroup>
-            <Label for="first">First Name</Label>
-            <Input type="text" required name="first" id="first" onChange={this.onChange} value={this.state.first === null ? '' : this.state.first} />
-          </FormGroup>
-          <FormGroup>
-            <Label for="last">Last Name</Label>
-            <Input type="text" required name="last" id="last" onChange={this.onChange} value={this.state.last === null ? '' : this.state.last}  />
-          </FormGroup>
           <FormGroup>
             <Label for="email">Email</Label>
             <Input type="email" required name="email" id="email" onChange={this.onChange} value={this.state.email === null ? '' : this.state.email}  />
@@ -96,9 +88,8 @@ class Register extends React.Component {
             <Label for="password">Password</Label>
             <Input type="text" required name="password" id="password" onChange={this.onChange} value={this.state.password === null ? '' : this.state.password} />
           </FormGroup>
-          <p>By creating an account you agree to our Terms & Conditions.</p>
           <div className = "form-group">
-            <input type = "submit" value = "Sign Up" className = "btn btn-primary" />
+            <input type = "submit" value = "Log In" className = "btn btn-primary" />
          </div>
         </Form>
       </div>
@@ -106,4 +97,4 @@ class Register extends React.Component {
   }
 }
 
-export default Register
+export default LogIn

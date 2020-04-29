@@ -120,7 +120,7 @@ export default class CreateEvent extends Component {
     render() {
         return (
             <div className="event-container">
-                <h3>Add New Event</h3>
+                <h3>Create New Event</h3>
                 <form onSubmit = {this.onSubmit}>
                     <div className="form-group">
                         <label>Event Name: </label>
