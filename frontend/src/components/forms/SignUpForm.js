@@ -1,9 +1,33 @@
 import React from 'react';
-import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
-import '../../create-event.css'
+import { Alert, Button, Form, FormGroup, Label, Input } from 'reactstrap';
+import { Message } from "semantic-ui-react";
+import '../../styles/login.css'
 
 class SignUpForm extends React.Component {
+   constructor(props) {
+    super(props);
+    this.handleSignupClick = this.handleSignupClick.bind(this);
+    this.handleLoginClick = this.handleLoginClick.bind(this);
+    this.handleLogoutClick = this.handleLogoutClick.bind(this);
+    this.state = {isLoggedIn: false};
+    this.state = {isSignedUp: false};
+  }
+
+  handleSignupClick() {
+    this.setState({isSignedUp: true});
+  }
+
+  handleLoginClick() {
+    this.setState({isLoggedIn: true});
+  }
+
+  handleLogoutClick() {
+    this.setState({isLoggedIn: false});
+  }
+
   state = {
+    formError: false,
+    formSuccess: false,
     first: '',
     last: '',
     email: '',
@@ -15,6 +39,7 @@ class SignUpForm extends React.Component {
   }
 
   submitFormAdd = e => {
+    this.setState({isSignedUp: true});
     e.preventDefault()
     fetch('http://localhost:3000/users', {
       method: 'post',
@@ -76,8 +101,22 @@ class SignUpForm extends React.Component {
   }
 
   render() {
+    const isSignedUp = this.state.isSignedUp;
+    let status;
+    if (isSignedUp) {
+      status = <Alert color="success">
+        User registration was successful! You may now log in. <a href="/login" className="alert-link">Click here to log in.</a>.
+      </Alert>;
+    }
+    // else
+    // {
+    //   status = <Alert color="warning">
+    //     This is a warning alert with <a href="#" className="alert-link">an example link</a>. Give it a click if you like.
+    //   </Alert>;
+    // }
     return (
       <div className="event-container">
+       <h1>Start your eventure here.</h1>
         <Form onSubmit={this.props.item ? this.submitFormEdit : this.submitFormAdd}>
           <FormGroup>
             <Label for="first">First Name</Label>
@@ -97,8 +136,9 @@ class SignUpForm extends React.Component {
           </FormGroup>
           <p>By creating an account you agree to our Terms & Conditions.</p>
           <div className = "form-group">
-            <input type = "submit" value = "Sign Up" className = "btn btn-primary" />
+            <input type = "submit" value = "Sign Up" className = "btn btn-primary"/>
          </div>
+         {status}
         </Form>
       </div>
     );

@@ -11,10 +11,11 @@ import ModalForm from './components/modals/ModalForm.js'
 import Navigation from "./components/navbar";
 import Home from "./components/home";
 import CreateEvent from "./components/create-event_archive";
-import SignUp from "./components/signup_archive";
 import Test from "./components/test";
-import Register from "./components/register";
+import Register from "./components/forms/SignUpForm";
 import LogIn from "./components/login";
+import EditEvent from "./components/editevent_archive";
+
 /*var auth = require('./auth'); // looks at index.js
 */
 
@@ -25,10 +26,10 @@ function App() {
       <Navigation />
       <Route path="/" exact component = {Home} />
       <Route path="/create" component = {CreateEvent} />
-      <Route path="/signup" component = {SignUp} />
       <Route path="/test" component = {Test} />
       <Route path="/register" component = {Register} />
       <Route path="/login" component = {LogIn} />
+      <Route path="/edit-event" component = {EditEvent} />
 
     </Router>
   );
