@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eventure</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="icon.png">
+    <style>
+        .bd-placeholder-img {
+          font-size: 1.125rem;
+          text-anchor: middle;
+          -webkit-user-select: none;
+          -moz-user-select: none;
+          -ms-user-select: none;
+          user-select: none;
+        }
+  
+        @media (min-width: 768px) {
+          .bd-placeholder-img-lg {
+            font-size: 3.5rem;
+          }
+        }
+      </style>
+      <!-- Custom styles for this template -->
+      <link href="dashboard.css" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
+        <img algin ="left" src = "eventure_logo.png" style="height:40px;width:185px;margin-left: 10px;" alt="Logo">
+        <input class="form-control form-control-dark w-50" type="text" placeholder="Search" aria-label="Search">
+        <ul class="navbar-nav myGrid">
+          <li class="nav-item text-nowrap">
+            <a class="nav-link" href="#"><svg width="42" height="20" viewBox="0 0 42 34" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M41.8333 4.50004C41.8333 2.20837 39.9583 0.333374 37.6667 0.333374H4.33334C2.04167 0.333374 0.166672 2.20837 0.166672 4.50004V29.5C0.166672 31.7917 2.04167 33.6667 4.33334 33.6667H37.6667C39.9583 33.6667 41.8333 31.7917 41.8333 29.5V4.50004ZM37.6667 4.50004L21 14.8959L4.33334 4.50004H37.6667ZM37.6667 29.5H4.33334V8.66671L21 19.0834L37.6667 8.66671V29.5Z" fill="white"/>
+                </svg>
+                </a>
+          </li>
+          <li class="nav-item text-nowrap">
+            <a class="nav-link" href="#"><svg width="50" height="30" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M39.5833 28.3041V20.8333C39.5833 14.1312 35.0313 8.48538 28.8646 6.78746C28.2542 5.24996 26.7625 4.16663 25 4.16663C23.2375 4.16663 21.7458 5.24996 21.1354 6.78746C14.9688 8.48746 10.4167 14.1312 10.4167 20.8333V28.3041L6.86042 31.8604C6.66658 32.0535 6.51286 32.2831 6.40809 32.5359C6.30333 32.7886 6.24961 33.0597 6.25 33.3333V37.5C6.25 38.0525 6.4695 38.5824 6.8602 38.9731C7.2509 39.3638 7.7808 39.5833 8.33334 39.5833H41.6667C42.2192 39.5833 42.7491 39.3638 43.1398 38.9731C43.5305 38.5824 43.75 38.0525 43.75 37.5V33.3333C43.7504 33.0597 43.6967 32.7886 43.5919 32.5359C43.4872 32.2831 43.3334 32.0535 43.1396 31.8604L39.5833 28.3041ZM39.5833 35.4166H10.4167V34.1958L13.9729 30.6395C14.1668 30.4464 14.3205 30.2168 14.4252 29.9641C14.53 29.7113 14.5837 29.4403 14.5833 29.1666V20.8333C14.5833 15.0895 19.2563 10.4166 25 10.4166C30.7438 10.4166 35.4167 15.0895 35.4167 20.8333V29.1666C35.4167 29.7208 35.6354 30.25 36.0271 30.6395L39.5833 34.1958V35.4166ZM25 45.8333C26.2902 45.8349 27.5489 45.4345 28.601 44.6878C29.6532 43.9411 30.4465 42.8851 30.8708 41.6666H19.1292C19.5535 42.8851 20.3468 43.9411 21.399 44.6878C22.4511 45.4345 23.7098 45.8349 25 45.8333V45.8333Z" fill="white"/>
+                </svg>
+                
+                </a>
+          </li>
+          <li class="nav-item text-nowrap">
+            <a class="nav-link" href="home.html"><svg width="50" height="30" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M25 4.16663C13.7063 4.16663 4.16667 13.7062 4.16667 25C4.16667 31.6437 7.48334 37.6625 12.5 41.5083V41.6666H12.7125C16.1875 44.2604 20.4438 45.8333 25 45.8333C29.5563 45.8333 33.8125 44.2604 37.2875 41.6666H37.5V41.5083C42.5167 37.6625 45.8333 31.6458 45.8333 25C45.8333 13.7062 36.2938 4.16663 25 4.16663ZM16.8208 39.4312C17.1278 38.0424 17.899 36.7998 19.0072 35.9083C20.1154 35.0167 21.4944 34.5295 22.9167 34.527H27.0833C28.5055 34.5299 29.8843 35.0172 30.9924 35.9087C32.1005 36.8002 32.8718 38.0426 33.1792 39.4312C30.7458 40.8416 27.95 41.6666 25 41.6666C22.05 41.6666 19.2542 40.8416 16.8208 39.4312ZM36.6875 36.752C35.8928 34.8601 34.5578 33.2446 32.8494 32.1077C31.1411 30.9707 29.1354 30.363 27.0833 30.3604H22.9167C20.8646 30.363 18.8589 30.9707 17.1506 32.1077C15.4422 33.2446 14.1072 34.8601 13.3125 36.752C10.2563 33.7125 8.33334 29.5333 8.33334 25C8.33334 15.9645 15.9646 8.33329 25 8.33329C34.0354 8.33329 41.6667 15.9645 41.6667 25C41.6667 29.5333 39.7438 33.7125 36.6875 36.752Z" fill="white"/>
+                <path d="M25 12.5C20.25 12.5 16.6667 16.0833 16.6667 20.8333C16.6667 25.5833 20.25 29.1667 25 29.1667C29.75 29.1667 33.3333 25.5833 33.3333 20.8333C33.3333 16.0833 29.75 12.5 25 12.5ZM25 25C22.5458 25 20.8333 23.2875 20.8333 20.8333C20.8333 18.3792 22.5458 16.6667 25 16.6667C27.4542 16.6667 29.1667 18.3792 29.1667 20.8333C29.1667 23.2875 27.4542 25 25 25Z" fill="white"/>
+                </svg>
+                
+                </a>
+          </li>
+        </ul>
+      </nav>
+      
+      <div class="container-fluid">
+        <div class="row">
+          <nav class="col-md-2 d-none d-md-block bg-light sidebar">
+            <div class="sidebar-sticky">
+              <ul class="nav flex-column">
+                <li class="nav-item">
+                    <img id="avy" src="profile.jpeg" style="height:160px;width:160px" alt="user avatar">
+                  </li>
+                <li class="nav-item name">
+                  
+                    
+                    <h3> Full Name </h3>
+                    <p>Title</p>
+                
+                </li>
+                
+              </ul>
+      
+              
+              <ul class="nav flex-column mb-2">
+                <li class="nav-item">
+                  <a class="nav-link" href="#">
+                    <svg width="20" height="20" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M37.5 16.6666C37.5 9.77079 31.8958 4.16663 25 4.16663C18.1042 4.16663 12.5 9.77079 12.5 16.6666C12.5 26.0416 25 39.5833 25 39.5833C25 39.5833 37.5 26.0416 37.5 16.6666ZM20.8333 16.6666C20.8333 14.375 22.7083 12.5 25 12.5C27.2917 12.5 29.1667 14.375 29.1667 16.6666C29.1667 17.7717 28.7277 18.8315 27.9463 19.6129C27.1649 20.3943 26.1051 20.8333 25 20.8333C23.8949 20.8333 22.8351 20.3943 22.0537 19.6129C21.2723 18.8315 20.8333 17.7717 20.8333 16.6666ZM10.4167 41.6666V45.8333H39.5833V41.6666H10.4167Z" fill="black"/>
+                        </svg>
+                        <span class="extraInfo">
+                            City, State
+                        </span>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="tel:+19999999999">
+                    <svg width="20" height="20" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M45.8333 35.2499V41.4999C45.8357 42.0801 45.7168 42.6544 45.4844 43.1861C45.2519 43.7177 44.911 44.1949 44.4835 44.5871C44.0559 44.9794 43.5512 45.278 43.0016 45.4639C42.4519 45.6498 41.8695 45.7188 41.2917 45.6666C34.8809 44.97 28.7229 42.7794 23.3125 39.2708C18.2788 36.0721 14.0111 31.8044 10.8125 26.7708C7.29161 21.3358 5.1005 15.1478 4.41666 8.70825C4.3646 8.13214 4.43307 7.5515 4.6177 7.0033C4.80234 6.4551 5.0991 5.95135 5.48909 5.52413C5.87908 5.0969 6.35375 4.75556 6.88289 4.52184C7.41203 4.28811 7.98404 4.16713 8.56249 4.16658H14.8125C15.8235 4.15663 16.8037 4.51466 17.5703 5.17394C18.3369 5.83322 18.8377 6.74876 18.9792 7.74992C19.243 9.75006 19.7322 11.7139 20.4375 13.6041C20.7178 14.3498 20.7785 15.1602 20.6123 15.9393C20.4461 16.7183 20.0601 17.4335 19.5 17.9999L16.8542 20.6457C19.8199 25.8615 24.1384 30.18 29.3542 33.1457L32 30.4999C32.5664 29.9398 33.2816 29.5538 34.0607 29.3876C34.8398 29.2215 35.6501 29.2821 36.3958 29.5624C38.286 30.2677 40.2499 30.757 42.25 31.0208C43.262 31.1635 44.1862 31.6733 44.8469 32.453C45.5076 33.2328 45.8587 34.2282 45.8333 35.2499Z" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                       <span class="extraInfo">
+                            Phone Number 
+                        </span>                      
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#">
+                    <svg width="20" height="20" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M41.8333 4.50004C41.8333 2.20837 39.9583 0.333374 37.6667 0.333374H4.33334C2.04167 0.333374 0.166672 2.20837 0.166672 4.50004V29.5C0.166672 31.7917 2.04167 33.6667 4.33334 33.6667H37.6667C39.9583 33.6667 41.8333 31.7917 41.8333 29.5V4.50004ZM37.6667 4.50004L21 14.8959L4.33334 4.50004H37.6667ZM37.6667 29.5H4.33334V8.66671L21 19.0834L37.6667 8.66671V29.5Z" fill="black"/>
+                        </svg>
+                       <span class="extraInfo">
+                        Email Address
+                       </span>
+                  </a>
+                </li>
+              </ul>
+              <a href="#" class="btn lavendar">Edit <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd" clip-rule="evenodd" d="M11.293 1.29303C11.4805 1.10556 11.7348 1.00024 12 1.00024C12.2652 1.00024 12.5195 1.10556 12.707 1.29303L14.707 3.29303C14.8945 3.48056 14.9998 3.73487 14.9998 4.00003C14.9998 4.26519 14.8945 4.5195 14.707 4.70703L5.707 13.707C5.59752 13.8168 5.464 13.8997 5.317 13.949L2.317 14.949C2.14074 15.008 1.95153 15.0168 1.7706 14.9742C1.58966 14.9317 1.42417 14.8395 1.29268 14.7082C1.1612 14.5768 1.06894 14.4114 1.02625 14.2305C0.983555 14.0496 0.992126 13.8603 1.051 13.684L2.051 10.684C2.1002 10.5367 2.18305 10.4028 2.293 10.293L11.293 1.29303V1.29303ZM12 2.00003L14 4.00003L5 13L2 14L3 11L12 2.00003Z" fill="white"/>
+                <path fill-rule="evenodd" clip-rule="evenodd" d="M12.146 6.354L9.646 3.854L10.354 3.146L12.854 5.646L12.147 6.354H12.146ZM3 10V10.5C3 10.6326 3.05268 10.7598 3.14645 10.8535C3.24021 10.9473 3.36739 11 3.5 11H4V11.5C4 11.6326 4.05268 11.7598 4.14645 11.8535C4.24021 11.9473 4.36739 12 4.5 12H5V12.5C5 12.6326 5.05268 12.7598 5.14645 12.8535C5.24021 12.9473 5.36739 13 5.5 13H6V11.5C6 11.3674 5.94732 11.2402 5.85355 11.1464C5.75979 11.0527 5.63261 11 5.5 11H5V10.5C5 10.3674 4.94732 10.2402 4.85355 10.1464C4.75979 10.0527 4.63261 10 4.5 10H3Z" fill="white"/>
+                </svg>
+                </a>
+            </div>
+          </nav>
+    <main>
+        <div class="Achievements">
+            <div class="badges">
+                <p class="h4">Achievements</p>
+                    <hr>
+                    <!-- verify -->
+                    <div class ="row">
+                        <div class = "col-xs-2 col-sm-1">
+                            <img style ="height:75px;" src="to_do.png">
+                        </div>
+
+                        <div class="col-md-10 col-md-8">
+                            <p style="font-weight:bold;">Get verified!</p>
+                            <p>Verify your email and phone number so we know you're human!</p>
+                        </div>
+                        </div>
+                        <hr>
+
+                         <!-- Groupie (follow 10 friends) -->
+                         <div class ="row">
+                            <div class = "col-xs-2 col-sm-1">
+                                <img style ="height:75px;" src="fire.png">
+                            </div>
+    
+                            <div class="col-md-10 col-md-8">
+                                <p style="font-weight:bold;">Groupie</p>
+                                <p>Go on an eventure with 5 friends!</p>
+                            </div>
+                            </div>
+                        <hr>
+
+
+                        <!-- Happy Camper (follow 10 friends) -->
+                        <div class ="row">
+                            <div class = "col-xs-2 col-sm-1">
+                                <img style ="height:75px;" src="fire.png">
+                            </div>
+    
+                            <div class="col-md-10 col-md-8">
+                                <p style="font-weight:bold;">Happy Camper</p>
+                                <p>Follow 10 friends to go on an eventure together!</p>
+                            </div>
+                            </div>
+                        <hr>
+
+                        <!-- Tribe Quest Called (follow 20 friends) -->
+                        <div class ="row">
+                            <div class = "col-xs-2 col-sm-1">
+                                <img style ="height:75px;" src="tent.png">
+                            </div>
+    
+                            <div class="col-md-10 col-md-8">
+                                <p style="font-weight:bold;">Tribe Quest Called</p>
+                                <p>The more the merrier! Get 20 friends to go on an eventure with you!</p>
+                            </div>
+                            </div>
+                        <hr>
+
+                        <!-- scout (attend first event) -->
+                        <div class ="row">
+                            <div class = "col-xs-2 col-sm-1">
+                                <img style ="height:75px;" src="egg.png">
+                            </div>
+    
+                            <div class="col-md-10 col-md-8">
+                                <p style="font-weight:bold;">Scout</p>
+                                <p>You've attended your first event!</p>
+                            </div>
+                            </div>
+                         <hr>
+
+                          <!-- star scout (attend 10 events) -->
+                        <div class ="row">
+                            <div class = "col-xs-2 col-sm-1">
+                                <img style ="height:75px;" src="nestling.png">
+                            </div>
+    
+                            <div class="col-md-10 col-md-8">
+                                <p style="font-weight:bold;">Star Scout</p>
+                                <p>You've attended your 10th event! Keep exploring!</p>
+                            </div>
+                            </div>
+                         <hr>
+
+                          <!-- Life scout (attend 20 events) -->
+                        <div class ="row">
+                            <div class = "col-xs-2 col-sm-1">
+                                <img style ="height:75px;" src="royal.png">
+                            </div>
+    
+                            <div class="col-md-10 col-md-8">
+                                <p style="font-weight:bold;">Life Scout</p>
+                                <p>You've attended your 20th event! Keep exploring!</p>
+                            </div>
+                            </div>
+                         <hr>
+
+                          <!-- eagle scout (attend 10 events) -->
+                        <div class ="row">
+                            <div class = "col-xs-2 col-sm-1">
+                                <img style ="height:75px;" src="legendary.png">
+                            </div>
+    
+                            <div class="col-md-10 col-md-8">
+                                <p style="font-weight:bold;">Eagle Scout</p>
+                                <p>You've attended your 50th event! Keep exploring!</p>
+                            </div>
+                            </div>
+                         <hr>
+
+                        <!-- s) -->
+                        <div class ="row">
+                            <div class = "col-xs-2 col-sm-1">
+                                <img style ="height:75px;" src="egg.png">
+                            </div>
+    
+                            <div class="col-md-10 col-md-8">
+                                <p style="font-weight:bold;">Star Scout</p>
+                                <p>You've attended your 10th event! Keep exploring!</p>
+                            </div>
+                            </div>
+                         <hr>
+
+                        <!-- Storyteller -->
+                        <div class ="row">
+                            <div class = "col-xs-2 col-sm-1">
+                                <img style ="height:75px;" src="storyteller.png">
+                            </div>
+    
+                            <div class="col-md-10 col-md-8">
+                                <p style="font-weight:bold;">Storyteller</p>
+                                <p>Share 5 or more Eventure events!</p>
+                            </div>
+                            </div>
+                        <hr>
+
+                        <!-- Diplomat -->
+                        <div class ="row">
+                            <div class = "col-xs-2 col-sm-1">
+                                <img style ="height:75px;" src="diplomat.png">
+                            </div>
+    
+                            <div class="col-md-10 col-md-8">
+                                <p style="font-weight:bold;">Diplomat</p>
+                                <p>Go on an eventure! Attend events from 5 different organizations!</p>
+                            </div>
+                            </div>
+                        <hr>
+
+                        <!-- First Drink -->
+                        <div class ="row">
+                            <div class = "col-xs-2 col-sm-1">
+                                <img style ="height:75px;" src="drink.png">
+                            </div>
+    
+                            <div class="col-md-10 col-md-8">
+                                <p style="font-weight:bold;">First Drink</p>
+                                <p>Share your first drink with fellow eventure friends!</p>
+                            </div>
+                            </div>
+                        <hr>
+
+                        <!-- Best of the Brunch -->
+                        <div class ="row">
+                            <div class = "col-xs-2 col-sm-1">
+                                <img style ="height:75px;" src="brunch.png">
+                            </div>
+    
+                            <div class="col-md-10 col-md-8">
+                                <p style="font-weight:bold;">Best of the Brunch</p>
+                                <p>Start you day off with an eventure. Attend 5 brunch events!</p>
+                            </div>
+                            </div>  
+                    </div>
+                   
+                 
+                     
+
+
+        <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+        <script src="main.js"></script>
+        </main>
+    </body>
+    </html>

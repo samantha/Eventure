@@ -1,0 +1,151 @@
+*{
+    box-sizing: border-box;
+}
+
+body{
+    margin: 0; padding: 0;
+}
+
+.myGrid{
+    display: grid;
+    grid-template-columns: repeat(3, auto);
+    text-align: center;
+    align-items: center;
+}
+
+.myGrid li{
+    margin-left: 5px;
+}
+
+.extraInfo{
+    margin-left: 10px;
+}
+
+.name{
+    text-align: center;
+}
+
+.lavendar{
+    background: #7a87f6;
+    color: white;
+    margin-left: 33%;
+}
+
+main{
+    position: absolute;
+    left: 420px;
+    top: 100px;
+    width: 80%;
+    height: 100%;
+}
+
+.myBox{
+    width: 100%;
+    display: grid;
+    grid-template-columns: 40% 30% 30%;
+    grid-gap: 2em;
+}
+
+.myNum{
+    font-size: 3rem;
+    padding: 0;
+    margin: 0;
+}
+
+.achievements{
+    width:100%; 
+    display:grid;
+
+}
+
+.rsvps, .eventsAttended{
+    text-align: center;
+}
+
+.eventsAttended{
+    border-right: 2px solid lightgray;
+}
+
+.points{
+    margin-top: 20px;
+}
+
+.badges{
+    padding: 20px ;
+    border: 2px solid lightgray;
+    border-radius: 5px;
+    width: 90%;
+    margin: 20px 0;
+}
+
+
+.badgeFlex {
+    display: flex;
+    padding-left: 20px;
+}
+
+.badgeFlex svg{
+    width: 40%;
+}
+
+.organization, .rsvpBox, .pastEvents{
+    padding: 20px ;
+    border: 2px solid lightgray;
+    border-radius: 5px;
+}
+
+.pastEvents{
+    width: 98%;
+}
+
+.bottomGrid{
+    width: 90%;
+    display: grid;
+    grid-template-columns: 40% 60%;
+    grid-gap: 1rem;
+}
+
+.two{
+    display: grid;
+    grid-gap: 1em;
+  
+}
+
+.rss{
+    display:flex;
+    justify-content: space-between;
+    border-bottom: 2px solid lightgray;
+}
+#avy{
+    margin-top: 50px;
+    margin-left: 25px;
+    border-top-left-radius: 50% 50%;
+    border-top-right-radius: 50% 50%;
+    border-bottom-right-radius: 50% 50%;
+    border-bottom-left-radius: 50% 50%;
+  
+}
+
+@media screen and (max-width: 768px){
+    main{
+        top: 200px;
+        left: 20px;
+    }
+
+    .bottomGrid{
+        display: block;
+    }
+
+    .bottomGrid div{
+        width: 100% !important;
+        margin: 20px 0;
+    }
+
+    .badgeFlex svg{
+        width: 70%;
+    }
+
+    .badges,.organization, .rsvpBox, .pastEvents{
+        width: 100%;
+    }
+}
