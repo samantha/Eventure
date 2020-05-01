@@ -67,38 +67,40 @@ class LogIn extends React.Component {
     }
 
     return (
-      <div className="event-container">
-        <h1>Continue your eventure here.</h1>
-        <Form onSubmit={this.validateUser}>
-          <FormGroup>
-            <Label for="email">Email</Label>
-            <Input
-              type="email"
-              required
-              name="email"
-              placeholder="Email"
-              id="email"
-              onChange={this.onChange}
-              value={this.state.email === null ? "" : this.state.email}
-            />
-          </FormGroup>
-          <FormGroup>
-            <Label for="password">Password</Label>
-            <Input
-              type="password"
-              required
-              name="password"
-              placeholder="Password"
-              id="password"
-              onChange={this.onChange}
-              value={this.state.password === null ? "" : this.state.password}
-            />
-          </FormGroup>
-          <div className="form-group">
-            <input type="submit" value="Log In" className="btn btn-primary" />
-          </div>
-          {status}
-        </Form>
+      <div className="bg">
+        <div className="event-container">
+          <h1>Continue your eventure here.</h1>
+          <Form onSubmit={this.validateUser}>
+            <FormGroup>
+              <Label for="email">Email</Label>
+              <Input
+                type="email"
+                required
+                name="email"
+                placeholder="Email"
+                id="email"
+                onChange={this.onChange}
+                value={this.state.email === null ? "" : this.state.email}
+              />
+            </FormGroup>
+            <FormGroup>
+              <Label for="password">Password</Label>
+              <Input
+                type="password"
+                required
+                name="password"
+                placeholder="Password"
+                id="password"
+                onChange={this.onChange}
+                value={this.state.password === null ? "" : this.state.password}
+              />
+            </FormGroup>
+            <div className="form-group">
+              <input type="submit" value="Log In" className="btn btn-primary" />
+            </div>
+            {status}
+          </Form>
+        </div>
       </div>
     );
   }
