@@ -40,7 +40,7 @@ main{
 }
 
 .myBox{
-    width: 100%;
+    width: 90%;
     display: grid;
     grid-template-columns: 40% 30% 30%;
     grid-gap: 2em;
