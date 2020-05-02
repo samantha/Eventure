@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import DatePicker from 'react-date-picker';
 import '../create-event.css'
 
-export default class SignUp extends Component {
+export default class CreateEvent extends Component {
     constructor(props) {
         // always call super when defining constructor of subclass (React Component)
         super(props);
@@ -120,12 +120,10 @@ export default class SignUp extends Component {
     render() {
         return (
             <div className="event-container">
-                <h3>Sign Up</h3>
-                <p>Please fill in this form to create an account.</p>
-
+                <h3>Edit Event</h3>
                 <form onSubmit = {this.onSubmit}>
                     <div className="form-group">
-                        <label>First Name: </label>
+                        <label>Event Name: </label>
                         <input type = "text"
                             required
                             className = "form-control"
@@ -133,50 +131,70 @@ export default class SignUp extends Component {
                             onChange = {this.onChangeEvent}
                             />
                     </div>
-
                     <div className="form-group">
-                        <label>Last Name: </label>
+                        <label>Date: </label>
+                        <div>
+                            <DatePicker
+                            value = {this.state.date}
+                            onChange = {this.onChangeDate}
+                            />
+                        </div>
+                   </div>
+                   <div className="form-group">
+                        <label>Description: </label>
                         <input type = "text"
                             required
                             className = "form-control"
-                            value = {this.state.event}
-                            onChange = {this.onChangeEvent}
+                            value = {this.state.description}
+                            onChange = {this.onChangeDescription}
                             />
                     </div>
-
                     <div className="form-group">
-                        <label>Email: </label>
+                        <label>Location: </label>
                         <input type = "text"
-                            required
                             className = "form-control"
-                            value = {this.state.event}
-                            onChange = {this.onChangeEvent}
+                            value = {this.state.img}
+                            onChange = {this.onChangeImg}
                             />
                     </div>
-
                     <div className="form-group">
-                        <label>Password: </label>
+                        <label>Event banner picture link: </label>
                         <input type = "text"
-                            required
                             className = "form-control"
-                            value = {this.state.event}
-                            onChange = {this.onChangeEvent}
+                            value = {this.state.url}
+                            onChange = {this.onChangeURL}
                             />
                     </div>
-
+                    <div className="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="inputGroupSelect01">Organization</label>
+                        </div>
+                        <select class="custom-select" id="inputGroupSelect01" onChange={this.onChangeText} value={this.state.text}>
+                            <option selected>Choose...</option>
+                            <option value="1">org 1</option>
+                            <option value="2">org 2</option>
+                            <option value="3">org 3</option>
+                        </select>
+                    </div>
                     <div className="form-group">
-                        <label>Repeat Password: </label>
+                        <label>Tags: </label>
                         <input type = "text"
-                            required
                             className = "form-control"
-                            value = {this.state.event}
-                            onChange = {this.onChangeEvent}
+                            value = {this.state.tags}
+                            onChange = {this.onChangeTags}
                             />
                     </div>
-                    <p>By creating an account you agree to our Terms & Conditions.</p>
+                    <div className="form-group">
+                        <label>Cancellation/refund policy: </label>
+                        <input type = "text"
+                            className = "form-control"
+                            value = {this.state.color}
+                            onChange = {this.onChangeColor}
+                            />
+                    </div>
 
                     <div className = "form-group">
-                        <input type = "submit" value = "Sign Up" className = "btn btn-primary" />
+                        <input type = "submit" value = "Edit Event" className = "btn btn-primary" />
                     </div>
                 </form>
             </div>

@@ -1,14 +1,14 @@
 .modal-header
 {
-	background-color: black;
+	background-color: white;
 }
 
 .modal-body
 {
-	background-color: black;
+	background-color: white;
 }
 
 button.close
 {
-	color: white;
+	color: black;
 }
