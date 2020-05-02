@@ -8,12 +8,34 @@ import "../styles/navbar.css";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
+import Form from "react-bootstrap/Form";
+import FormControl from "react-bootstrap/FormControl";
+import Button from "react-bootstrap/Button";
 
 class Navigation extends Component {
   // static contextType = UserContext;
+  constructor(props) {
+    super();
+    this.state = {
+      user: {},
+    };
+  }
+
+  onChangeUser = () => {
+    console.log("log out");
+    const loggedOutUser = {
+      email: "n/a",
+      first_name: "n/a",
+      last_name: "n/a",
+      loggedIn: false,
+    };
+    console.log(loggedOutUser);
+
+    this.props.changeUser(loggedOutUser);
+  };
 
   render() {
-    console.log(this.props);
+    console.log(this.props.user);
     const user = this.props.user;
     var isAuthenticated = false;
     console.log(user.email);
@@ -23,9 +45,39 @@ class Navigation extends Component {
       console.log(isAuthenticated);
     }
 
+    var name = user.first_name + " " + user.last_name;
+
+    let search;
+    if (isAuthenticated) {
+      search = (
+        <Nav>
+          <Form inline>
+            <FormControl type="text" placeholder="Search" className="mr-sm-2" />
+            <Button variant="outline-info">Search</Button>
+          </Form>
+        </Nav>
+      );
+    }
+
     const userLinks = (
       <Nav>
-        <Nav.Link href="#">Log Out</Nav.Link>
+        <Nav.Link href="dashboard">Dashboard</Nav.Link>
+        <NavDropdown title="Events" id="collasible-nav-dropdown">
+          <NavDropdown.Item href="#action/3.1">Create</NavDropdown.Item>
+          <NavDropdown.Item href="#action/3.2">View</NavDropdown.Item>
+        </NavDropdown>
+        <NavDropdown title="Organizations" id="collasible-nav-dropdown">
+          <NavDropdown.Item href="#action/3.1">Create</NavDropdown.Item>
+          <NavDropdown.Item href="#action/3.2">View</NavDropdown.Item>
+        </NavDropdown>
+        <NavDropdown title={name} id="collasible-nav-dropdown">
+          <NavDropdown.Item href="#action/3.1">Profile</NavDropdown.Item>
+          <NavDropdown.Item href="#action/3.2">Settings</NavDropdown.Item>
+          <NavDropdown.Divider />
+          <NavDropdown.Item href="#action/3.3" onClick={this.onChangeUser}>
+            Logout
+          </NavDropdown.Item>
+        </NavDropdown>
       </Nav>
     );
 
@@ -41,6 +93,7 @@ class Navigation extends Component {
         {/*<Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">*/}
         <Navbar collapseOnSelect expand="lg" variant="dark">
           <Navbar.Brand href="/">eventure</Navbar.Brand>
+          {search}
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
           <Navbar.Collapse id="responsive-navbar-nav">
             <Nav className="mr-auto">
@@ -69,6 +122,7 @@ class Navigation extends Component {
 // validation: check types, so we only use types we want to
 Navigation.propTypes = {
   user: PropTypes.object,
+  changeUser: PropTypes.func,
 };
 
 export default Navigation;
