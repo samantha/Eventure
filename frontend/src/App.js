@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { BrowserRouter as Router, Route } from "react-router-dom";
-import { UserContext } from "./components/UserContext";
+import { UserContext, UserConsumer } from "./components/UserContext";
 import logo from "./logo.svg";
 import "./App.css";
 
@@ -19,22 +19,47 @@ import EditEvent from "./components/editevent_archive";
 
 /*var auth = require('./auth'); // looks at index.js
  */
+class App extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      user: {
+        email: "n/a",
+        first_name: "n/a",
+        last_name: "n/a",
+        loggedIn: false,
+      },
+    };
+  }
 
-function App() {
-  /*  const [value, setValue] = useState('hello from context');
-   */ return (
-    <Router>
-      <Navigation />
-      <UserContext.Provider value="hello">
+  onChangeUser(newUser) {
+    this.setState({
+      user: newUser,
+    });
+  }
+
+  render() {
+    // var user = { email: 'n/a', first_name: 'n/a', last_name: 'n/a', loggedIn: false };
+
+    return (
+      <Router>
+        <Navigation user={this.state.user} />
         <Route path="/" exact component={Home} />
         <Route path="/create" component={CreateEvent} />
         <Route path="/test" component={Test} />
         <Route path="/register" component={Register} />
-        <Route path="/login" component={LogIn} />
+        {/*<Route path="/login" component={LogIn} user={this.state.user} changeUser={this.onChangeUser.bind(this)}/>*/}
+        <Route
+          path="/login"
+          render={(props) => (
+            <LogIn {...props} changeUser={this.onChangeUser.bind(this)} />
+          )}
+        />
+
         <Route path="/edit-event" component={EditEvent} />
-      </UserContext.Provider>
-    </Router>
-  );
+      </Router>
+    );
+  }
 }
 
 export default App;

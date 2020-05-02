@@ -1,14 +1,47 @@
 import React from "react";
 import { Alert, Button, Form, FormGroup, Label, Input } from "reactstrap";
+import PropTypes from "prop-types";
+
+// import { UserContext} from '../../components/UserContext';
+// import UserSwitcher from './UserSwitcher';
 import "../../styles/login.css";
 
 class LogIn extends React.Component {
+  // static contextType = UserContext;
+
   constructor(props) {
-    super(props);
-    this.state = { isLoggedIn: false };
+    super();
+    this.state = {
+      user: props.user,
+    };
   }
 
+  onChangeUser() {
+    this.props.changeUser(this.state.loggedInUser);
+    console.log("set user");
+    this.setState({
+      user: this.state.loggedInUser,
+    });
+    console.log(this.state.user);
+  }
+
+  //   this.setUser = () => {
+  //     this.setState(state => ({
+  //       user: {
+  //         email: this.state.email,
+  //         first_name: this.state.first_name,
+  //         last_name: this.state.last_name,
+  //         loggedIn: this.state.isLoggedIn
+  //       }
+  //     }));
+  //   };
+  // };
+
   state = {
+    loggedInUser: {},
+    isLoggedIn: false,
+    first_name: "",
+    last_name: "",
     email: "",
     password: "",
   };
@@ -32,8 +65,16 @@ class LogIn extends React.Component {
       .then((response) => response.json())
       .then((item) => {
         if (Array.isArray(item)) {
+          var obj = JSON.parse(JSON.stringify(item[0]));
+          console.log(obj.first);
+          console.log(obj.last);
+          console.log(obj.email);
+          console.log(obj.password);
           console.log("success");
+          this.state.first_name = obj.first;
+          this.state.last_name = obj.last;
           this.setState({ isLoggedIn: true });
+          this.onChangeUser();
         } else {
           console.log("failure");
         }
@@ -42,6 +83,7 @@ class LogIn extends React.Component {
   };
 
   componentDidMount() {
+    // get and set currently logged in user to state
     // if item exists, populate the state with proper data
     if (this.props.item) {
       const { first, last, email, password } = this.props.item;
@@ -50,10 +92,24 @@ class LogIn extends React.Component {
   }
 
   render() {
+    // const { user, setUser } = this.context;
+
+    this.state.loggedInUser = {
+      email: this.state.email,
+      first_name: this.state.first_name,
+      last_name: this.state.last_name,
+      loggedIn: this.state.isLoggedIn,
+    };
+
     const isLoggedIn = this.state.isLoggedIn;
     let status;
     if (isLoggedIn) {
-      status = <Alert color="success">You are now signed in.</Alert>;
+      status = (
+        <Alert color="success">
+          Welcome {this.state.loggedInUser.first_name}! You are now signed in.
+        </Alert>
+      );
+      console.log(this.state.loggedInUser);
     } else {
       status = (
         <Alert color="primary">
@@ -106,4 +162,8 @@ class LogIn extends React.Component {
   }
 }
 
+LogIn.propTypes = {
+  user: PropTypes.object,
+  changeUser: PropTypes.func,
+};
 export default LogIn;

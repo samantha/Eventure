@@ -1,5 +1,7 @@
 import React, { Component } from "react";
+import PropTypes from "prop-types";
 // import { Link } from 'react-router-dom';
+// import { UserContext } from '../components/UserContext';
 import "../styles/navbar.css";
 
 // Bootstrap Components
@@ -7,8 +9,33 @@ import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
 
-export default class Navigation extends Component {
+class Navigation extends Component {
+  // static contextType = UserContext;
+
   render() {
+    console.log(this.props);
+    const user = this.props.user;
+    var isAuthenticated = false;
+    console.log(user.email);
+    if (user !== null) {
+      console.log(true);
+      isAuthenticated = user.loggedIn;
+      console.log(isAuthenticated);
+    }
+
+    const userLinks = (
+      <Nav>
+        <Nav.Link href="#">Log Out</Nav.Link>
+      </Nav>
+    );
+
+    const guestLinks = (
+      <Nav>
+        <Nav.Link href="register">Sign Up</Nav.Link>
+        <Nav.Link href="login">Log In</Nav.Link>
+      </Nav>
+    );
+
     return (
       <div className="container-fluid">
         {/*<Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">*/}
@@ -25,15 +52,23 @@ export default class Navigation extends Component {
                         <NavDropdown.Item href="#action/3.4">Separated link</NavDropdown.Item>
                     </NavDropdown>*/}
             </Nav>
-            <Nav>
-              {/*<Nav.Link href="timeline">Timeline</Nav.Link>*/}
-              {/*<Nav.Link href="staff">-70th Team-</Nav.Link>*/}
-              <Nav.Link href="register">Sign Up</Nav.Link>
-              <Nav.Link href="login">Log In</Nav.Link>
-            </Nav>
+
+            {isAuthenticated ? userLinks : guestLinks}
+
+            {/*{<Nav>
+                <Nav.Link href="register">Sign Up</Nav.Link>
+                <Nav.Link href="login">Log In</Nav.Link>
+          </Nav>*/}
           </Navbar.Collapse>
         </Navbar>
       </div>
     );
   }
 }
+
+// validation: check types, so we only use types we want to
+Navigation.propTypes = {
+  user: PropTypes.object,
+};
+
+export default Navigation;

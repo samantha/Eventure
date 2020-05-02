@@ -27,7 +27,6 @@ export default class Home extends Component {
     return (
       <div id="img">
         <h1 id="company_name">eventure</h1>
-        <div>{value}</div>
       </div>
     );
   }
