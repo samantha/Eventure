@@ -1,6 +1,7 @@
 import React from "react";
 import { Alert, Button, Form, FormGroup, Label, Input } from "reactstrap";
 import PropTypes from "prop-types";
+import { withRouter } from "react-router-dom";
 
 // import { UserContext} from '../../components/UserContext';
 // import UserSwitcher from './UserSwitcher';
@@ -18,6 +19,8 @@ class LogIn extends React.Component {
 
   onChangeUser() {
     this.props.changeUser(this.state.loggedInUser);
+    this.props.history.push("/dashboard");
+    window.location.reload(false);
     console.log("set user");
     this.setState({
       user: this.state.loggedInUser,
@@ -166,4 +169,4 @@ LogIn.propTypes = {
   user: PropTypes.object,
   changeUser: PropTypes.func,
 };
-export default LogIn;
+export default withRouter(LogIn);

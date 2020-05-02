@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 // import { Link } from 'react-router-dom';
 // import { UserContext } from '../components/UserContext';
 import "../styles/navbar.css";
+import { withRouter } from "react-router-dom";
 
 // Bootstrap Components
 import Nav from "react-bootstrap/Nav";
@@ -17,11 +18,12 @@ class Navigation extends Component {
   constructor(props) {
     super();
     this.state = {
-      user: {},
+      isAuthenticated: false,
     };
   }
 
   onChangeUser = () => {
+    this.state.isAuthenticated = false;
     console.log("log out");
     const loggedOutUser = {
       email: "n/a",
@@ -32,23 +34,23 @@ class Navigation extends Component {
     console.log(loggedOutUser);
 
     this.props.changeUser(loggedOutUser);
+    this.props.history.push("/");
   };
 
   render() {
     console.log(this.props.user);
     const user = this.props.user;
-    var isAuthenticated = false;
     console.log(user.email);
     if (user !== null) {
       console.log(true);
-      isAuthenticated = user.loggedIn;
-      console.log(isAuthenticated);
+      this.state.isAuthenticated = user.loggedIn;
+      console.log(this.state.isAuthenticated);
     }
 
     var name = user.first_name + " " + user.last_name;
 
     let search;
-    if (isAuthenticated) {
+    if (this.state.isAuthenticated) {
       search = (
         <Nav>
           <Form inline>
@@ -106,7 +108,7 @@ class Navigation extends Component {
                     </NavDropdown>*/}
             </Nav>
 
-            {isAuthenticated ? userLinks : guestLinks}
+            {this.state.isAuthenticated ? userLinks : guestLinks}
 
             {/*{<Nav>
                 <Nav.Link href="register">Sign Up</Nav.Link>
@@ -125,4 +127,4 @@ Navigation.propTypes = {
   changeUser: PropTypes.func,
 };
 
-export default Navigation;
+export default withRouter(Navigation);
