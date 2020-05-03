@@ -13,9 +13,9 @@ const getTableData = (req, res, db) => {
 
   // POST function that will add a row to the table
   const postTableData = (req, res, db) => {
-    const { id, name, from_date, to_date, description, street, city, state, zipcode, banner, org_id, cancellation_policy, link } = req.body
+    const { id, name, from_date, to_date, description, street, city, state, zipcode, banner, org_handle, cancellation_policy, handle } = req.body
     const added = new Date()
-    db('events').insert({ id, name, from_date, to_date, description, street, city, state, zipcode, banner, org_id, cancellation_policy, link, added})
+    db('events').insert({ id, name, from_date, to_date, description, street, city, state, zipcode, banner, org_handle, cancellation_policy, handle, added})
       .returning('*')
       .then(item => {
         res.json(item)
@@ -25,8 +25,8 @@ const getTableData = (req, res, db) => {
 
   // PUT function that will update a row with a given id
   const putTableData = (req, res, db) => {
-    const { id, name, from_date, to_date, description, street, city, state, zipcode, banner, org_id, cancellation_policy, link } = req.body
-    db('events').where({id}).update({ name, from_date, to_date, description, street, city, state, zipcode, banner, org_id, cancellation_policy, link })
+    const { id, name, from_date, to_date, description, street, city, state, zipcode, banner, org_handle, cancellation_policy, handle } = req.body
+    db('events').where({id}).update({ name, from_date, to_date, description, street, city, state, zipcode, banner, org_handle, cancellation_policy, handle })
       .returning('*')
       .then(item => {
         res.json(item)

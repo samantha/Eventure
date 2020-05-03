@@ -13,9 +13,9 @@ const getTableData = (req, res, db) => {
 
 // POST function that will add a row to the table
 const postTableData = (req, res, db) => {
-  const { id, tag, event_id } = req.body
+  const { id, tag, handle } = req.body
   const added = new Date()
-  db('tags').insert({ id, tag, event_id  })
+  db('tags').insert({ id, tag, handle  })
     .returning('*')
     .then(item => {
       res.json(item)
@@ -25,8 +25,8 @@ const postTableData = (req, res, db) => {
 
 // PUT function that will update a row with a given id
 const putTableData = (req, res, db) => {
-  const { id, tag, event_id  } = req.body
-  db('tags').where({id}).update({ tag, event_id })
+  const { id, tag, handle  } = req.body
+  db('tags').where({id}).update({ tag, handle })
     .returning('*')
     .then(item => {
       res.json(item)

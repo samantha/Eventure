@@ -25,6 +25,8 @@ class CreateOrganization extends React.Component {
     this.state = {
       user: props.user,
     };
+    this.createOrg = this.createOrg.bind(this);
+    this.assignMembership = this.assignMembership.bind(this);
   }
 
   onChangeUser() {
@@ -85,9 +87,10 @@ class CreateOrganization extends React.Component {
       .then((response) => response.json())
       .then((item) => {
         if (Array.isArray(item)) {
+          this.assignMembership();
           this.props.addItemToState(item[0]);
           this.props.toggle();
-          this.assignMembership();
+
         } else {
           console.log("failure");
         }
@@ -95,9 +98,11 @@ class CreateOrganization extends React.Component {
       .catch((err) => console.log(err));
   };
 
-  assignMembership = (e) => {
-    e.preventDefault();
+  assignMembership(){
     console.log("assigning membership");
+    console.log(this.props.user)
+    console.log(this.props.user.username)
+     console.log(this.state.handle)
     fetch("http://localhost:3000/memberships", {
       method: "post",
       headers: {
@@ -193,7 +198,7 @@ class CreateOrganization extends React.Component {
       <div className="bg">
         <div className="event-container">
           <h1>Form your tribe.</h1>
-          <Form onSubmit={ this.createOrg }>
+          <Form onSubmit={ this.createOrg.bind(this) }>
             <FormGroup>
               <Label for="name">Organization Name</Label>
               <Input
@@ -272,7 +277,7 @@ class CreateOrganization extends React.Component {
             </FormGroup>
 
             <div className="form-group">
-              <input type="submit" value="Log In" className="btn btn-primary" />
+              <input type="submit" value="Create Organization" className="btn btn-primary" />
             </div>
           </Form>
         </div>

@@ -103,6 +103,7 @@ class LogIn extends React.Component {
       email: this.state.email,
       first_name: this.state.first_name,
       last_name: this.state.last_name,
+      username: this.state.username,
       loggedIn: this.state.isLoggedIn,
     };
 
