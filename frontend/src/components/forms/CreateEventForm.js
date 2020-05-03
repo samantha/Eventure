@@ -17,18 +17,23 @@ import { withRouter } from "react-router-dom";
 
 // import { UserContext} from '../../components/UserContext';
 // import UserSwitcher from './UserSwitcher';
-import "../../styles/CreateOrgForm.css";
+import "../../styles/CreateEventForm.css";
 
 class CreateEvent extends React.Component {
   // static contextType = UserContext;
 
   constructor(props) {
     super();
+    // this.getUserOrgs();
+
     this.state = {
       user: props.user,
+      orgItems: null,
     };
+
     this.createOrg = this.createOrg.bind(this);
     this.assignMembership = this.assignMembership.bind(this);
+    this.getUserOrgs = this.getUserOrgs.bind(this);
   }
 
   onChangeUser() {
@@ -55,7 +60,7 @@ class CreateEvent extends React.Component {
   // };
 
   state = {
-    orgCreated: false,
+    userOrgsFound: false,
     creationError: false,
     name: "",
     description: "",
@@ -70,6 +75,50 @@ class CreateEvent extends React.Component {
       [e.target.name]: e.target.value,
     });
   };
+
+  getUserOrgs() {
+    console.log("get user orgs");
+    fetch("http://localhost:3000/userorgs", {
+      method: "post",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        username: this.state.user.username,
+      }),
+    })
+      .then((response) => response.json())
+      .then((item) => {
+        if (Array.isArray(item)) {
+          item.forEach((element) => console.log(element));
+          const orgItems = item.map((org) => (
+            <option key={org.handle}>{org.name}</option>
+          ));
+          this.setState({
+            orgItems: orgItems,
+          });
+          console.log(this.state.orgItems);
+          return orgItems;
+          //       let optionItems = obj.map((item) =>
+          //     <option key={item.array}>{item.array}</option>
+          // );
+          // var obj = JSON.parse(JSON.stringify(item[0]));
+          // console.log(obj.handle);
+          // console.log(obj.name);
+          // console.log(obj.email);
+          // console.log(obj.password);
+          // console.log("success");
+          // this.state.first_name = obj.first;
+          // this.state.last_name = obj.last;
+          // this.state.username = obj.username;
+          // this.setState({ isLoggedIn: true });
+          // this.onChangeUser();
+        } else {
+          console.log("failure");
+        }
+      })
+      .catch((err) => console.log(err));
+  }
 
   createOrg = (e) => {
     e.preventDefault();
@@ -173,6 +222,7 @@ class CreateEvent extends React.Component {
   componentDidMount() {
     // get and set currently logged in user to state
     // if item exists, populate the state with proper data
+    this.getUserOrgs();
     if (this.props.item) {
       const { name, description, city, state, handle, icon } = this.props.item;
       this.setState({ name, description, city, state, handle, icon });
@@ -180,6 +230,8 @@ class CreateEvent extends React.Component {
   }
 
   render() {
+    // console.log("helllo")
+
     let status;
     if (this.state.orgCreated) {
       status = (
@@ -197,7 +249,7 @@ class CreateEvent extends React.Component {
     }
 
     return (
-      <div className="bg">
+      <div className="event-bg">
         <div className="event-container">
           <h1>Create an event.</h1>
           <Form onSubmit={this.createOrg.bind(this)}>
@@ -209,7 +261,7 @@ class CreateEvent extends React.Component {
                     type="text"
                     required
                     name="name"
-                    placeholder="Eg. Association of Picnic Enthusiasts"
+                    placeholder="Eg. Picnic"
                     id="name"
                     onChange={this.onChange}
                     value={this.state.name === null ? "" : this.state.name}
@@ -223,7 +275,7 @@ class CreateEvent extends React.Component {
                     type="text"
                     required
                     name="handle"
-                    placeholder="Eg. picnic-association"
+                    placeholder="Eg. picnic"
                     id="handle"
                     onChange={this.onChange}
                     value={this.state.handle === null ? "" : this.state.handle}
@@ -237,12 +289,13 @@ class CreateEvent extends React.Component {
             </Row>
             <FormGroup>
               <Label for="exampleSelect">Organization hosting your event</Label>
-              <Input type="select" name="select" id="exampleSelect">
-                <option>1</option>
-                <option>2</option>
-                <option>3</option>
-                <option>4</option>
-                <option>5</option>
+              <Input
+                type="select"
+                name="select"
+                id="exampleSelect"
+                placeholder="Choose an organization..."
+              >
+                {this.state.orgItems}
               </Input>
             </FormGroup>
 
@@ -283,7 +336,7 @@ class CreateEvent extends React.Component {
                     type="textarea"
                     required
                     name="description"
-                    placeholder="Eg. We love to have picnics. Anywhere. Anytime."
+                    placeholder="Eg. Picnic at the beach."
                     id="description"
                     onChange={this.onChange}
                     value={
@@ -302,7 +355,7 @@ class CreateEvent extends React.Component {
                     type="textarea"
                     required
                     name="description"
-                    placeholder="Eg. We love to have picnics. Anywhere. Anytime."
+                    placeholder="Eg. If you cancel, we will be sad."
                     id="description"
                     onChange={this.onChange}
                     value={
@@ -344,19 +397,34 @@ class CreateEvent extends React.Component {
               <Col md={6}>
                 <FormGroup>
                   <Label for="exampleCity">City</Label>
-                  <Input type="text" name="city" id="exampleCity" />
+                  <Input
+                    type="text"
+                    name="city"
+                    id="exampleCity"
+                    placeholder="Eg. Los Angeles"
+                  />
                 </FormGroup>
               </Col>
               <Col md={4}>
                 <FormGroup>
                   <Label for="exampleState">State</Label>
-                  <Input type="text" name="state" id="exampleState" />
+                  <Input
+                    type="text"
+                    name="state"
+                    id="exampleState"
+                    placeholder="Eg. California"
+                  />
                 </FormGroup>
               </Col>
               <Col md={2}>
                 <FormGroup>
                   <Label for="exampleZip">Zip</Label>
-                  <Input type="text" name="zip" id="exampleZip" />
+                  <Input
+                    type="text"
+                    name="zip"
+                    id="exampleZip"
+                    placeholder="Eg. 91053"
+                  />
                 </FormGroup>
               </Col>
             </Row>
@@ -367,14 +435,14 @@ class CreateEvent extends React.Component {
                 type="file"
                 id="icon"
                 name="icon"
-                label="Upload organization's banner."
+                label="Upload event's banner."
               />
             </FormGroup>
 
             <div className="form-group">
               <input
                 type="submit"
-                value="Create Organization"
+                value="Create Event"
                 className="btn btn-primary"
               />
             </div>

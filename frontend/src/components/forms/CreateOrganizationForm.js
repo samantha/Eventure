@@ -195,7 +195,7 @@ class CreateOrganization extends React.Component {
     }
 
     return (
-      <div className="bg">
+      <div className="org-bg">
         <div className="event-container">
           <h1>Form your tribe.</h1>
           <Form onSubmit={this.createOrg.bind(this)}>

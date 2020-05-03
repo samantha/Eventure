@@ -55,7 +55,7 @@ class App extends React.Component {
           changeUser={this.onChangeUser.bind(this)}
         />
         <Route path="/" exact component={Home} />
-        <Route path="/create-event" component={CreateEvent} />
+
         <Route path="/test" component={Test} />
         <Route path="/register" component={Register} />
         <Route path="/dashboard" component={Dashboard} />
@@ -65,6 +65,12 @@ class App extends React.Component {
             <CreateOrganization {...props} user={currentUser} />
           )}
         />
+
+        <Route
+          path="/create-event"
+          render={(props) => <CreateEvent {...props} user={currentUser} />}
+        />
+
         <Route
           path="/login"
           render={(props) => (
