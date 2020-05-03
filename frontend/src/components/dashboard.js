@@ -25,6 +25,10 @@ class Dashboard extends Component {
     this.forceUpdate();
   }
 
+  onCreateOrg() {
+    this.props.history.push("/create-org");
+  }
+
   render() {
     return (
       <div className="sidenav">
@@ -33,7 +37,11 @@ class Dashboard extends Component {
             <h4>
               {" "}
               Your Organizations{" "}
-              <button type="button" className="btn btn-info">
+              <button
+                type="button"
+                className="btn btn-info"
+                onClick={this.onCreateOrg.bind(this)}
+              >
                 +
               </button>{" "}
             </h4>

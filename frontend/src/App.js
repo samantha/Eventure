@@ -16,6 +16,7 @@ import Register from "./components/forms/SignUpForm";
 import LogIn from "./components/forms/LogInForm";
 import EditEvent from "./components/editevent_archive";
 import Dashboard from "./components/dashboard";
+import CreateOrganization from "./components/forms/CreateOrganizationForm";
 
 /*var auth = require('./auth'); // looks at index.js
  */
@@ -57,7 +58,12 @@ class App extends React.Component {
         <Route path="/test" component={Test} />
         <Route path="/register" component={Register} />
         <Route path="/dashboard" component={Dashboard} />
-        {/*<Route path="/login" component={LogIn} user={this.state.user} changeUser={this.onChangeUser.bind(this)}/>*/}
+        <Route
+          path="/create-org"
+          render={(props) => (
+            <CreateOrganization {...props} user={currentUser} />
+          )}
+        />
         <Route
           path="/login"
           render={(props) => (
