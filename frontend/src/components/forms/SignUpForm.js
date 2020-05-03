@@ -28,6 +28,7 @@ class SignUpForm extends React.Component {
   state = {
     formError: false,
     formSuccess: false,
+    username: "",
     first: "",
     last: "",
     email: "",
@@ -47,6 +48,7 @@ class SignUpForm extends React.Component {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
+        username: this.state.username,
         first: this.state.first,
         last: this.state.last,
         email: this.state.email,
@@ -73,6 +75,7 @@ class SignUpForm extends React.Component {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
+        username: this.state.username,
         first: this.state.first,
         last: this.state.last,
         email: this.state.email,
@@ -95,8 +98,8 @@ class SignUpForm extends React.Component {
   componentDidMount() {
     // if item exists, populate the state with proper data
     if (this.props.item) {
-      const { first, last, email, password } = this.props.item;
-      this.setState({ first, last, email, password });
+      const { username, first, last, email, password } = this.props.item;
+      this.setState({ username, first, last, email, password });
     }
   }
 
@@ -133,6 +136,17 @@ class SignUpForm extends React.Component {
               this.props.item ? this.submitFormEdit : this.submitFormAdd
             }
           >
+            <FormGroup>
+              <Label for="username">Username</Label>
+              <Input
+                type="text"
+                required
+                name="username"
+                id="username"
+                onChange={this.onChange}
+                value={this.state.username === null ? "" : this.state.username}
+              />
+            </FormGroup>
             <FormGroup>
               <Label for="first">First Name</Label>
               <Input

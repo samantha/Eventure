@@ -25,6 +25,7 @@ class App extends React.Component {
     this.state = {
       user: {
         email: "n/a",
+        username: "n/a",
         first_name: "n/a",
         last_name: "n/a",
         loggedIn: false,
