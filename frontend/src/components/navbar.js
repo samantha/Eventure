@@ -65,7 +65,7 @@ class Navigation extends Component {
       <Nav>
         <Nav.Link href="dashboard">Dashboard</Nav.Link>
         <NavDropdown title="Events" id="collasible-nav-dropdown">
-          <NavDropdown.Item href="#action/3.1">Create</NavDropdown.Item>
+          <NavDropdown.Item href="/create-event">Create</NavDropdown.Item>
           <NavDropdown.Item href="#action/3.2">View</NavDropdown.Item>
         </NavDropdown>
         <NavDropdown title="Organizations" id="collasible-nav-dropdown">

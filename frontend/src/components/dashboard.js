@@ -29,6 +29,10 @@ class Dashboard extends Component {
     this.props.history.push("/create-org");
   }
 
+  onCreateEvent() {
+    this.props.history.push("/create-event");
+  }
+
   render() {
     return (
       <div className="sidenav">
@@ -56,7 +60,11 @@ class Dashboard extends Component {
             <h4>
               {" "}
               Your Events{" "}
-              <button type="button" className="btn btn-info">
+              <button
+                type="button"
+                className="btn btn-info"
+                onClick={this.onCreateEvent.bind(this)}
+              >
                 +
               </button>{" "}
             </h4>

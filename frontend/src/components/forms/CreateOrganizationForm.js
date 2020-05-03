@@ -53,6 +53,8 @@ class CreateOrganization extends React.Component {
   // };
 
   state = {
+    orgCreated: false,
+    creationError: false,
     name: "",
     description: "",
     city: "",
@@ -90,19 +92,19 @@ class CreateOrganization extends React.Component {
           this.assignMembership();
           this.props.addItemToState(item[0]);
           this.props.toggle();
-
         } else {
           console.log("failure");
+          this.state.creationError = true;
         }
       })
       .catch((err) => console.log(err));
   };
 
-  assignMembership(){
+  assignMembership() {
     console.log("assigning membership");
-    console.log(this.props.user)
-    console.log(this.props.user.username)
-     console.log(this.state.handle)
+    console.log(this.props.user);
+    console.log(this.props.user.username);
+    console.log(this.state.handle);
     fetch("http://localhost:3000/memberships", {
       method: "post",
       headers: {
@@ -111,25 +113,27 @@ class CreateOrganization extends React.Component {
       body: JSON.stringify({
         org_handle: this.state.handle,
         username: this.props.user.username,
-        role: 'admin',
+        role: "admin",
       }),
     })
       .then((response) => response.json())
       .then((item) => {
         if (Array.isArray(item)) {
+          this.state.orgCreated = true;
           this.props.addItemToState(item[0]);
           this.props.toggle();
         } else {
           console.log("failure");
+          this.state.creationError = true;
         }
       })
       .catch((err) => console.log(err));
   }
 
-  invalidInput= (e) => {
+  invalidInput = (e) => {
     e.preventDefault();
     console.log("error");
-  }
+  };
 
   /*  validateUser = (e) => {
         e.preventDefault();
@@ -174,38 +178,34 @@ class CreateOrganization extends React.Component {
   }
 
   render() {
-    // let status;
-    // if (isLoggedIn) {
-    //   status = (
-    //     <Alert color="success">
-    //       Welcome {this.state.loggedInUser.first_name}! You are now signed in.
-    //     </Alert>
-    //   );
-    //   console.log(this.state.loggedInUser);
-    // } else {
-    //   status = (
-    //     <Alert color="primary">
-    //       Don't have an account?{" "}
-    //       <a href="/register" className="alert-handle">
-    //         Register here
-    //       </a>
-    //       .
-    //     </Alert>
-    //   );
-    // }
+    let status;
+    if (this.state.orgCreated) {
+      status = (
+        <Alert color="success">
+          Success! {this.state.nam} has been created. Click here to{" "}
+          <a href="/create-org" className="alert-link">
+            create another organization
+          </a>
+          .
+        </Alert>
+      );
+      console.log(this.state.loggedInUser);
+    } else if (this.state.creationError) {
+      status = <Alert color="warning">Could not create organization.</Alert>;
+    }
 
     return (
       <div className="bg">
         <div className="event-container">
           <h1>Form your tribe.</h1>
-          <Form onSubmit={ this.createOrg.bind(this) }>
+          <Form onSubmit={this.createOrg.bind(this)}>
             <FormGroup>
               <Label for="name">Organization Name</Label>
               <Input
                 type="text"
                 required
                 name="name"
-                placeholder="Association of Picnic Enthusiasts"
+                placeholder="Eg. Association of Picnic Enthusiasts"
                 id="name"
                 onChange={this.onChange}
                 value={this.state.name === null ? "" : this.state.name}
@@ -214,10 +214,10 @@ class CreateOrganization extends React.Component {
             <FormGroup>
               <Label for="description">Description</Label>
               <Input
-                type="text"
+                type="textarea"
                 required
                 name="description"
-                placeholder="We love to have picnics. Anywhere. Anytime."
+                placeholder="Eg. We love to have picnics. Anywhere. Anytime."
                 id="description"
                 onChange={this.onChange}
                 value={
@@ -231,7 +231,7 @@ class CreateOrganization extends React.Component {
                 type="text"
                 required
                 name="city"
-                placeholder="Los Angeles"
+                placeholder="Eg. Los Angeles"
                 id="city"
                 onChange={this.onChange}
                 value={this.state.city === null ? "" : this.state.city}
@@ -243,7 +243,7 @@ class CreateOrganization extends React.Component {
                 type="text"
                 required
                 name="state"
-                placeholder="California"
+                placeholder="Eg. California"
                 id="state"
                 onChange={this.onChange}
                 value={this.state.state === null ? "" : this.state.state}
@@ -256,7 +256,7 @@ class CreateOrganization extends React.Component {
                 type="text"
                 required
                 name="handle"
-                placeholder="picnic-association"
+                placeholder="Eg. picnic-association"
                 id="handle"
                 onChange={this.onChange}
                 value={this.state.handle === null ? "" : this.state.handle}
@@ -277,7 +277,11 @@ class CreateOrganization extends React.Component {
             </FormGroup>
 
             <div className="form-group">
-              <input type="submit" value="Create Organization" className="btn btn-primary" />
+              <input
+                type="submit"
+                value="Create Organization"
+                className="btn btn-primary"
+              />
             </div>
           </Form>
         </div>

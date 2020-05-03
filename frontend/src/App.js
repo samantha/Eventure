@@ -10,13 +10,14 @@ import ModalForm from "./components/modals/ModalForm.js";
 /// COMPONENTS ///
 import Navigation from "./components/navbar";
 import Home from "./components/home";
-import CreateEvent from "./components/create-event_archive";
+// import CreateEvent from "./components/create-event_archive";
 import Test from "./components/test";
 import Register from "./components/forms/SignUpForm";
 import LogIn from "./components/forms/LogInForm";
 import EditEvent from "./components/editevent_archive";
 import Dashboard from "./components/dashboard";
 import CreateOrganization from "./components/forms/CreateOrganizationForm";
+import CreateEvent from "./components/forms/CreateEventForm";
 
 /*var auth = require('./auth'); // looks at index.js
  */
@@ -54,7 +55,7 @@ class App extends React.Component {
           changeUser={this.onChangeUser.bind(this)}
         />
         <Route path="/" exact component={Home} />
-        <Route path="/create" component={CreateEvent} />
+        <Route path="/create-event" component={CreateEvent} />
         <Route path="/test" component={Test} />
         <Route path="/register" component={Register} />
         <Route path="/dashboard" component={Dashboard} />
