@@ -55,7 +55,7 @@ class CreateOrganization extends React.Component {
     description: "",
     city: "",
     state: "",
-    link: "",
+    handle: "",
     icon: "",
   };
 
@@ -68,7 +68,63 @@ class CreateOrganization extends React.Component {
   createOrg = (e) => {
     e.preventDefault();
     console.log("creating org");
+    fetch("http://localhost:3000/orgs", {
+      method: "post",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        name: this.state.name,
+        description: this.state.description,
+        city: this.state.city,
+        state: this.state.state,
+        handle: this.state.handle,
+        // icon: this.state.icon
+      }),
+    })
+      .then((response) => response.json())
+      .then((item) => {
+        if (Array.isArray(item)) {
+          this.props.addItemToState(item[0]);
+          this.props.toggle();
+          this.assignMembership();
+        } else {
+          console.log("failure");
+        }
+      })
+      .catch((err) => console.log(err));
   };
+
+  assignMembership = (e) => {
+    e.preventDefault();
+    console.log("assigning membership");
+    fetch("http://localhost:3000/memberships", {
+      method: "post",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        org_handle: this.state.handle,
+        username: this.props.user.username,
+        role: 'admin',
+      }),
+    })
+      .then((response) => response.json())
+      .then((item) => {
+        if (Array.isArray(item)) {
+          this.props.addItemToState(item[0]);
+          this.props.toggle();
+        } else {
+          console.log("failure");
+        }
+      })
+      .catch((err) => console.log(err));
+  }
+
+  invalidInput= (e) => {
+    e.preventDefault();
+    console.log("error");
+  }
 
   /*  validateUser = (e) => {
         e.preventDefault();
@@ -107,8 +163,8 @@ class CreateOrganization extends React.Component {
     // get and set currently logged in user to state
     // if item exists, populate the state with proper data
     if (this.props.item) {
-      const { name, description, city, state, link, icon } = this.props.item;
-      this.setState({ name, description, city, state, link, icon });
+      const { name, description, city, state, handle, icon } = this.props.item;
+      this.setState({ name, description, city, state, handle, icon });
     }
   }
 
@@ -125,7 +181,7 @@ class CreateOrganization extends React.Component {
     //   status = (
     //     <Alert color="primary">
     //       Don't have an account?{" "}
-    //       <a href="/register" className="alert-link">
+    //       <a href="/register" className="alert-handle">
     //         Register here
     //       </a>
     //       .
@@ -136,8 +192,8 @@ class CreateOrganization extends React.Component {
     return (
       <div className="bg">
         <div className="event-container">
-          <h1>Create your tribe.</h1>
-          <Form onSubmit={this.createOrg}>
+          <h1>Form your tribe.</h1>
+          <Form onSubmit={ this.createOrg }>
             <FormGroup>
               <Label for="name">Organization Name</Label>
               <Input
@@ -190,18 +246,18 @@ class CreateOrganization extends React.Component {
             </FormGroup>
 
             <FormGroup>
-              <Label for="link">Organization Handle</Label>
+              <Label for="handle">Organization Handle</Label>
               <Input
                 type="text"
                 required
-                name="link"
+                name="handle"
                 placeholder="picnic-association"
-                id="link"
+                id="handle"
                 onChange={this.onChange}
-                value={this.state.link === null ? "" : this.state.link}
+                value={this.state.handle === null ? "" : this.state.handle}
               />
               <FormText>
-                Enter a unique handle to help others find you.
+                Enter a unique handle to help others find you. No whitespaces.
               </FormText>
             </FormGroup>
 
