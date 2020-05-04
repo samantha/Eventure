@@ -5,6 +5,10 @@ import NavDropdown from "react-bootstrap/NavDropdown";
 import Sidebar from "../components/sidebar";
 import "../styles/dashboard.css";
 import { withRouter } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faUserCircle, faHouseUser } from "@fortawesome/free-solid-svg-icons";
+import { library } from "@fortawesome/fontawesome-svg-core";
+library.add(faUserCircle, faHouseUser);
 
 class Dashboard extends Component {
   constructor(props) {
@@ -70,7 +74,18 @@ class Dashboard extends Component {
   render() {
     return (
       <div className="sidenav">
-        <Sidebar side="left" isVisible={true} header={"Dashboard"}>
+        <Sidebar
+          side="left"
+          isVisible={true}
+          header={
+            <div>
+              <FontAwesomeIcon icon={faHouseUser} />{" "}
+              <a href={"/u/" + this.props.user.username}>
+                {this.props.user.first_name + " " + this.props.user.last_name}
+              </a>
+            </div>
+          }
+        >
           <div className="sidebar-container">
             <h4>
               {" "}
