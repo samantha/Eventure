@@ -6,23 +6,49 @@ import Sidebar from "../components/sidebar";
 import "../styles/dashboard.css";
 import { withRouter } from "react-router-dom";
 
-const background_img = "img/homepage.jpg";
-
-const bg_style = {
-  backgroundImage: `url(${background_img})`,
-};
-
 class Dashboard extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
+      user: props.user,
+      orgItems: null,
       isVisible: false,
     };
+    this.getUserOrgs = this.getUserOrgs.bind(this);
   }
   updateModal(isVisible) {
     this.state.isVisible = isVisible;
     this.forceUpdate();
+  }
+
+  getUserOrgs() {
+    console.log("get user orgs");
+    fetch("http://localhost:3000/userorgs", {
+      method: "post",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        username: this.state.user.username,
+      }),
+    })
+      .then((response) => response.json())
+      .then((item) => {
+        if (Array.isArray(item)) {
+          item.forEach((element) => console.log(element));
+          const orgItems = item.map((org) => (
+            <div className="my-orgs">{org.name}</div>
+          ));
+          this.setState({
+            orgItems: orgItems,
+          });
+          console.log(this.state.orgItems);
+        } else {
+          console.log("failure");
+        }
+      })
+      .catch((err) => console.log(err));
   }
 
   onCreateOrg() {
@@ -31,6 +57,12 @@ class Dashboard extends Component {
 
   onCreateEvent() {
     this.props.history.push("/create-event");
+  }
+
+  componentDidMount() {
+    // get and set currently logged in user to state
+    // if item exists, populate the state with proper data
+    this.getUserOrgs();
   }
 
   render() {
@@ -50,6 +82,7 @@ class Dashboard extends Component {
               </button>{" "}
             </h4>
             <Nav>
+              {this.state.orgItems}
               {/*<Nav.Link href="register">Manage Organizations</Nav.Link>}*/}
               <button type="button" class="btn btn-outline-info">
                 Manage Organizations

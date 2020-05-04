@@ -72,7 +72,7 @@ class CreateEvent extends React.Component {
 
   getUserOrgs() {
     console.log("get user orgs");
-    fetch("http://localhost:3000/userorgs", {
+    fetch("http://localhost:3000/usermanagedorgs", {
       method: "post",
       headers: {
         "Content-Type": "application/json",

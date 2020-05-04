@@ -58,7 +58,10 @@ class App extends React.Component {
 
         <Route path="/test" component={Test} />
         <Route path="/register" component={Register} />
-        <Route path="/dashboard" component={Dashboard} />
+        <Route
+          path="/dashboard"
+          render={(props) => <Dashboard {...props} user={currentUser} />}
+        />
         <Route
           path="/create-org"
           render={(props) => (
