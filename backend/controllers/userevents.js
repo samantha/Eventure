@@ -18,9 +18,11 @@ const postTableData = (req, res, db) => {
   //     db.raw("SELECT event_handle AS handle FROM rsvps WHERE username='" + username + "'")
   //   ])
   db.raw(
-    "SELECT t1.handle,events.name FROM (SELECT handle FROM memberships FULL JOIN events on memberships.org_handle=events.org_handle WHERE role='admin' and username='hellokitty' UNION ALL SELECT event_handle AS handle FROM rsvps WHERE username='" +
+    "SELECT DISTINCT t1.handle, events.name FROM (SELECT handle FROM memberships FULL JOIN events on memberships.org_handle=events.org_handle WHERE role='admin' and username='" +
       username +
-      "') as t1 FULL JOIN events on t1.handle=events.handle"
+      "' UNION ALL SELECT event_handle AS handle FROM rsvps WHERE username='" +
+      username +
+      "') as t1 FULL JOIN events on t1.handle=events.handle WHERE t1.handle IS NOT NULL"
   )
 
     // .join(
