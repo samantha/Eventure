@@ -1,4 +1,4 @@
-// POST function that returns events managed by user
+// POST function that returns events managed by user (admin of an organization)
 const postTableData = (req, res, db) => {
   const { username } = req.body;
   db("memberships")

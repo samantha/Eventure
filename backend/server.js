@@ -43,11 +43,16 @@ const socials = require("./controllers/socials");
 const memberships = require("./controllers/memberships");
 const tags = require("./controllers/tags");
 const auth = require("./controllers/auth");
+const rsvps = require("./controllers/rsvps");
 
 const usermanagedorgs = require("./controllers/UserManagedOrgs");
 const userorgs = require("./controllers/userorgs");
 
 const usermanagedevents = require("./controllers/UserManagedEvents");
+const userevents = require("./controllers/userevents");
+const specificevent = require("./controllers/SpecificEvent");
+const specificuser = require("./controllers/SpecificUser");
+const specificorg = require("./controllers/SpecificOrg");
 
 // const organizations = ('./controllers/organizations');
 
@@ -110,6 +115,12 @@ app.put("/tags", (req, res) => tags.putTableData(req, res, db));
 app.delete("/tags", (req, res) => tags.deleteTableData(req, res, db));
 // Auth Routes
 app.post("/auth", (req, res) => auth.postTableData(req, res, db));
+
+app.get("/rsvps", (req, res) => rsvps.getTableData(req, res, db));
+app.post("/rsvps", (req, res) => rsvps.postTableData(req, res, db));
+app.put("/rsvps", (req, res) => rsvps.putTableData(req, res, db));
+app.post("/rsvps", (req, res) => rsvps.postTableData(req, res, db));
+
 app.post("/usermanagedorgs", (req, res) =>
   usermanagedorgs.postTableData(req, res, db)
 );
@@ -118,6 +129,14 @@ app.post("/userorgs", (req, res) => userorgs.postTableData(req, res, db));
 app.post("/usermanagedevents", (req, res) =>
   usermanagedevents.postTableData(req, res, db)
 );
+app.post("/userevents", (req, res) => userevents.postTableData(req, res, db));
+app.post("/specificevent", (req, res) =>
+  specificevent.postTableData(req, res, db)
+);
+app.post("/specificuser", (req, res) =>
+  specificuser.postTableData(req, res, db)
+);
+app.post("/specificorg", (req, res) => specificorg.postTableData(req, res, db));
 
 // app.get('/organizations', (req, res) => organizations.getTableData(req, res, db))
 // app.post('/organizations', (req, res) => organizations.postTableData(req, res, db))
