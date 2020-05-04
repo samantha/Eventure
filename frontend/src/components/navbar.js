@@ -73,10 +73,12 @@ class Navigation extends Component {
           <NavDropdown.Item href="#action/3.2">View</NavDropdown.Item>
         </NavDropdown>
         <NavDropdown title={name} id="collasible-nav-dropdown">
-          <NavDropdown.Item href="#action/3.1">Profile</NavDropdown.Item>
+          <NavDropdown.Item href={"/u/" + user.username}>
+            Profile
+          </NavDropdown.Item>
           <NavDropdown.Item href="#action/3.2">Settings</NavDropdown.Item>
           <NavDropdown.Divider />
-          <NavDropdown.Item href="#action/3.3" onClick={this.onChangeUser}>
+          <NavDropdown.Item href="#" onClick={this.onChangeUser}>
             Logout
           </NavDropdown.Item>
         </NavDropdown>
