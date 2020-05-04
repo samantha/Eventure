@@ -273,6 +273,8 @@ class CreateOrganization extends React.Component {
                 id="icon"
                 name="icon"
                 label="Upload organization's banner."
+                onChange={this.onChange}
+                value={this.state.icon === null ? "" : this.state.icon}
               />
             </FormGroup>
 

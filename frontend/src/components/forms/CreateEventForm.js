@@ -1,12 +1,10 @@
 import React from "react";
 import {
   Alert,
-  Button,
   Form,
   FormGroup,
   Label,
   Input,
-  FormFeedback,
   FormText,
   CustomInput,
   Row,
@@ -31,43 +29,26 @@ class CreateEvent extends React.Component {
       orgItems: null,
     };
 
-    this.createOrg = this.createOrg.bind(this);
-    this.assignMembership = this.assignMembership.bind(this);
+    this.createEvent = this.createEvent.bind(this);
+    this.assignTags = this.assignTags.bind(this);
     this.getUserOrgs = this.getUserOrgs.bind(this);
   }
 
-  onChangeUser() {
-    this.props.changeUser(this.state.loggedInUser);
-    this.props.history.push("/dashboard");
-    window.location.reload(false);
-    console.log("set user");
-    this.setState({
-      user: this.state.loggedInUser,
-    });
-    console.log(this.state.user);
-  }
-
-  //   this.setUser = () => {
-  //     this.setState(state => ({
-  //       user: {
-  //         email: this.state.email,
-  //         first_name: this.state.first_name,
-  //         last_name: this.state.last_name,
-  //         loggedIn: this.state.isLoggedIn
-  //       }
-  //     }));
-  //   };
-  // };
-
   state = {
-    userOrgsFound: false,
-    creationError: false,
     name: "",
+    from_date: null,
+    to_date: null,
+    start_time: null,
+    end_time: null,
     description: "",
+    street: "",
     city: "",
     state: "",
+    zipcode: "",
+    org_handle: "",
+    cancellation_policy: "",
     handle: "",
-    icon: "",
+    tags: "",
   };
 
   onChange = (e) => {
@@ -98,21 +79,6 @@ class CreateEvent extends React.Component {
             orgItems: orgItems,
           });
           console.log(this.state.orgItems);
-          return orgItems;
-          //       let optionItems = obj.map((item) =>
-          //     <option key={item.array}>{item.array}</option>
-          // );
-          // var obj = JSON.parse(JSON.stringify(item[0]));
-          // console.log(obj.handle);
-          // console.log(obj.name);
-          // console.log(obj.email);
-          // console.log(obj.password);
-          // console.log("success");
-          // this.state.first_name = obj.first;
-          // this.state.last_name = obj.last;
-          // this.state.username = obj.username;
-          // this.setState({ isLoggedIn: true });
-          // this.onChangeUser();
         } else {
           console.log("failure");
         }
@@ -120,65 +86,67 @@ class CreateEvent extends React.Component {
       .catch((err) => console.log(err));
   }
 
-  createOrg = (e) => {
+  createEvent = (e) => {
     e.preventDefault();
     console.log("creating org");
-    fetch("http://localhost:3000/orgs", {
+    fetch("http://localhost:3000/events", {
       method: "post",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
         name: this.state.name,
+        from_date: this.state.from_date,
+        to_date: this.state.to_date,
+        start_time: this.state.start_time,
+        end_time: this.state.end_time,
         description: this.state.description,
+        street: this.state.street,
         city: this.state.city,
         state: this.state.state,
+        zipcode: this.state.zipcode,
+        org_handle: this.state.org_handle,
+        cancellation_policy: this.state.cancellation_policy,
         handle: this.state.handle,
-        // icon: this.state.icon
       }),
     })
       .then((response) => response.json())
       .then((item) => {
         if (Array.isArray(item)) {
-          this.assignMembership();
+          this.assignTags();
           this.props.addItemToState(item[0]);
           this.props.toggle();
         } else {
           console.log("failure");
-          this.state.creationError = true;
         }
       })
       .catch((err) => console.log(err));
   };
 
-  assignMembership() {
-    console.log("assigning membership");
-    console.log(this.props.user);
-    console.log(this.props.user.username);
-    console.log(this.state.handle);
-    fetch("http://localhost:3000/memberships", {
-      method: "post",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        org_handle: this.state.handle,
-        username: this.props.user.username,
-        role: "admin",
-      }),
-    })
-      .then((response) => response.json())
-      .then((item) => {
-        if (Array.isArray(item)) {
-          this.state.orgCreated = true;
-          this.props.addItemToState(item[0]);
-          this.props.toggle();
-        } else {
-          console.log("failure");
-          this.state.creationError = true;
-        }
+  assignTags() {
+    console.log("assigning tags");
+    var tags = this.state.tags.trim().split(",");
+    tags.forEach((tag) =>
+      fetch("http://localhost:3000/tags", {
+        method: "post",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          handle: this.state.handle,
+          tag: tag,
+        }),
       })
-      .catch((err) => console.log(err));
+        .then((response) => response.json())
+        .then((item) => {
+          if (Array.isArray(item)) {
+            this.props.addItemToState(item[0]);
+            this.props.toggle();
+          } else {
+            console.log("failure");
+          }
+        })
+    );
   }
 
   invalidInput = (e) => {
@@ -186,73 +154,87 @@ class CreateEvent extends React.Component {
     console.log("error");
   };
 
-  /*  validateUser = (e) => {
-          e.preventDefault();
-          fetch("http://localhost:3000/auth", {
-            method: "post",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-              email: this.state.email,
-              password: this.state.password,
-            }),
-          })
-            .then((response) => response.json())
-            .then((item) => {
-              if (Array.isArray(item)) {
-                var obj = JSON.parse(JSON.stringify(item[0]));
-                console.log(obj.first);
-                console.log(obj.last);
-                console.log(obj.email);
-                console.log(obj.password);
-                console.log("success");
-                this.state.first_name = obj.first;
-                this.state.last_name = obj.last;
-                this.state.username = obj.username;
-                this.setState({ isLoggedIn: true });
-                this.onChangeUser();
-              } else {
-                console.log("failure");
-              }
-            })
-            .catch((err) => console.log(err));
-        };*/
-
   componentDidMount() {
     // get and set currently logged in user to state
     // if item exists, populate the state with proper data
     this.getUserOrgs();
     if (this.props.item) {
-      const { name, description, city, state, handle, icon } = this.props.item;
-      this.setState({ name, description, city, state, handle, icon });
+      const {
+        name,
+        from_date,
+        to_date,
+        start_time,
+        end_time,
+        description,
+        street,
+        city,
+        state,
+        zipcode,
+        banner,
+        org_handle,
+        cancellation_policy,
+        handle,
+      } = this.props.item;
+      this.setState({
+        name,
+        from_date,
+        to_date,
+        start_time,
+        end_time,
+        description,
+        street,
+        city,
+        state,
+        zipcode,
+        banner,
+        org_handle,
+        cancellation_policy,
+        handle,
+      });
     }
   }
 
   render() {
     // console.log("helllo")
 
-    let status;
-    if (this.state.orgCreated) {
-      status = (
-        <Alert color="success">
-          Success! {this.state.nam} has been created. Click here to{" "}
-          <a href="/create-org" className="alert-link">
-            create another organization
-          </a>
-          .
-        </Alert>
-      );
-      console.log(this.state.loggedInUser);
-    } else if (this.state.creationError) {
-      status = <Alert color="warning">Could not create organization.</Alert>;
-    }
+    // let status;
+    // if (this.state.orgCreated) {
+    //   status = (
+    //     <Alert color="success">
+    //       Success! {this.state.nam} has been created. Click here to{" "}
+    //       <a href="/create-org" className="alert-link">
+    //         create another organization
+    //       </a>
+    //       .
+    //     </Alert>
+    //   );
+    //   console.log(this.state.loggedInUser);
+    // } else if (this.state.creationError) {
+    //   status = <Alert color="warning">Could not create organization.</Alert>;
+    // }
 
     return (
       <div className="event-bg">
         <div className="event-container">
           <h1>Create an event.</h1>
-          <Form onSubmit={this.createOrg.bind(this)}>
+          <Form onSubmit={this.createEvent.bind(this)}>
+            <FormGroup>
+              <Label for="org_handle">
+                Your organization hosting the event
+              </Label>
+              <Input
+                type="select"
+                name="org_handle"
+                id="org_handle"
+                placeholder="Choose an organization..."
+                onChange={this.onChange}
+                value={
+                  this.state.org_handle === null ? "" : this.state.org_handle
+                }
+              >
+                {this.state.orgItems}
+              </Input>
+            </FormGroup>
             <Row form>
               <Col md={6}>
                 <FormGroup>
@@ -287,43 +269,123 @@ class CreateEvent extends React.Component {
                 </FormGroup>
               </Col>
             </Row>
-            <FormGroup>
-              <Label for="exampleSelect">Organization hosting your event</Label>
-              <Input
-                type="select"
-                name="select"
-                id="exampleSelect"
-                placeholder="Choose an organization..."
-              >
-                {this.state.orgItems}
-              </Input>
-            </FormGroup>
 
             <Row form>
               <Col md={6}>
                 <FormGroup>
-                  <Label for="exampleCity">Start Date</Label>
-                  <Input type="date" name="city" id="exampleCity" />
+                  <Label for="from_date">Start Date</Label>
+                  <Input
+                    type="date"
+                    name="from_date"
+                    id="from_date"
+                    onChange={this.onChange}
+                    value={
+                      this.state.from_date === null ? "" : this.state.from_date
+                    }
+                  />
                 </FormGroup>
               </Col>
               <Col md={6}>
                 <FormGroup>
-                  <Label for="exampleState">Start Time</Label>
-                  <Input type="time" name="state" id="exampleState" />
+                  <Label for="start_time">Start Time</Label>
+                  <Input
+                    type="time"
+                    name="start_time"
+                    id="start_time"
+                    onChange={this.onChange}
+                    value={
+                      this.state.start_time === null
+                        ? ""
+                        : this.state.start_time
+                    }
+                  />
                 </FormGroup>
               </Col>
             </Row>
             <Row form>
               <Col md={6}>
                 <FormGroup>
-                  <Label for="exampleCity">End Date</Label>
-                  <Input type="date" name="city" id="exampleCity" />
+                  <Label for="to_date">End Date</Label>
+                  <Input
+                    type="date"
+                    name="to_date"
+                    id="to_date"
+                    onChange={this.onChange}
+                    value={
+                      this.state.to_date === null ? "" : this.state.to_date
+                    }
+                  />
                 </FormGroup>
               </Col>
               <Col md={6}>
                 <FormGroup>
-                  <Label for="exampleState">End Time</Label>
-                  <Input type="time" name="state" id="exampleState" />
+                  <Label for="end_time">End Time</Label>
+                  <Input
+                    type="time"
+                    name="end_time"
+                    id="end_time"
+                    onChange={this.onChange}
+                    value={
+                      this.state.end_time === null ? "" : this.state.end_time
+                    }
+                  />
+                </FormGroup>
+              </Col>
+            </Row>
+
+            <Row form>
+              <Col md={4}>
+                <FormGroup>
+                  <Label for="street">Address</Label>
+                  <Input
+                    type="text"
+                    name="street"
+                    id="street"
+                    placeholder="Eg. 1234 Main St"
+                    onChange={this.onChange}
+                    value={this.state.street === null ? "" : this.state.street}
+                  />
+                </FormGroup>
+              </Col>
+              <Col md={4}>
+                <FormGroup>
+                  <Label for="city">City</Label>
+                  <Input
+                    type="text"
+                    name="city"
+                    id="city"
+                    placeholder="Eg. Los Angeles"
+                    onChange={this.onChange}
+                    value={this.state.city === null ? "" : this.state.city}
+                  />
+                </FormGroup>
+              </Col>
+              <Col md={2}>
+                <FormGroup>
+                  <Label for="state">State</Label>
+                  <Input
+                    type="text"
+                    name="state"
+                    id="state"
+                    placeholder="Eg. California"
+                    onChange={this.onChange}
+                    value={this.state.state === null ? "" : this.state.state}
+                  />
+                </FormGroup>
+              </Col>
+              <Col md={2}>
+                <FormGroup>
+                  <Label for="zipcode">Zip</Label>
+                  <Input
+                    type="text"
+                    name="zipcode"
+                    id="zipcode"
+                    placeholder="Eg. 91053"
+                    onChange={this.onChange}
+                    value={
+                      this.state.zipcode === null ? "" : this.state.zipcode
+                    }
+                  />
                 </FormGroup>
               </Col>
             </Row>
@@ -350,92 +412,47 @@ class CreateEvent extends React.Component {
 
               <Col md={6}>
                 <FormGroup>
-                  <Label for="description">Cancellation Policy</Label>
+                  <Label for="cancellation_policy">Cancellation Policy</Label>
                   <Input
                     type="textarea"
                     required
-                    name="description"
+                    name="cancellation_policy"
                     placeholder="Eg. If you cancel, we will be sad."
-                    id="description"
+                    id="cancellation_policy"
                     onChange={this.onChange}
                     value={
-                      this.state.description === null
+                      this.state.cancellation_policy === null
                         ? ""
-                        : this.state.description
+                        : this.state.cancellation_policy
                     }
                   />
                 </FormGroup>
               </Col>
             </Row>
 
-            <Row form>
-              <Col md={6}>
-                <FormGroup>
-                  <Label for="exampleCity">Address</Label>
-                  <Input
-                    type="text"
-                    name="city"
-                    id="exampleCity"
-                    placeholder="1234 Main St"
-                  />
-                </FormGroup>
-              </Col>
-              <Col md={6}>
-                <FormGroup>
-                  <Label for="exampleState">Address 2</Label>
-                  <Input
-                    type="text"
-                    name="state"
-                    id="exampleState"
-                    placeholder="Apartment, studio, or floor"
-                  />
-                </FormGroup>
-              </Col>
-            </Row>
-
-            <Row form>
-              <Col md={6}>
-                <FormGroup>
-                  <Label for="exampleCity">City</Label>
-                  <Input
-                    type="text"
-                    name="city"
-                    id="exampleCity"
-                    placeholder="Eg. Los Angeles"
-                  />
-                </FormGroup>
-              </Col>
-              <Col md={4}>
-                <FormGroup>
-                  <Label for="exampleState">State</Label>
-                  <Input
-                    type="text"
-                    name="state"
-                    id="exampleState"
-                    placeholder="Eg. California"
-                  />
-                </FormGroup>
-              </Col>
-              <Col md={2}>
-                <FormGroup>
-                  <Label for="exampleZip">Zip</Label>
-                  <Input
-                    type="text"
-                    name="zip"
-                    id="exampleZip"
-                    placeholder="Eg. 91053"
-                  />
-                </FormGroup>
-              </Col>
-            </Row>
+            <FormGroup>
+              <Label for="tags">Tags</Label>
+              <Input
+                type="text"
+                required
+                name="tags"
+                placeholder="Eg. food, drinks"
+                id="tags"
+                onChange={this.onChange}
+                value={this.state.tags === null ? "" : this.state.tags}
+              />
+              <FormText>Enter tags separated by a comma.</FormText>
+            </FormGroup>
 
             <FormGroup>
-              <Label for="icon">Event Banner</Label>
+              <Label for="banner">Event Banner</Label>
               <CustomInput
                 type="file"
-                id="icon"
-                name="icon"
+                id="banner"
+                name="banner"
                 label="Upload event's banner."
+                onChange={this.onChange}
+                value={this.state.banner === null ? "" : this.state.banner}
               />
             </FormGroup>
 
