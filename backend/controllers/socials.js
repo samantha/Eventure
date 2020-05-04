@@ -13,9 +13,9 @@ const getTableData = (req, res, db) => {
 
 // POST function that will add a row to the table
 const postTableData = (req, res, db) => {
-  const { id, facebook, twitter, instagram} = req.body
+  const { handle, facebook, twitter, instagram} = req.body
   // const added = new Date()
-  db('socials').insert({ id, facebook, twitter, instagram })
+  db('socials').insert({ handle, facebook, twitter, instagram })
     .returning('*')
     .then(item => {
       res.json(item)
@@ -23,10 +23,10 @@ const postTableData = (req, res, db) => {
     .catch(err => res.status(400).json({dbError: 'can\'t add social media!'}))
 }
 
-// PUT function that will update a row with a given id
+// PUT function that will update a row with a given handle
 const putTableData = (req, res, db) => {
-  const { id, facebook, twitter, instagram } = req.body
-  db('socials').where({id}).update({ facebook, twitter, instagram })
+  const { handle, facebook, twitter, instagram } = req.body
+  db('socials').where({handle}).update({ facebook, twitter, instagram })
     .returning('*')
     .then(item => {
       res.json(item)
@@ -34,10 +34,10 @@ const putTableData = (req, res, db) => {
     .catch(err => res.status(400).json({dbError: 'db error'}))
 }
 
-// DELETE function that will delete a row with a given id
+// DELETE function that will delete a row with a given handle
 const deleteTableData = (req, res, db) => {
-  const { id } = req.body
-  db('socials').where({id}).del()
+  const { handle } = req.body
+  db('socials').where({handle}).del()
     .then(() => {
       res.json({delete: 'true'})
     })

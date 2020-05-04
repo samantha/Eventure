@@ -1,48 +1,163 @@
+// POST users
+{
+    "username": "adamsmith",
+    "first": "Adam",
+    "last": "Smith",
+    "email": "adam@smith.com",
+    "password": "password"
+},
+{
+    "username": "robertatrainer",
+    "first": "Roberta",
+    "last": "Trainer",
+    "email": "robbie@gmail.com",
+    "password": "pass"
+},
+{
+    "username": "dinosaur",
+    "first": "Dino",
+    "last": "Saur",
+    "email": "rawr@dino.com",
+    "password": "dinos"
+},
+{
+    "username": "lilliandirg",
+    "first": "Lillian",
+    "last": "Dirg",
+    "email": "lill@gmail.com",
+    "password": "lillian123"
+},
+{
+    "username": "fionaabsinthe",
+    "first": "Fiona",
+    "last": "Absinthe",
+    "email": "finny@absinthe.com",
+    "password": "hey"
+},
+{
+    "username": "rachelcosmo",
+    "first": "Rachel",
+    "last": "Cosmo",
+    "email": "rachel@hello.com",
+    "password": "hello"
+},
+{
+    "username": "hellokitty",
+    "first": "Hello",
+    "last": "Kitty",
+    "email": "hello@kitty.com",
+    "password": "kitty"
+},
+{
+    "username": "mattfrisbie",
+    "first": "Matt",
+    "last": "Frisbie",
+    "email": "javascript@email.com",
+    "password": "profesh"
+},
+{
+    "username": "johnwiley",
+    "first": "John ",
+    "last": "Wiley",
+    "email": "jonn@email.com",
+    "password": "wiles"
+},
+{
+    "username": "marciawilbur",
+    "first": "Marcia",
+    "last": "Wilbur",
+    "email": "marcia@gmail.com",
+    "password": "marcy"
+}
+
 // POST organizations
 {
-       "name": "Association of Picnic Enthusiasts",
-       "description": "We love to have picnics. Anywhere. Anytime.",
-       "city": "Los Angeles",
-       "state": "California"
+    "name": "Association of Picnic Enthusiasts",
+    "description": "We love to have picnics. Anywhere. Anytime.",
+    "city": "Los Angeles",
+    "state": "California",
+    "handle": "picnic-association",
+    "icon": null,
+},
+{
+    "name": "American Physical Society",
+    "description": "The American Physical Society (APS) is a nonprofit membership organization working to advance and diffuse the knowledge of physics through its outstanding research journals, scientific meetings, and education, outreach, advocacy, and international activities. APS represents over 55,000 members, including physicists in academia, national laboratories, and industry in the United States and throughout the world. Society offices are located in College Park, MD (Headquarters), Ridge, NY, and Washington, DC.",
+    "city": "College Park",
+    "state": "Maryland",
+    "handle": "aps",
+    "icon": null,
+    "added": "2020-05-03T16:39:20.628Z"
+},
+{
+    "name": "Society for the Promotion of Japanese Animation",
+    "description": "The Society for the Promotion of Japanese Animation is a 501(c)6 not-for-profit organization whose mission is to inspire the world through Japanese animation and culture. ",
+    "city": "Santa Ana",
+    "state": "California",
+    "handle": "spja",
+    "icon": null,
+},
+{
+    "name": "Hello Kitty Association",
+    "description": "We love Hello Kitty!",
+    "city": "Los Angeles",
+    "state": "California",
+    "handle": "hellokitty",
+    "icon": null,
+},
+{
+    "name": "Sanrio",
+    "description": "It's more than just a catchy phrase; it's the foundation of everything we do, and we're proud to say we've been creating smiles for over 40 years.  At Sanrio, we believe that a gift is more than just a gift. Rather, a gift is a means of expressing our heartfelt feelings for others. This philosophy guides all of our activities, whether we're designing a stationery set, a retail store, or an animated television series.  From Sanrio boutiques showcasing the ultimate Sanrio collection to smaller assortments in other shopping environments, we invite all our friends and guests to experience the magic of these four simple words.",
+    "city": "Los Angeles",
+    "state": "California",
+    "handle": "sanrio",
+    "icon": null,
+},
+{
+    "name": "JapanLA",
+    "description": "JapanLA is a unique retail shop that caters to adults who love “kawaii” or “cute” character goods. We carry toys, gifts, apparel, accessories, art, and more, all inspired by Japanese and Los Angeles Pop Culture. Jamie Rivadeneira started the store, in 2006. Many items are imported from Japan!  JapanLA is a clothing brand! We manufacture official licensed clothing from brands like Sanrio, San-X, tokidoki, and Artist collaborations. There is a gallery space in the back of the store, showcasing the best in cute art from all over the world. We also feature special Pop-Up shops with local brands and brands from Japan.  JapanLA is a lifestyle brand. We curate theme parties and art shows, including the most recent Hello Kitty Exhibition Art Show, at the Japanese American National Museum, in L.A.",
+    "city": "Los Angeles",
+    "state": "California",
+    "handle": "japanla",
+    "icon": null,
 }
 
 // POST events
 {
-       "name": "Picnic",
-       "from_date": "4/27/2020",
-       "to_date": "5/15/2020",
-       "description": "Picnic at the beach",
-       "street": "98763 Peace St.",
-       "city": "Los Angeles",
-       "state": "California",
-       "zipcode": "91053",
-       "org_id": 3
+    "name": "Picnic",
+    "from_date": "4/27/2020",
+    "to_date": "5/15/2020",
+    "description": "Picnic at the beach",
+    "street": "98763 Peace St.",
+    "city": "Los Angeles",
+    "state": "California",
+    "zipcode": "91053",
+    "org_id": 3
 
 }
 
 // POST socials
 {
-       "id": 3,
-       "facebook": "https://www.facebook.com/picnic.supermarket/",
-       "twitter": "https://twitter.com/picnic",
-       "instagram": "https://www.instagram.com/picnic/"
+    "id": 3,
+    "facebook": "https://www.facebook.com/picnic.supermarket/",
+    "twitter": "https://twitter.com/picnic",
+    "instagram": "https://www.instagram.com/picnic/"
 }
 
 // POST memberships
 {
-       "org_id": 3,
-       "user_email": "robbie@gmail.com"
+    "org_id": 3,
+    "user_email": "robbie@gmail.com"
 }
 // POST tags
 {
-       "tag": "food",
-       "event_id": 4
+    "tag": "food",
+    "event_id": 4
 }
 {
-       "tag": "drinks",
-       "event_id": 4
+    "tag": "drinks",
+    "event_id": 4
 }
 {
-       "tag": "beach",
-       "event_id": 4
+    "tag": "beach",
+    "event_id": 4
 }

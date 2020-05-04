@@ -13,9 +13,9 @@ const getTableData = (req, res, db) => {
 
 // POST function that will add a row to the table
 const postTableData = (req, res, db) => {
-  const { id, org_id, user_email } = req.body
+  const { id, org_handle, username, role } = req.body
   const added = new Date()
-  db('memberships').insert({ id, org_id, user_email })
+  db('memberships').insert({ id, org_handle, username, role })
     .returning('*')
     .then(item => {
       res.json(item)
@@ -25,8 +25,8 @@ const postTableData = (req, res, db) => {
 
 // PUT function that will update a row with a given id
 const putTableData = (req, res, db) => {
-  const { id, org_id, user_email } = req.body
-  db('memberships').where({id}).update({ org_id, user_email })
+  const { id, org_handle, username, role } = req.body
+  db('memberships').where({id}).update({ org_handle, username, role })
     .returning('*')
     .then(item => {
       res.json(item)

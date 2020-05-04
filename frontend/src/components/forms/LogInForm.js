@@ -47,6 +47,7 @@ class LogIn extends React.Component {
     last_name: "",
     email: "",
     password: "",
+    username: "",
   };
 
   onChange = (e) => {
@@ -76,6 +77,7 @@ class LogIn extends React.Component {
           console.log("success");
           this.state.first_name = obj.first;
           this.state.last_name = obj.last;
+          this.state.username = obj.username;
           this.setState({ isLoggedIn: true });
           this.onChangeUser();
         } else {
@@ -101,6 +103,7 @@ class LogIn extends React.Component {
       email: this.state.email,
       first_name: this.state.first_name,
       last_name: this.state.last_name,
+      username: this.state.username,
       loggedIn: this.state.isLoggedIn,
     };
 

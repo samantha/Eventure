@@ -1,4 +1,4 @@
-// POST function that will add a row to the table
+// POST function that will verify user email and password
 const postTableData = (req, res, db) => {
   const { email, password } = req.body;
   db("users")

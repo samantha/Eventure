@@ -63,20 +63,22 @@ class Navigation extends Component {
 
     const userLinks = (
       <Nav>
-        <Nav.Link href="dashboard">Dashboard</Nav.Link>
+        <Nav.Link href="/dashboard">Dashboard</Nav.Link>
         <NavDropdown title="Events" id="collasible-nav-dropdown">
-          <NavDropdown.Item href="#action/3.1">Create</NavDropdown.Item>
+          <NavDropdown.Item href="/create-event">Create</NavDropdown.Item>
           <NavDropdown.Item href="#action/3.2">View</NavDropdown.Item>
         </NavDropdown>
         <NavDropdown title="Organizations" id="collasible-nav-dropdown">
-          <NavDropdown.Item href="#action/3.1">Create</NavDropdown.Item>
+          <NavDropdown.Item href="/create-org">Create</NavDropdown.Item>
           <NavDropdown.Item href="#action/3.2">View</NavDropdown.Item>
         </NavDropdown>
         <NavDropdown title={name} id="collasible-nav-dropdown">
-          <NavDropdown.Item href="#action/3.1">Profile</NavDropdown.Item>
+          <NavDropdown.Item href={"/u/" + user.username}>
+            Profile
+          </NavDropdown.Item>
           <NavDropdown.Item href="#action/3.2">Settings</NavDropdown.Item>
           <NavDropdown.Divider />
-          <NavDropdown.Item href="#action/3.3" onClick={this.onChangeUser}>
+          <NavDropdown.Item href="#" onClick={this.onChangeUser}>
             Logout
           </NavDropdown.Item>
         </NavDropdown>
