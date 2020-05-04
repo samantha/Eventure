@@ -40,18 +40,6 @@ class CreateOrganization extends React.Component {
     console.log(this.state.user);
   }
 
-  //   this.setUser = () => {
-  //     this.setState(state => ({
-  //       user: {
-  //         email: this.state.email,
-  //         first_name: this.state.first_name,
-  //         last_name: this.state.last_name,
-  //         loggedIn: this.state.isLoggedIn
-  //       }
-  //     }));
-  //   };
-  // };
-
   state = {
     orgCreated: false,
     creationError: false,
@@ -64,14 +52,36 @@ class CreateOrganization extends React.Component {
   };
 
   onChange = (e) => {
+    console.log(e.target.value);
     this.setState({
       [e.target.name]: e.target.value,
     });
   };
 
+  // uploadFile(e) {
+  //    let file = e.target.files[0];
+  //     console.log(file.name);
+  //    if (file)
+  //      {
+  //      let path = "img/" + file.name;
+  //      console.log(path);
+  //      this.setState({
+  //    [e.target.name]: {path}
+  //  });
+  //    }
+  //      // if (file) {
+  //      //   let data = new FormData();
+  //      //   data.append('file', file);
+  //      //   console.log(data);
+  //      //   // axios.post('/files', data)...
+  //      // }
+
+  //    };
+
   createOrg = (e) => {
     e.preventDefault();
     console.log("creating org");
+    console.log(this.state.icon);
     fetch("http://localhost:3000/orgs", {
       method: "post",
       headers: {
@@ -83,18 +93,20 @@ class CreateOrganization extends React.Component {
         city: this.state.city,
         state: this.state.state,
         handle: this.state.handle,
-        // icon: this.state.icon
+        icon: this.state.icon,
       }),
     })
       .then((response) => response.json())
       .then((item) => {
         if (Array.isArray(item)) {
           this.assignMembership();
-          this.props.addItemToState(item[0]);
-          this.props.toggle();
+          // this.props.addItemToState(item[0]);
+          // this.props.toggle();
         } else {
           console.log("failure");
-          this.state.creationError = true;
+          this.setState({
+            creationError: true,
+          });
         }
       })
       .catch((err) => console.log(err));
@@ -119,12 +131,16 @@ class CreateOrganization extends React.Component {
       .then((response) => response.json())
       .then((item) => {
         if (Array.isArray(item)) {
-          this.state.orgCreated = true;
-          this.props.addItemToState(item[0]);
-          this.props.toggle();
+          this.setState({
+            orgCreated: true,
+          });
+          // this.props.addItemToState(item[0]);
+          // this.props.toggle();
         } else {
           console.log("failure");
-          this.state.creationError = true;
+          this.setState({
+            creationError: true,
+          });
         }
       })
       .catch((err) => console.log(err));
@@ -134,39 +150,6 @@ class CreateOrganization extends React.Component {
     e.preventDefault();
     console.log("error");
   };
-
-  /*  validateUser = (e) => {
-        e.preventDefault();
-        fetch("http://localhost:3000/auth", {
-          method: "post",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            email: this.state.email,
-            password: this.state.password,
-          }),
-        })
-          .then((response) => response.json())
-          .then((item) => {
-            if (Array.isArray(item)) {
-              var obj = JSON.parse(JSON.stringify(item[0]));
-              console.log(obj.first);
-              console.log(obj.last);
-              console.log(obj.email);
-              console.log(obj.password);
-              console.log("success");
-              this.state.first_name = obj.first;
-              this.state.last_name = obj.last;
-              this.state.username = obj.username;
-              this.setState({ isLoggedIn: true });
-              this.onChangeUser();
-            } else {
-              console.log("failure");
-            }
-          })
-          .catch((err) => console.log(err));
-      };*/
 
   componentDidMount() {
     // get and set currently logged in user to state
@@ -182,14 +165,17 @@ class CreateOrganization extends React.Component {
     if (this.state.orgCreated) {
       status = (
         <Alert color="success">
-          Success! {this.state.nam} has been created. Click here to{" "}
+          Success! {this.state.name} has been created.{" "}
+          <a href={"/o/" + this.state.handle} className="alert-link">
+            View your organization page
+          </a>{" "}
+          or{" "}
           <a href="/create-org" className="alert-link">
             create another organization
           </a>
           .
         </Alert>
       );
-      console.log(this.state.loggedInUser);
     } else if (this.state.creationError) {
       status = <Alert color="warning">Could not create organization.</Alert>;
     }
@@ -267,12 +253,13 @@ class CreateOrganization extends React.Component {
             </FormGroup>
 
             <FormGroup>
-              <Label for="icon">Organization Banner</Label>
-              <CustomInput
-                type="file"
-                id="icon"
+              <Label for="icon">Organization Icon Url</Label>
+              <Input
+                type="text"
+                required
                 name="icon"
-                label="Upload organization's banner."
+                placeholder="Eg. https://upload.wikimedia.org/picnic-association.jpg"
+                id="icon"
                 onChange={this.onChange}
                 value={this.state.icon === null ? "" : this.state.icon}
               />
@@ -286,6 +273,7 @@ class CreateOrganization extends React.Component {
               />
             </div>
           </Form>
+          {status}
         </div>
       </div>
     );

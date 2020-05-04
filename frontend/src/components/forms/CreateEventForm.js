@@ -36,6 +36,8 @@ class CreateEvent extends React.Component {
   }
 
   state = {
+    eventCreated: false,
+    creationError: false,
     name: "",
     from_date: null,
     to_date: null,
@@ -49,11 +51,12 @@ class CreateEvent extends React.Component {
     org_handle: "",
     cancellation_policy: "",
     handle: "",
+    icon: "",
     tags: "",
   };
 
   onChange = (e) => {
-    console.log(this.state.org_handle);
+    console.log(e.target.value);
     this.setState({
       [e.target.name]: e.target.value,
     });
@@ -121,6 +124,7 @@ class CreateEvent extends React.Component {
         city: this.state.city,
         state: this.state.state,
         zipcode: this.state.zipcode,
+        icon: this.state.icon,
         org_handle: this.state.org_handle,
         cancellation_policy: this.state.cancellation_policy,
         handle: this.state.handle,
@@ -135,6 +139,9 @@ class CreateEvent extends React.Component {
           console.log("create events!");
         } else {
           console.log("failure");
+          this.setState({
+            creationError: true,
+          });
         }
       })
       .catch((err) => console.log(err));
@@ -160,9 +167,15 @@ class CreateEvent extends React.Component {
           if (Array.isArray(item)) {
             // this.props.addItemToState(item[0]);
             // this.props.toggle();
+            this.setState({
+              eventCreated: true,
+            });
             console.log("added tags!");
           } else {
             console.log("failure");
+            this.setState({
+              creationError: true,
+            });
           }
         })
     );
@@ -189,7 +202,7 @@ class CreateEvent extends React.Component {
         city,
         state,
         zipcode,
-        banner,
+        icon,
         org_handle,
         cancellation_policy,
         handle,
@@ -205,7 +218,7 @@ class CreateEvent extends React.Component {
         city,
         state,
         zipcode,
-        banner,
+        icon,
         org_handle,
         cancellation_policy,
         handle,
@@ -214,23 +227,24 @@ class CreateEvent extends React.Component {
   }
 
   render() {
-    // console.log("helllo")
-
-    // let status;
-    // if (this.state.orgCreated) {
-    //   status = (
-    //     <Alert color="success">
-    //       Success! {this.state.nam} has been created. Click here to{" "}
-    //       <a href="/create-org" className="alert-link">
-    //         create another organization
-    //       </a>
-    //       .
-    //     </Alert>
-    //   );
-    //   console.log(this.state.loggedInUser);
-    // } else if (this.state.creationError) {
-    //   status = <Alert color="warning">Could not create organization.</Alert>;
-    // }
+    let status;
+    if (this.state.eventCreated) {
+      status = (
+        <Alert color="success">
+          Success! {this.state.name} has been created.{" "}
+          <a href={"/e/" + this.state.handle} className="alert-link">
+            View your event page
+          </a>{" "}
+          or{" "}
+          <a href="/create-event" className="alert-link">
+            create another event
+          </a>
+          .
+        </Alert>
+      );
+    } else if (this.state.creationError) {
+      status = <Alert color="warning">Could not create event.</Alert>;
+    }
 
     return (
       <div className="event-bg">
@@ -465,14 +479,15 @@ class CreateEvent extends React.Component {
             </FormGroup>
 
             <FormGroup>
-              <Label for="banner">Event Banner</Label>
-              <CustomInput
-                type="file"
-                id="banner"
-                name="banner"
-                label="Upload event's banner."
+              <Label for="icon">Event Icon Url</Label>
+              <Input
+                type="text"
+                required
+                name="icon"
+                placeholder="Eg. https://upload.wikimedia.org/picnic-event.jpg"
+                id="icon"
                 onChange={this.onChange}
-                value={this.state.banner === null ? "" : this.state.banner}
+                value={this.state.icon === null ? "" : this.state.icon}
               />
             </FormGroup>
 
@@ -484,6 +499,7 @@ class CreateEvent extends React.Component {
               />
             </div>
           </Form>
+          {status}
         </div>
       </div>
     );

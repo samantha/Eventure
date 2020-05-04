@@ -155,3 +155,15 @@ h4 {
 .manage {
   margin-top: 15px;
 }
+
+img {
+  width: 200px;
+}
+
+.center {
+  text-align: center;
+}
+
+.center h1 {
+  color: #17b87e;
+}
