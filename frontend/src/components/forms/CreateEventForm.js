@@ -51,6 +51,7 @@ class CreateEvent extends React.Component {
     org_handle: "",
     cancellation_policy: "",
     handle: "",
+    icon: "",
     tags: "",
   };
 
@@ -123,7 +124,7 @@ class CreateEvent extends React.Component {
         city: this.state.city,
         state: this.state.state,
         zipcode: this.state.zipcode,
-        banner: this.state.banner,
+        icon: this.state.icon,
         org_handle: this.state.org_handle,
         cancellation_policy: this.state.cancellation_policy,
         handle: this.state.handle,
@@ -478,7 +479,7 @@ class CreateEvent extends React.Component {
             </FormGroup>
 
             <FormGroup>
-              <Label for="icon">Organization Icon Url</Label>
+              <Label for="icon">Event Icon Url</Label>
               <Input
                 type="text"
                 required
