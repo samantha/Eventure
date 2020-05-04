@@ -43,8 +43,11 @@ const socials = require("./controllers/socials");
 const memberships = require("./controllers/memberships");
 const tags = require("./controllers/tags");
 const auth = require("./controllers/auth");
+
 const usermanagedorgs = require("./controllers/UserManagedOrgs");
 const userorgs = require("./controllers/userorgs");
+
+const usermanagedevents = require("./controllers/UserManagedEvents");
 
 // const organizations = ('./controllers/organizations');
 
@@ -111,6 +114,10 @@ app.post("/usermanagedorgs", (req, res) =>
   usermanagedorgs.postTableData(req, res, db)
 );
 app.post("/userorgs", (req, res) => userorgs.postTableData(req, res, db));
+
+app.post("/usermanagedevents", (req, res) =>
+  usermanagedevents.postTableData(req, res, db)
+);
 
 // app.get('/organizations', (req, res) => organizations.getTableData(req, res, db))
 // app.post('/organizations', (req, res) => organizations.postTableData(req, res, db))
