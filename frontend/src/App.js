@@ -41,10 +41,11 @@ class App extends React.Component {
     };
     this.getOrgs = this.getOrgs.bind(this);
     this.getUsers = this.getUsers.bind(this);
+    this.getEvents = this.getEvents.bind(this);
   }
 
   getOrgs() {
-    console.log("get user orgs");
+    console.log("get orgs");
     fetch("http://localhost:3000/orgs", {
       method: "get",
       headers: {
@@ -91,6 +92,30 @@ class App extends React.Component {
       .catch((err) => console.log(err));
   }
 
+  getEvents() {
+    console.log("get events");
+    fetch("http://localhost:3000/events", {
+      method: "get",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((response) => response.json())
+      .then((item) => {
+        if (Array.isArray(item)) {
+          item.forEach((element) => console.log(element));
+          // const orgItems = item.map((org) => (<Link to={'o/' + org.handle} />));
+          this.setState({
+            allEvents: item,
+          });
+          console.log(this.state.allEvents);
+        } else {
+          console.log("failure");
+        }
+      })
+      .catch((err) => console.log(err));
+  }
+
   onChangeUser(newUser) {
     this.setState({
       user: newUser,
@@ -103,6 +128,7 @@ class App extends React.Component {
     // get and set currently logged in user to state
     // if item exists, populate the state with proper data
     this.getOrgs();
+    this.getUsers();
     this.getUsers();
   }
 
@@ -121,13 +147,18 @@ class App extends React.Component {
           <Link to={"/u/" + user.username} />
         ))}
 
+        {this.state.allEvents.map((event) => (
+          <Link to={"/e/" + event.handle} />
+        ))}
+
         <Navigation
           user={currentUser}
           changeUser={this.onChangeUser.bind(this)}
         />
         <Route path="/" exact component={Home} />
-        <Route path="/o/:id" component={OrganizationPage} />
-        <Route path="/u/:id" component={UserPage} />
+        <Route path="/o/:handle" component={OrganizationPage} />
+        <Route path="/u/:username" component={UserPage} />
+        <Route path="/e/:handle" component={EventPage} />
 
         <Route path="/test" component={Test} />
         <Route path="/register" component={Register} />
