@@ -17,9 +17,11 @@ class Dashboard extends Component {
     this.state = {
       user: props.user,
       orgItems: null,
+      eventItems: null,
       isVisible: false,
     };
     this.getUserOrgs = this.getUserOrgs.bind(this);
+    this.getUserEvents = this.getUserEvents.bind(this);
   }
   updateModal(isVisible) {
     this.state.isVisible = isVisible;
@@ -57,6 +59,37 @@ class Dashboard extends Component {
       .catch((err) => console.log(err));
   }
 
+  getUserEvents() {
+    console.log("get user events");
+    fetch("http://localhost:3000/userevents", {
+      method: "post",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        username: this.state.user.username,
+      }),
+    })
+      .then((response) => response.json())
+      .then((item) => {
+        if (Array.isArray(item)) {
+          item.forEach((element) => console.log(element));
+          const eventItems = item.map((event) => (
+            <div className="my-orgs">
+              <a href={"/e/" + event.handle}>{event.name}</a>
+            </div>
+          ));
+          this.setState({
+            eventItems: eventItems,
+          });
+          console.log(this.state.eventItems);
+        } else {
+          console.log("failure");
+        }
+      })
+      .catch((err) => console.log(err));
+  }
+
   onCreateOrg() {
     this.props.history.push("/create-org");
   }
@@ -69,6 +102,7 @@ class Dashboard extends Component {
     // get and set currently logged in user to state
     // if item exists, populate the state with proper data
     this.getUserOrgs();
+    this.getUserEvents();
   }
 
   render() {
@@ -101,7 +135,7 @@ class Dashboard extends Component {
             <Nav>
               {this.state.orgItems}
               {/*<Nav.Link href="register">Manage Organizations</Nav.Link>}*/}
-              <button type="button" class="btn btn-outline-info">
+              <button type="button" className="btn btn-outline-info manage">
                 Manage Organizations
               </button>
             </Nav>
@@ -119,8 +153,9 @@ class Dashboard extends Component {
               </button>{" "}
             </h4>
             <Nav>
+              {this.state.eventItems}
               {/* <Nav.Link href="register">Manage Events</Nav.Link>*/}
-              <button type="button" class="btn btn-outline-info">
+              <button type="button" className="btn btn-outline-info manage">
                 Manage Events
               </button>
             </Nav>

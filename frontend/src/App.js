@@ -55,12 +55,12 @@ class App extends React.Component {
       .then((response) => response.json())
       .then((item) => {
         if (Array.isArray(item)) {
-          item.forEach((element) => console.log(element));
+          // item.forEach((element) => console.log(element));
           // const orgItems = item.map((org) => (<Link to={'o/' + org.handle} />));
           this.setState({
             allOrgs: item,
           });
-          console.log(this.state.allOrgs);
+          // console.log(this.state.allOrgs);
         } else {
           console.log("failure");
         }
@@ -79,12 +79,12 @@ class App extends React.Component {
       .then((response) => response.json())
       .then((item) => {
         if (Array.isArray(item)) {
-          item.forEach((element) => console.log(element));
+          // item.forEach((element) => console.log(element));
           // const orgItems = item.map((org) => (<Link to={'o/' + org.handle} />));
           this.setState({
             allUsers: item,
           });
-          console.log(this.state.allUsers);
+          // console.log(this.state.allUsers);
         } else {
           console.log("failure");
         }
@@ -103,12 +103,12 @@ class App extends React.Component {
       .then((response) => response.json())
       .then((item) => {
         if (Array.isArray(item)) {
-          item.forEach((element) => console.log(element));
+          // item.forEach((element) => console.log(element));
           // const orgItems = item.map((org) => (<Link to={'o/' + org.handle} />));
           this.setState({
             allEvents: item,
           });
-          console.log(this.state.allEvents);
+          // console.log(this.state.allEvents);
         } else {
           console.log("failure");
         }

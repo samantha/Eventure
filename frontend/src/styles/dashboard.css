@@ -7,15 +7,3 @@
   margin-left: 400px;
   margin-right: 50px;
 }
-
-.my-orgs {
-  display: block;
-  width: 100%;
-  padding-top: 5px;
-  padding-bottom: 5px;
-}
-
-.my-orgs a:hover {
-  color: #17a2b8;
-  text-decoration: none;
-}
