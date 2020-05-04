@@ -63,7 +63,7 @@ class Navigation extends Component {
 
     const userLinks = (
       <Nav>
-        <Nav.Link href="dashboard">Dashboard</Nav.Link>
+        <Nav.Link href="/dashboard">Dashboard</Nav.Link>
         <NavDropdown title="Events" id="collasible-nav-dropdown">
           <NavDropdown.Item href="/create-event">Create</NavDropdown.Item>
           <NavDropdown.Item href="#action/3.2">View</NavDropdown.Item>

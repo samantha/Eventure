@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import logo from "./logo.svg";
 import "./App.css";
 
@@ -25,11 +25,11 @@ import OrganizationPage from "./components/pages/OrganizationPage";
 /*var auth = require('./auth'); // looks at index.js
  */
 class App extends React.Component {
-  constructor() {
+  constructor(props) {
     super();
     this.state = {
-      allUsers: [],
-      allEvents: [],
+      allUsers: null,
+      allEvents: null,
       allOrgs: [],
       user: {
         email: "n/a",
@@ -39,6 +39,31 @@ class App extends React.Component {
         loggedIn: false,
       },
     };
+    this.getOrgs = this.getOrgs.bind(this);
+  }
+
+  getOrgs() {
+    console.log("get user orgs");
+    fetch("http://localhost:3000/orgs", {
+      method: "get",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((response) => response.json())
+      .then((item) => {
+        if (Array.isArray(item)) {
+          item.forEach((element) => console.log(element));
+          // const orgItems = item.map((org) => (<Link to={'o/' + org.handle} />));
+          this.setState({
+            allOrgs: item,
+          });
+          console.log(this.state.allOrgs);
+        } else {
+          console.log("failure");
+        }
+      })
+      .catch((err) => console.log(err));
   }
 
   onChangeUser(newUser) {
@@ -49,6 +74,12 @@ class App extends React.Component {
     localStorage.setItem("info", JSON.stringify(this.state.user));
   }
 
+  componentDidMount() {
+    // get and set currently logged in user to state
+    // if item exists, populate the state with proper data
+    this.getOrgs();
+  }
+
   render() {
     // var user = { email: 'n/a', first_name: 'n/a', last_name: 'n/a', loggedIn: false };
     var storedUser = JSON.parse(localStorage.getItem("info"));
@@ -56,11 +87,16 @@ class App extends React.Component {
 
     return (
       <Router>
+        {this.state.allOrgs.map((org) => (
+          <Link to={"/o/" + org.handle} />
+        ))}
+
         <Navigation
           user={currentUser}
           changeUser={this.onChangeUser.bind(this)}
         />
         <Route path="/" exact component={Home} />
+        <Route path="/o/:id" component={OrganizationPage} />
 
         <Route path="/test" component={Test} />
         <Route path="/register" component={Register} />
