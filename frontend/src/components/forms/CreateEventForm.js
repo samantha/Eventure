@@ -86,7 +86,9 @@ class CreateEvent extends React.Component {
         if (Array.isArray(item)) {
           item.forEach((element) => console.log(element));
           const orgItems = item.map((org) => (
-            <option value={org.handle}>{org.name}</option>
+            <option key={org.handle} value={org.handle}>
+              {org.name}
+            </option>
           ));
           this.setState({
             orgItems: orgItems,
@@ -128,8 +130,9 @@ class CreateEvent extends React.Component {
       .then((item) => {
         if (Array.isArray(item)) {
           this.assignTags();
-          this.props.addItemToState(item[0]);
-          this.props.toggle();
+          // this.props.addItemToState(item[0]);
+          // this.props.toggle();
+          console.log("create events!");
         } else {
           console.log("failure");
         }
@@ -155,8 +158,9 @@ class CreateEvent extends React.Component {
         .then((response) => response.json())
         .then((item) => {
           if (Array.isArray(item)) {
-            this.props.addItemToState(item[0]);
-            this.props.toggle();
+            // this.props.addItemToState(item[0]);
+            // this.props.toggle();
+            console.log("added tags!");
           } else {
             console.log("failure");
           }
@@ -239,12 +243,13 @@ class CreateEvent extends React.Component {
               </Label>
               <Input
                 type="select"
+                defaultValue={""}
                 name="org_handle"
                 id="org_handle"
                 placeholder="Choose an organization..."
                 onChange={this.onSelect}
               >
-                <option value="" disabled selected>
+                <option value="" disabled>
                   Select your organization...
                 </option>
                 {this.state.orgItems}
