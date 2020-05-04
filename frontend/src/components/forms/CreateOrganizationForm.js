@@ -221,7 +221,6 @@ class CreateOrganization extends React.Component {
           .
         </Alert>
       );
-      console.log(this.state.loggedInUser);
     } else if (this.state.creationError) {
       status = <Alert color="warning">Could not create organization.</Alert>;
     }
@@ -319,6 +318,7 @@ class CreateOrganization extends React.Component {
               />
             </div>
           </Form>
+          {status}
         </div>
       </div>
     );
