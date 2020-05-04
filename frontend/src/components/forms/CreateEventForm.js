@@ -36,6 +36,8 @@ class CreateEvent extends React.Component {
   }
 
   state = {
+    eventCreated: false,
+    creationError: false,
     name: "",
     from_date: null,
     to_date: null,
@@ -136,6 +138,9 @@ class CreateEvent extends React.Component {
           console.log("create events!");
         } else {
           console.log("failure");
+          this.setState({
+            creationError: true,
+          });
         }
       })
       .catch((err) => console.log(err));
@@ -161,9 +166,15 @@ class CreateEvent extends React.Component {
           if (Array.isArray(item)) {
             // this.props.addItemToState(item[0]);
             // this.props.toggle();
+            this.setState({
+              eventCreated: true,
+            });
             console.log("added tags!");
           } else {
             console.log("failure");
+            this.setState({
+              creationError: true,
+            });
           }
         })
     );
@@ -215,23 +226,24 @@ class CreateEvent extends React.Component {
   }
 
   render() {
-    // console.log("helllo")
-
-    // let status;
-    // if (this.state.orgCreated) {
-    //   status = (
-    //     <Alert color="success">
-    //       Success! {this.state.nam} has been created. Click here to{" "}
-    //       <a href="/create-org" className="alert-link">
-    //         create another organization
-    //       </a>
-    //       .
-    //     </Alert>
-    //   );
-    //   console.log(this.state.loggedInUser);
-    // } else if (this.state.creationError) {
-    //   status = <Alert color="warning">Could not create organization.</Alert>;
-    // }
+    let status;
+    if (this.state.eventCreated) {
+      status = (
+        <Alert color="success">
+          Success! {this.state.name} has been created.{" "}
+          <a href={"/e/" + this.state.handle} className="alert-link">
+            View your event page
+          </a>{" "}
+          or{" "}
+          <a href="/create-event" className="alert-link">
+            create another event
+          </a>
+          .
+        </Alert>
+      );
+    } else if (this.state.creationError) {
+      status = <Alert color="warning">Could not create event.</Alert>;
+    }
 
     return (
       <div className="event-bg">
@@ -486,6 +498,7 @@ class CreateEvent extends React.Component {
               />
             </div>
           </Form>
+          {status}
         </div>
       </div>
     );

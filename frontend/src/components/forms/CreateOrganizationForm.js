@@ -40,18 +40,6 @@ class CreateOrganization extends React.Component {
     console.log(this.state.user);
   }
 
-  //   this.setUser = () => {
-  //     this.setState(state => ({
-  //       user: {
-  //         email: this.state.email,
-  //         first_name: this.state.first_name,
-  //         last_name: this.state.last_name,
-  //         loggedIn: this.state.isLoggedIn
-  //       }
-  //     }));
-  //   };
-  // };
-
   state = {
     orgCreated: false,
     creationError: false,
@@ -163,39 +151,6 @@ class CreateOrganization extends React.Component {
     console.log("error");
   };
 
-  /*  validateUser = (e) => {
-        e.preventDefault();
-        fetch("http://localhost:3000/auth", {
-          method: "post",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            email: this.state.email,
-            password: this.state.password,
-          }),
-        })
-          .then((response) => response.json())
-          .then((item) => {
-            if (Array.isArray(item)) {
-              var obj = JSON.parse(JSON.stringify(item[0]));
-              console.log(obj.first);
-              console.log(obj.last);
-              console.log(obj.email);
-              console.log(obj.password);
-              console.log("success");
-              this.state.first_name = obj.first;
-              this.state.last_name = obj.last;
-              this.state.username = obj.username;
-              this.setState({ isLoggedIn: true });
-              this.onChangeUser();
-            } else {
-              console.log("failure");
-            }
-          })
-          .catch((err) => console.log(err));
-      };*/
-
   componentDidMount() {
     // get and set currently logged in user to state
     // if item exists, populate the state with proper data
@@ -212,7 +167,7 @@ class CreateOrganization extends React.Component {
         <Alert color="success">
           Success! {this.state.name} has been created.{" "}
           <a href={"/o/" + this.state.handle} className="alert-link">
-            View your organization
+            View your organization page
           </a>{" "}
           or{" "}
           <a href="/create-org" className="alert-link">
