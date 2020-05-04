@@ -23,17 +23,49 @@ class UserPage extends Component {
     super(props);
 
     this.state = {
-      user: props.user,
+      user: {},
       orgItems: null,
       eventItems: null,
       isVisible: false,
     };
+    this.getUser = this.getUser.bind(this);
     this.getUserOrgs = this.getUserOrgs.bind(this);
     this.getUserEvents = this.getUserEvents.bind(this);
   }
   updateModal(isVisible) {
     this.state.isVisible = isVisible;
     this.forceUpdate();
+  }
+
+  getUser() {
+    console.log("get user");
+    fetch("http://localhost:3000/specificuser", {
+      method: "post",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        username: this.props.match.params.username,
+      }),
+    })
+      .then((response) => response.json())
+      .then((item) => {
+        if (Array.isArray(item)) {
+          item.forEach((element) => console.log(element));
+          // const orgItems = item.map((org) => (
+          //   <div className="my-orgs">
+          //     <a href={"/o/" + org.handle}>{org.name}</a>
+          //   </div>
+          // ));
+          this.setState({
+            user: item[0],
+          });
+          console.log(this.state.user);
+        } else {
+          console.log("failure");
+        }
+      })
+      .catch((err) => console.log(err));
   }
 
   getUserOrgs() {
@@ -109,6 +141,7 @@ class UserPage extends Component {
   componentDidMount() {
     // get and set currently logged in user to state
     // if item exists, populate the state with proper data
+    this.getUser();
     this.getUserOrgs();
     this.getUserEvents();
   }
@@ -122,17 +155,17 @@ class UserPage extends Component {
           header={
             <div>
               <FontAwesomeIcon icon={faHouseUser} />{" "}
-              <a href={"/u/" + this.props.match.params.username}>
-                {/*{this.props.user.first_name + " " + this.props.user.last_name}*/}
-                Profile
+              <a href={"/u/" + this.state.user.username}>
+                {this.state.user.first + " " + this.state.user.last}
               </a>
             </div>
           }
+          handle={"@" + this.state.user.username}
         >
           <div className="sidebar-container">
             <h4>
               {" "}
-              Your Organizations{" "}
+              {this.state.user.first}'s Organizations{" "}
               <button
                 type="button"
                 className="btn btn-info"
@@ -152,7 +185,7 @@ class UserPage extends Component {
           <div className="sidebar-container">
             <h4>
               {" "}
-              Your Events{" "}
+              {this.state.user.first}'s Events{" "}
               <button
                 type="button"
                 className="btn btn-info"
@@ -171,7 +204,10 @@ class UserPage extends Component {
           </div>
         </Sidebar>
         <div className="main">
-          <h1> Achievements </h1>
+          <h1 className="dashboard-achievements">
+            {" "}
+            {this.state.user.first}'s Achievements{" "}
+          </h1>
           <p>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec
             elementum est eget mauris varius vulputate. Orci varius natoque
@@ -223,7 +259,10 @@ class UserPage extends Component {
           </p>
         </div>
         <div className="main">
-          <h1> Friends </h1>
+          <h1 className="dashboard-friends">
+            {" "}
+            {this.state.user.first}'s Friends{" "}
+          </h1>
           <p>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec
             elementum est eget mauris varius vulputate. Orci varius natoque

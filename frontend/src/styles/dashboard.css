@@ -7,3 +7,19 @@
   margin-left: 400px;
   margin-right: 50px;
 }
+
+.dashboard-events {
+  color: #7b91b6;
+}
+
+.dashboard-orgs {
+  color: #a07bb6;
+}
+
+.dashboard-friends {
+  color: #7bb6a0;
+}
+
+.dashboard-achievements {
+  color: #b6a07b;
+}
