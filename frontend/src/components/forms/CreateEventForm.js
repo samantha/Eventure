@@ -32,6 +32,7 @@ class CreateEvent extends React.Component {
     this.createEvent = this.createEvent.bind(this);
     this.assignTags = this.assignTags.bind(this);
     this.getUserOrgs = this.getUserOrgs.bind(this);
+    this.onSelect = this.onSelect.bind(this);
   }
 
   state = {
@@ -52,10 +53,22 @@ class CreateEvent extends React.Component {
   };
 
   onChange = (e) => {
+    console.log(this.state.org_handle);
     this.setState({
       [e.target.name]: e.target.value,
     });
   };
+
+  onSelect(e) {
+    console.log("selection made");
+    const selectedIndex = e.target.options.selectedIndex;
+    console.log(selectedIndex);
+    console.log(e.target.options[selectedIndex].value);
+    this.setState({
+      org_handle: e.target.options[selectedIndex].value,
+    });
+    console.log(this.state.org_handle);
+  }
 
   getUserOrgs() {
     console.log("get user orgs");
@@ -73,7 +86,7 @@ class CreateEvent extends React.Component {
         if (Array.isArray(item)) {
           item.forEach((element) => console.log(element));
           const orgItems = item.map((org) => (
-            <option key={org.handle}>{org.name}</option>
+            <option value={org.handle}>{org.name}</option>
           ));
           this.setState({
             orgItems: orgItems,
@@ -88,7 +101,8 @@ class CreateEvent extends React.Component {
 
   createEvent = (e) => {
     e.preventDefault();
-    console.log("creating org");
+    console.log("creating event");
+    console.log(this.state.org_handle);
     fetch("http://localhost:3000/events", {
       method: "post",
       headers: {
@@ -126,6 +140,7 @@ class CreateEvent extends React.Component {
   assignTags() {
     console.log("assigning tags");
     var tags = this.state.tags.trim().split(",");
+    console.log(tags);
     tags.forEach((tag) =>
       fetch("http://localhost:3000/tags", {
         method: "post",
@@ -133,8 +148,8 @@ class CreateEvent extends React.Component {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          handle: this.state.handle,
           tag: tag,
+          handle: this.state.handle,
         }),
       })
         .then((response) => response.json())
@@ -227,11 +242,11 @@ class CreateEvent extends React.Component {
                 name="org_handle"
                 id="org_handle"
                 placeholder="Choose an organization..."
-                onChange={this.onChange}
-                value={
-                  this.state.org_handle === null ? "" : this.state.org_handle
-                }
+                onChange={this.onSelect}
               >
+                <option value="" disabled selected>
+                  Select your organization...
+                </option>
                 {this.state.orgItems}
               </Input>
             </FormGroup>
