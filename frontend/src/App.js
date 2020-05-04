@@ -18,6 +18,9 @@ import EditEvent from "./components/editevent_archive";
 import Dashboard from "./components/dashboard";
 import CreateOrganization from "./components/forms/CreateOrganizationForm";
 import CreateEvent from "./components/forms/CreateEventForm";
+import UserPage from "./components/pages/UserPage";
+import EventPage from "./components/pages/EventPage";
+import OrganizationPage from "./components/pages/OrganizationPage";
 
 /*var auth = require('./auth'); // looks at index.js
  */
@@ -25,6 +28,9 @@ class App extends React.Component {
   constructor() {
     super();
     this.state = {
+      allUsers: [],
+      allEvents: [],
+      allOrgs: [],
       user: {
         email: "n/a",
         username: "n/a",
