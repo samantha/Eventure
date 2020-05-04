@@ -171,7 +171,7 @@ class UserPage extends Component {
           </div>
         </Sidebar>
         <div className="main">
-          <h1> Upcoming Events </h1>
+          <h1> Achievements </h1>
           <p>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec
             elementum est eget mauris varius vulputate. Orci varius natoque
@@ -223,7 +223,7 @@ class UserPage extends Component {
           </p>
         </div>
         <div className="main">
-          <h1> Explore Organizations </h1>
+          <h1> Friends </h1>
           <p>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec
             elementum est eget mauris varius vulputate. Orci varius natoque
