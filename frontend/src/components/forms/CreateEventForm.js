@@ -53,7 +53,7 @@ class CreateEvent extends React.Component {
   };
 
   onChange = (e) => {
-    console.log(this.state.org_handle);
+    console.log(e.target.value);
     this.setState({
       [e.target.name]: e.target.value,
     });
@@ -121,6 +121,7 @@ class CreateEvent extends React.Component {
         city: this.state.city,
         state: this.state.state,
         zipcode: this.state.zipcode,
+        banner: this.state.banner,
         org_handle: this.state.org_handle,
         cancellation_policy: this.state.cancellation_policy,
         handle: this.state.handle,
@@ -189,7 +190,7 @@ class CreateEvent extends React.Component {
         city,
         state,
         zipcode,
-        banner,
+        icon,
         org_handle,
         cancellation_policy,
         handle,
@@ -205,7 +206,7 @@ class CreateEvent extends React.Component {
         city,
         state,
         zipcode,
-        banner,
+        icon,
         org_handle,
         cancellation_policy,
         handle,
@@ -465,14 +466,15 @@ class CreateEvent extends React.Component {
             </FormGroup>
 
             <FormGroup>
-              <Label for="banner">Event Banner</Label>
-              <CustomInput
-                type="file"
-                id="banner"
-                name="banner"
-                label="Upload event's banner."
+              <Label for="icon">Organization Icon Url</Label>
+              <Input
+                type="text"
+                required
+                name="icon"
+                placeholder="Eg. https://upload.wikimedia.org/picnic-event.jpg"
+                id="icon"
                 onChange={this.onChange}
-                value={this.state.banner === null ? "" : this.state.banner}
+                value={this.state.icon === null ? "" : this.state.icon}
               />
             </FormGroup>
 
