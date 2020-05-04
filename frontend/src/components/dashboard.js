@@ -119,6 +119,7 @@ class Dashboard extends Component {
               </a>
             </div>
           }
+          handle={"@" + this.state.user.username}
         >
           <div className="sidebar-container">
             <h4>
@@ -162,7 +163,7 @@ class Dashboard extends Component {
           </div>
         </Sidebar>
         <div className="main">
-          <h1> Upcoming Events </h1>
+          <h1 className="dashboard-events"> Upcoming Events </h1>
           <p>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec
             elementum est eget mauris varius vulputate. Orci varius natoque
@@ -184,7 +185,7 @@ class Dashboard extends Component {
           </p>
         </div>
         <div className="main">
-          <h1> Explore Organizations </h1>
+          <h1 className="dashboard-orgs"> Explore Organizations </h1>
           <p>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec
             elementum est eget mauris varius vulputate. Orci varius natoque
@@ -200,7 +201,7 @@ class Dashboard extends Component {
           </p>
         </div>
         <div className="main">
-          <h1> Discover Friends </h1>
+          <h1 className="dashboard-friends"> Discover Friends </h1>
           <p>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec
             elementum est eget mauris varius vulputate. Orci varius natoque

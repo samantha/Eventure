@@ -8,6 +8,7 @@ export default class Sidebar extends Component {
       <Modal className="menu-sidebar left" show={this.props.isVisible}>
         <Modal.Header>
           <Modal.Title>{this.props.header}</Modal.Title>
+          <Modal.Title className="handle">{this.props.handle}</Modal.Title>
         </Modal.Header>
         <Modal.Body>{this.props.children}</Modal.Body>
       </Modal>

@@ -160,6 +160,7 @@ class UserPage extends Component {
               </a>
             </div>
           }
+          handle={"@" + this.state.user.username}
         >
           <div className="sidebar-container">
             <h4>
@@ -203,7 +204,10 @@ class UserPage extends Component {
           </div>
         </Sidebar>
         <div className="main">
-          <h1> {this.state.user.first}'s Achievements </h1>
+          <h1 className="dashboard-achievements">
+            {" "}
+            {this.state.user.first}'s Achievements{" "}
+          </h1>
           <p>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec
             elementum est eget mauris varius vulputate. Orci varius natoque
@@ -255,7 +259,10 @@ class UserPage extends Component {
           </p>
         </div>
         <div className="main">
-          <h1> {this.state.user.first}'s Friends </h1>
+          <h1 className="dashboard-friends">
+            {" "}
+            {this.state.user.first}'s Friends{" "}
+          </h1>
           <p>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec
             elementum est eget mauris varius vulputate. Orci varius natoque

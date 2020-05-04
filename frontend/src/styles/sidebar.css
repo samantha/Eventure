@@ -107,6 +107,21 @@
   width: 200px;
 }*/
 
+.modal-header a {
+  /*  color: white;
+
+*/
+  font-size: 20px;
+}
+
+.modal-title {
+  font-size: 20px;
+}
+
+.handle {
+  color: #17b87e;
+}
+
 a {
   color: white;
   font-size: 15px;
