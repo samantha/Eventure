@@ -11,6 +11,8 @@ import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import Sidebar from "../../components/sidebar";
+import SocialMedia from "../../components/SocialMedia";
+
 import "../../styles/dashboard.css";
 import { withRouter } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -180,6 +182,7 @@ class EventPage extends Component {
             <div className="sidebar-container">
               <div className="center">
                 <h1>Share Event</h1>
+                <SocialMedia />
               </div>
             </div>
           </div>
