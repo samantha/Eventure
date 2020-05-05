@@ -12,11 +12,11 @@
   height: 100%;
 }
 
-.card-container {
+.event-card-container {
   text-align: center;
   width: 250px;
   box-shadow: 5px 5px 5px black;
-  height: 350px;
+  height: 380px;
 }
 
 .card-body {
@@ -34,4 +34,42 @@
 .card-body a:hover {
   text-decoration: none;
   color: #17a2b8;
+}
+
+/* RSVPed */
+.rsvp.btn.btn-outline-primary {
+  color: #17a2b8;
+  border-color: #17a2b8;
+  font-size: 16px;
+  font-weight: bold;
+  padding: 2px 8px;
+  border-width: 1.5px;
+  margin-bottom: 5px;
+}
+
+.rsvp.btn.btn-outline-primary:hover {
+  background-color: #17a2b8;
+  border-color: #17a2b8;
+}
+
+/* RSVP */
+.rsvp.btn.btn-primary {
+  color: white;
+  border-color: #7b91b6;
+  background-color: #7b91b6;
+  font-size: 16px;
+  font-weight: bold;
+  padding: 2px 8px;
+  margin-bottom: 5px;
+}
+
+.rsvp.btn.btn-primary:hover {
+  background-color: #627491;
+  border-color: #627491;
+}
+
+div span {
+  position: absolute;
+  bottom: 0;
+  right: 0;
 }
