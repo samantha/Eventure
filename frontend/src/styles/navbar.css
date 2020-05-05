@@ -39,3 +39,7 @@ body {
   position: fixed;
   top: 0;
 }
+
+.navbar-nav:last-child {
+  margin-right: 35px;
+}
