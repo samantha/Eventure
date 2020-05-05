@@ -22,6 +22,8 @@ class OrganizationCard extends Component {
       isMember: false,
     };
     this.verifyMembership = this.verifyMembership.bind(this);
+    this.becomeMember = this.becomeMember.bind(this);
+    this.cancelMembership = this.cancelMembership.bind(this);
   }
 
   verifyMembership() {
@@ -49,6 +51,52 @@ class OrganizationCard extends Component {
       .catch((err) => console.log(err));
   }
 
+  becomeMember = (e) => {
+    e.preventDefault();
+    fetch("http://localhost:3000/memberships", {
+      method: "post",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        username: this.state.user.username,
+        org_handle: this.props.org.handle,
+      }),
+    })
+      .then((response) => response.json())
+      .then((item) => {
+        if (Array.isArray(item) && item.length) {
+          this.setState({
+            isMember: true,
+          });
+          window.location.reload(false);
+          // console.log(this.state.allOrgs);
+        } else {
+          console.log("failure");
+        }
+      })
+      .catch((err) => console.log(err));
+  };
+
+  cancelMembership = (e) => {
+    e.preventDefault();
+    fetch("http://localhost:3000/memberships", {
+      method: "delete",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        username: this.state.user.username,
+        org_handle: this.props.org.handle,
+      }),
+    })
+      .then((response) => response.json())
+      .catch((err) => console.log(err));
+
+    this.setState({ isMember: false });
+    window.location.reload(false);
+  };
+
   componentDidMount() {
     this.verifyMembership();
   }
@@ -65,13 +113,13 @@ class OrganizationCard extends Component {
     let membershipStatus;
     if (this.state.isMember) {
       membershipStatus = (
-        <Button outline color="primary">
+        <Button outline color="primary" onClick={this.cancelMembership}>
           Joined <FontAwesomeIcon icon={faCheck} />
         </Button>
       );
     } else {
       membershipStatus = (
-        <Button color="primary">
+        <Button color="primary" onClick={this.becomeMember}>
           Join <FontAwesomeIcon icon={faPlus} />
         </Button>
       );
