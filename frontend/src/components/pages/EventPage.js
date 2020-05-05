@@ -16,6 +16,7 @@ import { withRouter } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUserCircle, faHouseUser } from "@fortawesome/free-solid-svg-icons";
 import { library } from "@fortawesome/fontawesome-svg-core";
+
 library.add(faUserCircle, faHouseUser);
 
 class EventPage extends Component {
@@ -155,7 +156,7 @@ class EventPage extends Component {
           header={
             <div>
               <FontAwesomeIcon icon={faHouseUser} />{" "}
-              <a href={"/u/" + this.state.event.handle}>
+              <a href={"/e/" + this.state.event.handle}>
                 {this.state.event.name}
               </a>
             </div>
@@ -180,43 +181,22 @@ class EventPage extends Component {
               <div className="center">
                 <h1>Share Event</h1>
               </div>
-
-              {/*<div className="center">
-          {this.state.event.city}{", "}
-          {this.state.event.state}
-          </div>*/}
             </div>
           </div>
-          {/*<h4>
-              {" "}
-              {this.state.event.name}'s Events{" "}
-              <button
-                type="button"
-                className="btn btn-info"
-                onClick={this.onCreateEvent.bind(this)}
-              >
-                +
-              </button>{" "}
-            </h4>
-            <Nav>
-              {this.state.eventItems}
-              {/* <Nav.Link href="register">Manage Events</Nav.Link>*/}
-          {/*<button type="button" className="btn btn-outline-info manage">
-                Manage Events
-              </button>
-            </Nav>*/}
         </Sidebar>
-        <div className="main">
-          <h1 className="dashboard-events">Description</h1>
-          <p>{this.state.event.description}</p>
-        </div>
-        <div className="main">
-          <h1 className="dashboard-orgs">Cancellation Policy</h1>
-          <p>{this.state.event.cancellation_policy}</p>
-        </div>
-        <div className="main">
-          <h1 className="dashboard-friends">Attendees</h1>
-          <p>{this.state.event.description}</p>
+        <div className="main-container">
+          <div className="main">
+            <h1 className="dashboard-events">Description</h1>
+            <p>{this.state.event.description}</p>
+          </div>
+          <div className="main">
+            <h1 className="dashboard-orgs">Cancellation Policy</h1>
+            <p>{this.state.event.cancellation_policy}</p>
+          </div>
+          <div className="main">
+            <h1 className="dashboard-friends">Attendees</h1>
+            <p>{this.state.event.description}</p>
+          </div>
         </div>
       </div>
     );
