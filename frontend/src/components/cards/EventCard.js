@@ -28,7 +28,7 @@ class EventCard extends Component {
   }
 
   verifyRSVP() {
-    fetch("http://localhost:3000/verifyrsvps", {
+    fetch("http://localhost:3000/verifyrsvp", {
       method: "post",
       headers: {
         "Content-Type": "application/json",
@@ -137,7 +137,7 @@ class EventCard extends Component {
           color="primary"
           onClick={this.cancelRSVP}
         >
-          RSVPed <FontAwesomeIcon icon={faCheck} />
+          Going <FontAwesomeIcon icon={faCheck} />
         </Button>
       );
     } else {

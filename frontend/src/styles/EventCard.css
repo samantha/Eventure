@@ -38,8 +38,8 @@
 
 /* RSVPed */
 .rsvp.btn.btn-outline-primary {
-  color: #17a2b8;
-  border-color: #17a2b8;
+  color: #7b91b6;
+  border-color: #7b91b6;
   font-size: 16px;
   font-weight: bold;
   padding: 2px 8px;
@@ -48,8 +48,9 @@
 }
 
 .rsvp.btn.btn-outline-primary:hover {
-  background-color: #17a2b8;
-  border-color: #17a2b8;
+  background-color: #7b91b6;
+  border-color: #7b91b6;
+  color: white;
 }
 
 /* RSVP */
