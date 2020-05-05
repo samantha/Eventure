@@ -102,10 +102,9 @@
   width: 300px;
 }
 
-/*.modal-open
-{
-  width: 200px;
-}*/
+.modal-open {
+  overflow: auto !important;
+}
 
 .modal-header a {
   /*  color: white;
