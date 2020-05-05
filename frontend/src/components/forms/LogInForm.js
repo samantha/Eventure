@@ -158,7 +158,11 @@ class LogIn extends React.Component {
               />
             </FormGroup>
             <div className="form-group">
-              <input type="submit" value="Log In" className="btn btn-primary" />
+              <input
+                type="submit"
+                value="Log In"
+                className="initial btn btn-primary"
+              />
             </div>
             {status}
           </Form>

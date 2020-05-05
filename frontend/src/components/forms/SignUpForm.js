@@ -196,7 +196,7 @@ class SignUpForm extends React.Component {
               <input
                 type="submit"
                 value="Sign Up"
-                className="btn btn-primary"
+                className="initial btn btn-primary"
               />
             </div>
             {status}
