@@ -63,7 +63,20 @@ class Navigation extends Component {
 
     const userLinks = (
       <Nav>
-        <Nav.Link href="/dashboard">Dashboard</Nav.Link>
+        {/* <Nav.Link href="/dashboard">Dashboard</Nav.Link> */}
+
+        <NavDropdown title="Dashboard" id="collasible-nav-dropdown">
+          <NavDropdown.Item href="/dashboard#upcoming-events">
+            Upcoming Events
+          </NavDropdown.Item>
+          <NavDropdown.Item href="/dashboard#explore-orgs">
+            Explore Organizations
+          </NavDropdown.Item>
+          <NavDropdown.Item href="/dashboard#discover-friends">
+            Discover Friends
+          </NavDropdown.Item>
+        </NavDropdown>
+
         <NavDropdown title="Events" id="collasible-nav-dropdown">
           <NavDropdown.Item href="/create-event">Create</NavDropdown.Item>
           <NavDropdown.Item href="#action/3.2">View</NavDropdown.Item>
@@ -76,6 +89,13 @@ class Navigation extends Component {
           <NavDropdown.Item href={"/u/" + user.username}>
             Profile
           </NavDropdown.Item>
+          <NavDropdown.Item href={"/u/" + user.username + "#achievements"}>
+            Achievements
+          </NavDropdown.Item>
+          <NavDropdown.Item href={"/u/" + user.username + "#friends"}>
+            Friends
+          </NavDropdown.Item>
+
           <NavDropdown.Item href="#action/3.2">Settings</NavDropdown.Item>
           <NavDropdown.Divider />
           <NavDropdown.Item href="#" onClick={this.onChangeUser}>
@@ -95,7 +115,7 @@ class Navigation extends Component {
     return (
       <div className="container-fluid">
         {/*<Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">*/}
-        <Navbar collapseOnSelect expand="lg" variant="dark">
+        <Navbar sticky="top" collapseOnSelect expand="lg" variant="dark">
           <Navbar.Brand href="/">eventure</Navbar.Brand>
           {search}
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />

@@ -234,33 +234,45 @@ class Dashboard extends Component {
             </Nav>
           </div>
         </Sidebar>
-        <div className="main">
-          <h1 className="dashboard-events"> Upcoming Events </h1>
-          <Container fluid>
-            <Row>{upComingEvents}</Row>
-          </Container>
-        </div>
-        <div className="main">
-          <h1 className="dashboard-orgs"> Explore Organizations </h1>
-          <Container fluid>
-            <Row>{allOrgs}</Row>
-          </Container>
-        </div>
-        <div className="main">
-          <h1 className="dashboard-friends"> Discover Friends </h1>
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec
-            elementum est eget mauris varius vulputate. Orci varius natoque
-            penatibus et magnis dis parturient montes, nascetur ridiculus mus.
-            Nullam sagittis, sapien vulputate vehicula pharetra, nisi nibh
-            mollis dolor, sit amet porta tortor ex ac dui. Maecenas accumsan, mi
-            a imperdiet tincidunt, nisl ante ultricies tortor, sit amet accumsan
-            nisi leo et urna. Etiam est lorem, consequat id arcu sit amet,
-            egestas egestas eros. Proin finibus, est eget malesuada ultrices,
-            sapien nisi pretium ante, quis rutrum sapien est id ligula. metus,
-            eleifend quis sodales eget, vehicula vel augue. Suspendisse at
-            pellentesque lorem. Phasellus bibendum sodales consequat. Donec
-          </p>
+        <div className="main-container">
+          <div className="main">
+            <h1>
+              <span id="upcoming-events" className="dashboard-events"></span>{" "}
+              Upcoming Events{" "}
+            </h1>
+            <Container fluid>
+              <Row>{upComingEvents}</Row>
+            </Container>
+          </div>
+          <div className="main">
+            <h1>
+              <span id="explore-orgs" className="dashboard-orgs"></span> Explore
+              Organizations{" "}
+            </h1>
+            <Container fluid>
+              <Row>{allOrgs}</Row>
+            </Container>
+          </div>
+          <div className="main">
+            <h1>
+              <span id="discover-friends" className="dashboard-friends"></span>{" "}
+              Discover Friends{" "}
+            </h1>
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec
+              elementum est eget mauris varius vulputate. Orci varius natoque
+              penatibus et magnis dis parturient montes, nascetur ridiculus mus.
+              Nullam sagittis, sapien vulputate vehicula pharetra, nisi nibh
+              mollis dolor, sit amet porta tortor ex ac dui. Maecenas accumsan,
+              mi a imperdiet tincidunt, nisl ante ultricies tortor, sit amet
+              accumsan nisi leo et urna. Etiam est lorem, consequat id arcu sit
+              amet, egestas egestas eros. Proin finibus, est eget malesuada
+              ultrices, sapien nisi pretium ante, quis rutrum sapien est id
+              ligula. metus, eleifend quis sodales eget, vehicula vel augue.
+              Suspendisse at pellentesque lorem. Phasellus bibendum sodales
+              consequat. Donec
+            </p>
+          </div>
         </div>
       </div>
     );

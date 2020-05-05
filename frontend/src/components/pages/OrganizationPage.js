@@ -16,6 +16,8 @@ import { withRouter } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUserCircle, faHouseUser } from "@fortawesome/free-solid-svg-icons";
 import { library } from "@fortawesome/fontawesome-svg-core";
+import EventCard from "../../components/cards/EventCard";
+
 library.add(faUserCircle, faHouseUser);
 
 class OrganizationPage extends Component {
@@ -25,12 +27,10 @@ class OrganizationPage extends Component {
     this.state = {
       org: {},
       orgItems: null,
-      eventItems: null,
+      orgEvents: null,
       isVisible: false,
     };
     this.getOrg = this.getOrg.bind(this);
-    this.getUserOrgs = this.getUserOrgs.bind(this);
-    this.getUserEvents = this.getUserEvents.bind(this);
   }
   updateModal(isVisible) {
     this.state.isVisible = isVisible;
@@ -68,82 +68,10 @@ class OrganizationPage extends Component {
       .catch((err) => console.log(err));
   }
 
-  getUserOrgs() {
-    console.log("get user orgs");
-    fetch("http://localhost:3000/userorgs", {
-      method: "post",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        username: this.props.match.params.username,
-      }),
-    })
-      .then((response) => response.json())
-      .then((item) => {
-        if (Array.isArray(item)) {
-          item.forEach((element) => console.log(element));
-          const orgItems = item.map((org) => (
-            <div className="my-orgs">
-              <a href={"/o/" + org.handle}>{org.name}</a>
-            </div>
-          ));
-          this.setState({
-            orgItems: orgItems,
-          });
-          console.log(this.state.orgItems);
-        } else {
-          console.log("failure");
-        }
-      })
-      .catch((err) => console.log(err));
-  }
-
-  getUserEvents() {
-    console.log("get user events");
-    fetch("http://localhost:3000/userevents", {
-      method: "post",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        username: this.props.match.params.username,
-      }),
-    })
-      .then((response) => response.json())
-      .then((item) => {
-        if (Array.isArray(item)) {
-          item.forEach((element) => console.log(element));
-          const eventItems = item.map((event) => (
-            <div className="my-orgs">
-              <a href={"/e/" + event.handle}>{event.name}</a>
-            </div>
-          ));
-          this.setState({
-            eventItems: eventItems,
-          });
-          console.log(this.state.eventItems);
-        } else {
-          console.log("failure");
-        }
-      })
-      .catch((err) => console.log(err));
-  }
-
-  onCreateOrg() {
-    this.props.history.push("/create-org");
-  }
-
-  onCreateEvent() {
-    this.props.history.push("/create-event");
-  }
-
   componentDidMount() {
     // get and set currently logged in user to state
     // if item exists, populate the state with proper data
     this.getOrg();
-    this.getUserOrgs();
-    this.getUserEvents();
   }
 
   render() {
@@ -202,17 +130,19 @@ class OrganizationPage extends Component {
               </button>
             </Nav>*/}
         </Sidebar>
-        <div className="main">
-          <h1 className="dashboard-orgs">About</h1>
-          <p>{this.state.org.description}</p>
-        </div>
-        <div className="main">
-          <h1 className="dashboard-events">Events</h1>
-          <p>{this.state.org.description}</p>
-        </div>
-        <div className="main">
-          <h1 className="dashboard-friends">Members</h1>
-          <p>{this.state.org.description}</p>
+        <div className="main-container">
+          <div className="main">
+            <h1 className="dashboard-orgs">About</h1>
+            <p>{this.state.org.description}</p>
+          </div>
+          <div className="main">
+            <h1 className="dashboard-events">Events</h1>
+            <p>{this.state.org.description}</p>
+          </div>
+          <div className="main">
+            <h1 className="dashboard-friends">Members</h1>
+            <p>{this.state.org.description}</p>
+          </div>
         </div>
       </div>
     );
