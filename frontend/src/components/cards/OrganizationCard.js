@@ -137,7 +137,9 @@ class OrganizationCard extends Component {
               {" "}
               <a href={"/o/" + this.props.org.handle}>{this.props.org.name}</a>
             </CardTitle>
-            <div className="card-button">{membershipStatus}</div>
+            <div className="card-button">
+              <span>{membershipStatus}</span>
+            </div>
           </CardBody>
         </Card>
       </div>

@@ -165,7 +165,7 @@ class Dashboard extends Component {
     let upComingEvents = this.state.upcomingEvents.map((event) => {
       return (
         <Col>
-          <EventCard event={event} />
+          <EventCard event={event} user={this.state.user} />
         </Col>
       );
     });

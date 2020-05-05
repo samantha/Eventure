@@ -14,9 +14,9 @@ const getTableData = (req, res, db) => {
 
 // POST function that will add a row to the table
 const postTableData = (req, res, db) => {
-  const { id, event_handle, username, rsvp, attended } = req.body;
+  const { id, event_handle, username, attended } = req.body;
   db("rsvps")
-    .insert({ id, event_handle, username, rsvp, attended })
+    .insert({ id, event_handle, username, attended })
     .returning("*")
     .then((item) => {
       res.json(item);
@@ -26,10 +26,10 @@ const postTableData = (req, res, db) => {
 
 // PUT function that will update a row with a given id
 const putTableData = (req, res, db) => {
-  const { id, event_handle, username, rsvp, attended } = req.body;
+  const { id, event_handle, username, attended } = req.body;
   db("rsvps")
     .where({ id })
-    .update({ event_handle, username, rsvp, attended })
+    .update({ event_handle, username, attended })
     .returning("*")
     .then((item) => {
       res.json(item);
@@ -39,9 +39,9 @@ const putTableData = (req, res, db) => {
 
 // DELETE function that will delete a row with a given id
 const deleteTableData = (req, res, db) => {
-  const { id } = req.body;
+  const { username, event_handle } = req.body;
   db("rsvps")
-    .where({ id })
+    .where({ username, event_handle })
     .del()
     .then(() => {
       res.json({ delete: "true" });

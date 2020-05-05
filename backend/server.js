@@ -58,6 +58,7 @@ const specificorg = require("./controllers/SpecificOrg");
 const upcomingevents = require("./controllers/UpcomingEvents");
 
 const verifymembership = require("./controllers/VerifyMembership");
+const verifyrsvp = require("./controllers/VerifyRSVP");
 
 // const organizations = ('./controllers/organizations');
 
@@ -125,6 +126,7 @@ app.get("/rsvps", (req, res) => rsvps.getTableData(req, res, db));
 app.post("/rsvps", (req, res) => rsvps.postTableData(req, res, db));
 app.put("/rsvps", (req, res) => rsvps.putTableData(req, res, db));
 app.post("/rsvps", (req, res) => rsvps.postTableData(req, res, db));
+app.delete("/rsvps", (req, res) => rsvps.deleteTableData(req, res, db));
 
 app.post("/usermanagedorgs", (req, res) =>
   usermanagedorgs.postTableData(req, res, db)
@@ -149,6 +151,8 @@ app.post("/specificorg", (req, res) => specificorg.postTableData(req, res, db));
 app.post("/verifymembership", (req, res) =>
   verifymembership.postTableData(req, res, db)
 );
+
+app.post("/verifyrsvp", (req, res) => verifyrsvp.postTableData(req, res, db));
 
 app.get("/upcomingevents", (req, res) =>
   upcomingevents.getTableData(req, res, db)

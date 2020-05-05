@@ -76,15 +76,9 @@ class Navigation extends Component {
             Discover Friends
           </NavDropdown.Item>
         </NavDropdown>
+        <Nav.Link href="/create-event">Create Event</Nav.Link>
+        <Nav.Link href="/create-org">Create Organizations</Nav.Link>
 
-        <NavDropdown title="Events" id="collasible-nav-dropdown">
-          <NavDropdown.Item href="/create-event">Create</NavDropdown.Item>
-          <NavDropdown.Item href="#action/3.2">View</NavDropdown.Item>
-        </NavDropdown>
-        <NavDropdown title="Organizations" id="collasible-nav-dropdown">
-          <NavDropdown.Item href="/create-org">Create</NavDropdown.Item>
-          <NavDropdown.Item href="#action/3.2">View</NavDropdown.Item>
-        </NavDropdown>
         <NavDropdown title={name} id="collasible-nav-dropdown">
           <NavDropdown.Item href={"/u/" + user.username}>
             Profile
