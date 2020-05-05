@@ -126,6 +126,7 @@ app.get("/rsvps", (req, res) => rsvps.getTableData(req, res, db));
 app.post("/rsvps", (req, res) => rsvps.postTableData(req, res, db));
 app.put("/rsvps", (req, res) => rsvps.putTableData(req, res, db));
 app.post("/rsvps", (req, res) => rsvps.postTableData(req, res, db));
+app.delete("/rsvps", (req, res) => rsvps.deleteTableData(req, res, db));
 
 app.post("/usermanagedorgs", (req, res) =>
   usermanagedorgs.postTableData(req, res, db)

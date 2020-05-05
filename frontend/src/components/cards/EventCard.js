@@ -105,7 +105,6 @@ class EventCard extends Component {
   render() {
     var oldDate = new Date(Date.parse(this.props.event.from_date));
     var newDate = oldDate.toDateString();
-    console.log(newDate);
 
     var oldTime = this.props.event.start_time.split(":");
     if (oldTime[0] < 12) {
@@ -118,7 +117,6 @@ class EventCard extends Component {
       }
     }
     var newTime = oldTime[0] + ":" + oldTime[1] + " " + oldTime[2];
-    console.log(newTime);
 
     let event_image;
     if (this.props.event.icon !== "" && this.props.event.icon != null) {
