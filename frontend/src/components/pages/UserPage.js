@@ -147,6 +147,14 @@ class UserPage extends Component {
   }
 
   render() {
+    let user_image;
+    if (this.state.user.icon !== "" && this.state.user.icon != null) {
+      user_image = this.state.user.icon;
+    } else {
+      user_image =
+        "https://images.unsplash.com/photo-1458852535794-f5552aa49872?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60";
+    }
+
     return (
       <div className="sidenav">
         <Sidebar
@@ -154,6 +162,7 @@ class UserPage extends Component {
           isVisible={true}
           header={
             <div>
+              <img width="100%" src={user_image} />
               <FontAwesomeIcon icon={faHouseUser} />{" "}
               <a href={"/u/" + this.state.user.username}>
                 {this.state.user.first + " " + this.state.user.last}

@@ -10,6 +10,8 @@ import { faUserCircle, faHouseUser } from "@fortawesome/free-solid-svg-icons";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import EventCard from "../components/cards/EventCard";
 import OrganizationCard from "../components/cards/OrganizationCard";
+import UserCard from "../components/cards/UserCard";
+
 import { Container, Row, Col } from "reactstrap";
 library.add(faUserCircle, faHouseUser);
 
@@ -23,16 +25,42 @@ class Dashboard extends Component {
       eventItems: null,
       upcomingEvents: [],
       allOrgs: [],
+      allUsers: [],
       isVisible: false,
     };
     this.getUserOrgs = this.getUserOrgs.bind(this);
     this.getUserEvents = this.getUserEvents.bind(this);
     this.getUpcomingEvents = this.getUpcomingEvents.bind(this);
     this.getAllOrgs = this.getAllOrgs.bind(this);
+    this.getAllUsers = this.getAllUsers.bind(this);
   }
   updateModal(isVisible) {
     this.state.isVisible = isVisible;
     this.forceUpdate();
+  }
+
+  getAllUsers() {
+    console.log("get users");
+    fetch("http://localhost:3000/users", {
+      method: "get",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((response) => response.json())
+      .then((item) => {
+        if (Array.isArray(item)) {
+          // item.forEach((element) => console.log(element));
+          // const orgItems = item.map((org) => (<Link to={'o/' + org.handle} />));
+          this.setState({
+            allUsers: item,
+          });
+          // console.log(this.state.allOrgs);
+        } else {
+          console.log("failure");
+        }
+      })
+      .catch((err) => console.log(err));
   }
 
   getAllOrgs() {
@@ -158,6 +186,7 @@ class Dashboard extends Component {
     this.getUpcomingEvents();
     this.getAllOrgs();
     this.getUserOrgs();
+    this.getAllUsers();
     this.getUserEvents();
   }
 
@@ -177,6 +206,16 @@ class Dashboard extends Component {
         </Col>
       );
     });
+
+    let allOtherUsers = this.state.allUsers
+      .filter((member) => member.username !== this.state.user.username)
+      .map((member) => {
+        return (
+          <Col>
+            <UserCard member={member} user={this.state.user} />
+          </Col>
+        );
+      });
 
     return (
       <div className="sidenav">
@@ -258,20 +297,9 @@ class Dashboard extends Component {
               <span id="discover-friends" className="dashboard-friends"></span>{" "}
               Discover Friends{" "}
             </h1>
-            <p>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec
-              elementum est eget mauris varius vulputate. Orci varius natoque
-              penatibus et magnis dis parturient montes, nascetur ridiculus mus.
-              Nullam sagittis, sapien vulputate vehicula pharetra, nisi nibh
-              mollis dolor, sit amet porta tortor ex ac dui. Maecenas accumsan,
-              mi a imperdiet tincidunt, nisl ante ultricies tortor, sit amet
-              accumsan nisi leo et urna. Etiam est lorem, consequat id arcu sit
-              amet, egestas egestas eros. Proin finibus, est eget malesuada
-              ultrices, sapien nisi pretium ante, quis rutrum sapien est id
-              ligula. metus, eleifend quis sodales eget, vehicula vel augue.
-              Suspendisse at pellentesque lorem. Phasellus bibendum sodales
-              consequat. Donec
-            </p>
+            <Container fluid>
+              <Row>{allOtherUsers}</Row>
+            </Container>
           </div>
         </div>
       </div>
