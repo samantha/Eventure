@@ -8,6 +8,8 @@ import { withRouter } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUserCircle, faHouseUser } from "@fortawesome/free-solid-svg-icons";
 import { library } from "@fortawesome/fontawesome-svg-core";
+import EventCard from "../components/cards/EventCard";
+import { Row, Col } from "reactstrap";
 library.add(faUserCircle, faHouseUser);
 
 class Dashboard extends Component {
@@ -18,14 +20,40 @@ class Dashboard extends Component {
       user: props.user,
       orgItems: null,
       eventItems: null,
+      upcomingEvents: [],
       isVisible: false,
     };
     this.getUserOrgs = this.getUserOrgs.bind(this);
     this.getUserEvents = this.getUserEvents.bind(this);
+    this.getUpcomingEvents = this.getUpcomingEvents.bind(this);
   }
   updateModal(isVisible) {
     this.state.isVisible = isVisible;
     this.forceUpdate();
+  }
+
+  getUpcomingEvents() {
+    console.log("get orgs");
+    fetch("http://localhost:3000/upcomingevents", {
+      method: "get",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((response) => response.json())
+      .then((item) => {
+        if (Array.isArray(item)) {
+          // item.forEach((element) => console.log(element));
+          // const orgItems = item.map((org) => (<Link to={'o/' + org.handle} />));
+          this.setState({
+            upcomingEvents: item,
+          });
+          // console.log(this.state.allOrgs);
+        } else {
+          console.log("failure");
+        }
+      })
+      .catch((err) => console.log(err));
   }
 
   getUserOrgs() {
@@ -101,11 +129,20 @@ class Dashboard extends Component {
   componentDidMount() {
     // get and set currently logged in user to state
     // if item exists, populate the state with proper data
+    this.getUpcomingEvents();
     this.getUserOrgs();
     this.getUserEvents();
   }
 
   render() {
+    let upComingEvents = this.state.upcomingEvents.map((event) => {
+      return (
+        <Col>
+          <EventCard event={event} />
+        </Col>
+      );
+    });
+
     return (
       <div className="sidenav">
         <Sidebar
@@ -164,25 +201,7 @@ class Dashboard extends Component {
         </Sidebar>
         <div className="main">
           <h1 className="dashboard-events"> Upcoming Events </h1>
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec
-            elementum est eget mauris varius vulputate. Orci varius natoque
-            penatibus et magnis dis parturient montes, nascetur ridiculus mus.
-            Nullam sagittis, sapien vulputate vehicula pharetra, nisi nibh
-            mollis dolor, sit amet porta tortor ex ac dui. Maecenas accumsan, mi
-            a imperdiet tincidunt, nisl ante ultricies tortor, sit amet accumsan
-            nisi leo et urna. Etiam est lorem, consequat id arcu sit amet,
-            egestas egestas eros. Proin finibus, est eget malesuada ultrices,
-            sapien nisi pretium ante, quis rutrum sapien est id ligula.
-            Curabitur interdum sagittis accumsan. Morbi ut malesuada justo, eget
-            dapibus leo. Etiam metus tortor, dapibus eget elementum id, volutpat
-            eu enim. Nulla rutrum odio elit, in finibus purus pretium nec.
-            Aenean et cursus nulla, quis semper velit. Vestibulum sit amet quam
-            purus. Donec ut tempor diam. Proin vitae egestas lectus. Nullam vel
-            dui turpis. Duis lobortis, quam ac tristique congue, quam massa
-            convallis lectus, id tempus velit nulla non nisl. Phasellus
-            venenatis eros eu molestie pretium. Sed condimentum nisi ut quam
-          </p>
+          <Row>{upComingEvents}</Row>
         </div>
         <div className="main">
           <h1 className="dashboard-orgs"> Explore Organizations </h1>

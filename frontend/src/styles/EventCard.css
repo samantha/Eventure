@@ -1,0 +1,37 @@
+.card-img,
+.card-img-top {
+  object-fit: cover;
+  width: 250px;
+  height: 250px;
+  padding: 0.6rem;
+}
+
+.card {
+  width: 250px;
+  background-color: black;
+  height: 100%;
+}
+
+.card-container {
+  text-align: center;
+  width: 250px;
+  box-shadow: 5px 5px 5px black;
+  height: 350px;
+}
+
+.card-body {
+  width: 250px;
+  padding: 0.5rem;
+  text-align: left;
+}
+
+.card-text {
+  font-size: 12px;
+  margin-bottom: 5px;
+  color: #7b91b6;
+}
+
+.card-body a:hover {
+  text-decoration: none;
+  color: #17a2b8;
+}

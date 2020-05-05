@@ -54,6 +54,8 @@ const specificevent = require("./controllers/SpecificEvent");
 const specificuser = require("./controllers/SpecificUser");
 const specificorg = require("./controllers/SpecificOrg");
 
+const upcomingevents = require("./controllers/UpcomingEvents");
+
 // const organizations = ('./controllers/organizations');
 
 // App
@@ -137,6 +139,10 @@ app.post("/specificuser", (req, res) =>
   specificuser.postTableData(req, res, db)
 );
 app.post("/specificorg", (req, res) => specificorg.postTableData(req, res, db));
+
+app.get("/upcomingevents", (req, res) =>
+  upcomingevents.getTableData(req, res, db)
+);
 
 // app.get('/organizations', (req, res) => organizations.getTableData(req, res, db))
 // app.post('/organizations', (req, res) => organizations.postTableData(req, res, db))
