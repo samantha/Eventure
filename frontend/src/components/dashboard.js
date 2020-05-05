@@ -173,7 +173,7 @@ class Dashboard extends Component {
     let allOrgs = this.state.allOrgs.map((org) => {
       return (
         <Col>
-          <OrganizationCard org={org} />
+          <OrganizationCard org={org} user={this.state.user} />
         </Col>
       );
     });

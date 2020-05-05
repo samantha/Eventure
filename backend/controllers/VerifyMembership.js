@@ -1,7 +1,13 @@
 // POST function that returns a specific user
 const postTableData = (req, res, db) => {
-  const { username } = req.body;
-  db.raw("SELECT * FROM users WHERE username='" + username + "'")
+  const { username, org_handle } = req.body;
+  db.raw(
+    "SELECT * FROM memberships WHERE username='" +
+      username +
+      "' AND org_handle='" +
+      org_handle +
+      "' "
+  )
     .then((item) => {
       if (item.length == 0) {
         res.status(400).json({ dbError: "Empty: No users found" });

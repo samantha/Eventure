@@ -57,6 +57,8 @@ const specificorg = require("./controllers/SpecificOrg");
 
 const upcomingevents = require("./controllers/UpcomingEvents");
 
+const verifymembership = require("./controllers/VerifyMembership");
+
 // const organizations = ('./controllers/organizations');
 
 // App
@@ -143,6 +145,10 @@ app.post("/specificuser", (req, res) =>
   specificuser.postTableData(req, res, db)
 );
 app.post("/specificorg", (req, res) => specificorg.postTableData(req, res, db));
+
+app.post("/verifymembership", (req, res) =>
+  verifymembership.postTableData(req, res, db)
+);
 
 app.get("/upcomingevents", (req, res) =>
   upcomingevents.getTableData(req, res, db)
