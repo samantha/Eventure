@@ -55,6 +55,8 @@ const userorgs = require("./controllers/userorgs");
 const orgmanagedevents = require("./controllers/OrgManagedEvents");
 const usermanagedevents = require("./controllers/UserManagedEvents");
 const userevents = require("./controllers/userevents");
+const userfriends = require("./controllers/UserFriends");
+
 const specificevent = require("./controllers/SpecificEvent");
 const specificuser = require("./controllers/SpecificUser");
 const specificorg = require("./controllers/SpecificOrg");
@@ -183,6 +185,8 @@ app.post("/usermanagedevents", (req, res) =>
   usermanagedevents.postTableData(req, res, db)
 );
 app.post("/userevents", (req, res) => userevents.postTableData(req, res, db));
+app.post("/userfriends", (req, res) => userfriends.postTableData(req, res, db));
+
 app.post("/specificevent", (req, res) =>
   specificevent.postTableData(req, res, db)
 );
