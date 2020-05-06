@@ -156,12 +156,20 @@ class App extends React.Component {
           changeUser={this.onChangeUser.bind(this)}
         />
         <Route path="/" exact component={Home} />
-        <Route path="/o/:handle" component={OrganizationPage} />
+        <Route
+          path="/o/:handle"
+          render={(props) => (
+            <OrganizationPage {...props} currentUser={currentUser} />
+          )}
+        />
         <Route
           path="/u/:username"
           render={(props) => <UserPage {...props} currentUser={currentUser} />}
         />
-        <Route path="/e/:handle" component={EventPage} />
+        <Route
+          path="/e/:handle"
+          render={(props) => <EventPage {...props} currentUser={currentUser} />}
+        />
 
         <Route path="/test" component={Test} />
         <Route path="/register" component={Register} />

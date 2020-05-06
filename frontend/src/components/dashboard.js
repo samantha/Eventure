@@ -23,6 +23,7 @@ class Dashboard extends Component {
       user: props.user,
       orgItems: null,
       eventItems: null,
+      userFriends: null,
       upcomingEvents: [],
       allOrgs: [],
       allUsers: [],
@@ -30,9 +31,12 @@ class Dashboard extends Component {
     };
     this.getUserOrgs = this.getUserOrgs.bind(this);
     this.getUserEvents = this.getUserEvents.bind(this);
+    this.getUserFriends = this.getUserFriends.bind(this);
+
     this.getUpcomingEvents = this.getUpcomingEvents.bind(this);
     this.getAllOrgs = this.getAllOrgs.bind(this);
     this.getAllUsers = this.getAllUsers.bind(this);
+    this.manageFriends = this.manageFriends.bind(this);
   }
   updateModal(isVisible) {
     this.state.isVisible = isVisible;
@@ -110,6 +114,40 @@ class Dashboard extends Component {
       .catch((err) => console.log(err));
   }
 
+  getUserFriends() {
+    console.log("get friends");
+    fetch("http://localhost:3000/userfriends", {
+      method: "post",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        username: this.state.user.username,
+      }),
+    })
+      .then((response) => response.json())
+      .then((item) => {
+        if (Array.isArray(item)) {
+          // item.forEach((element) => console.log(element));
+          // const orgItems = item.map((org) => (<Link to={'o/' + org.handle} />));
+          const userFriends = item.map((friend) => (
+            <div className="my-orgs">
+              <a href={"/u/" + friend.username}>
+                {friend.first} {friend.last}
+              </a>
+            </div>
+          ));
+          this.setState({
+            userFriends: userFriends,
+          });
+          // console.log(this.state.allOrgs);
+        } else {
+          console.log("failure");
+        }
+      })
+      .catch((err) => console.log(err));
+  }
+
   getUserOrgs() {
     console.log("get user orgs");
     fetch("http://localhost:3000/userorgs", {
@@ -124,7 +162,6 @@ class Dashboard extends Component {
       .then((response) => response.json())
       .then((item) => {
         if (Array.isArray(item)) {
-          item.forEach((element) => console.log(element));
           const orgItems = item.map((org) => (
             <div className="my-orgs">
               <a href={"/o/" + org.handle}>{org.name}</a>
@@ -155,7 +192,6 @@ class Dashboard extends Component {
       .then((response) => response.json())
       .then((item) => {
         if (Array.isArray(item)) {
-          item.forEach((element) => console.log(element));
           const eventItems = item.map((event) => (
             <div className="my-orgs">
               <a href={"/e/" + event.handle}>{event.name}</a>
@@ -180,12 +216,17 @@ class Dashboard extends Component {
     this.props.history.push("/create-event");
   }
 
+  manageFriends() {
+    this.props.history.push("/u/" + this.state.user.username + "#friends");
+  }
+
   componentDidMount() {
     // get and set currently logged in user to state
     // if item exists, populate the state with proper data
     this.getUpcomingEvents();
     this.getAllOrgs();
     this.getUserOrgs();
+    this.getUserFriends();
     this.getAllUsers();
     this.getUserEvents();
   }
@@ -236,18 +277,18 @@ class Dashboard extends Component {
             <h4>
               {" "}
               Your Organizations{" "}
-              <button
+              {/*  <button
                 type="button"
                 className="btn btn-info"
                 onClick={this.onCreateOrg.bind(this)}
               >
                 +
-              </button>{" "}
+              </button>{" "} */}
             </h4>
             <Nav>
               {this.state.orgItems}
               {/*<Nav.Link href="register">Manage Organizations</Nav.Link>}*/}
-              <button type="button" className="btn btn-outline-info manage">
+              <button type="button" className="btn btn-info manage">
                 Manage Organizations
               </button>
             </Nav>
@@ -256,19 +297,33 @@ class Dashboard extends Component {
             <h4>
               {" "}
               Your Events{" "}
-              <button
+              {/*   <button
                 type="button"
                 className="btn btn-info"
                 onClick={this.onCreateEvent.bind(this)}
               >
-                +
-              </button>{" "}
+                Create +
+              </button>{" "} */}
             </h4>
             <Nav>
               {this.state.eventItems}
               {/* <Nav.Link href="register">Manage Events</Nav.Link>*/}
-              <button type="button" className="btn btn-outline-info manage">
+              <button type="button" className="btn btn-info manage">
                 Manage Events
+              </button>
+            </Nav>
+          </div>
+
+          <div className="sidebar-container">
+            <h4> Your Friends</h4>
+            <Nav>
+              {this.state.userFriends}
+              <button
+                type="button"
+                className="btn btn-info manage"
+                onClick={this.manageFriends}
+              >
+                Manage Friends
               </button>
             </Nav>
           </div>

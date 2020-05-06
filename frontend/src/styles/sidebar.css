@@ -145,8 +145,7 @@ h4 {
   color: #17a2b8;
 }
 .btn-info {
-  padding: 1px 5px;
-  font-size: 12px;
+  padding: 3px 6px;
 }
 
 .my-orgs {
@@ -154,7 +153,8 @@ h4 {
   width: 100%;
   padding-top: 5px;
   padding-bottom: 5px;
-  border-bottom: 2px solid #111111;
+  /*  border-bottom: 2px solid #111111;
+*/
 }
 
 .my-orgs a:hover {
@@ -164,6 +164,9 @@ h4 {
 
 .manage {
   margin-top: 15px;
+  font-weight: bold;
+  font-size: 15px;
+  width: 100%;
 }
 
 img {

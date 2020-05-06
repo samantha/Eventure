@@ -68,6 +68,10 @@ const verifyfriendship = require("./controllers/VerifyFriendship");
 
 const verifyrsvp = require("./controllers/VerifyRSVP");
 
+const friendcount = require("./controllers/FriendCount");
+const eventcount = require("./controllers/EventCount");
+const orgcount = require("./controllers/OrgCount");
+
 // const organizations = ('./controllers/organizations');
 
 // App
@@ -207,6 +211,10 @@ app.post("/verifyrsvp", (req, res) => verifyrsvp.postTableData(req, res, db));
 app.get("/upcomingevents", (req, res) =>
   upcomingevents.getTableData(req, res, db)
 );
+
+app.post("/orgcount", (req, res) => orgcount.postTableData(req, res, db));
+app.post("/eventcount", (req, res) => eventcount.postTableData(req, res, db));
+app.post("/friendcount", (req, res) => friendcount.postTableData(req, res, db));
 
 // app.get('/organizations', (req, res) => organizations.getTableData(req, res, db))
 // app.post('/organizations', (req, res) => organizations.postTableData(req, res, db))
