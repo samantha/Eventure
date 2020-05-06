@@ -41,7 +41,11 @@ const orgs = require("./controllers/orgs");
 const events = require("./controllers/events");
 const socials = require("./controllers/socials");
 const memberships = require("./controllers/memberships");
+const achievements = require("./controllers/achievements");
+const userachievements = require("./controllers/UserAchievements");
 const tags = require("./controllers/tags");
+const friendships = require("./controllers/friendships");
+
 const auth = require("./controllers/auth");
 const rsvps = require("./controllers/rsvps");
 
@@ -51,6 +55,8 @@ const userorgs = require("./controllers/userorgs");
 const orgmanagedevents = require("./controllers/OrgManagedEvents");
 const usermanagedevents = require("./controllers/UserManagedEvents");
 const userevents = require("./controllers/userevents");
+const userfriends = require("./controllers/UserFriends");
+
 const specificevent = require("./controllers/SpecificEvent");
 const specificuser = require("./controllers/SpecificUser");
 const specificorg = require("./controllers/SpecificOrg");
@@ -58,7 +64,13 @@ const specificorg = require("./controllers/SpecificOrg");
 const upcomingevents = require("./controllers/UpcomingEvents");
 
 const verifymembership = require("./controllers/VerifyMembership");
+const verifyfriendship = require("./controllers/VerifyFriendship");
+
 const verifyrsvp = require("./controllers/VerifyRSVP");
+
+const friendcount = require("./controllers/FriendCount");
+const eventcount = require("./controllers/EventCount");
+const orgcount = require("./controllers/OrgCount");
 
 // const organizations = ('./controllers/organizations');
 
@@ -119,14 +131,51 @@ app.get("/tags", (req, res) => tags.getTableData(req, res, db));
 app.post("/tags", (req, res) => tags.postTableData(req, res, db));
 app.put("/tags", (req, res) => tags.putTableData(req, res, db));
 app.delete("/tags", (req, res) => tags.deleteTableData(req, res, db));
+
+// Friendship Routes
+app.get("/friendships", (req, res) => friendships.getTableData(req, res, db));
+app.post("/friendships", (req, res) => friendships.postTableData(req, res, db));
+app.put("/friendships", (req, res) => friendships.putTableData(req, res, db));
+app.delete("/friendships", (req, res) =>
+  friendships.deleteTableData(req, res, db)
+);
+
 // Auth Routes
 app.post("/auth", (req, res) => auth.postTableData(req, res, db));
-
+// RSVP routes
 app.get("/rsvps", (req, res) => rsvps.getTableData(req, res, db));
 app.post("/rsvps", (req, res) => rsvps.postTableData(req, res, db));
 app.put("/rsvps", (req, res) => rsvps.putTableData(req, res, db));
 app.post("/rsvps", (req, res) => rsvps.postTableData(req, res, db));
 app.delete("/rsvps", (req, res) => rsvps.deleteTableData(req, res, db));
+// Achievement Routes
+app.get("/achievements", (req, res) => achievements.getTableData(req, res, db));
+app.post("/achievements", (req, res) =>
+  achievements.postTableData(req, res, db)
+);
+app.put("/achievements", (req, res) => achievements.putTableData(req, res, db));
+app.post("/achievements", (req, res) =>
+  achievements.postTableData(req, res, db)
+);
+app.delete("/achievements", (req, res) =>
+  achievements.deleteTableData(req, res, db)
+);
+// User Achievement Routes
+app.get("/userachievements", (req, res) =>
+  userachievements.getTableData(req, res, db)
+);
+app.post("/userachievements", (req, res) =>
+  userachievements.postTableData(req, res, db)
+);
+app.put("/userachievements", (req, res) =>
+  userachievements.putTableData(req, res, db)
+);
+app.post("/userachievements", (req, res) =>
+  userachievements.postTableData(req, res, db)
+);
+app.delete("/userachievements", (req, res) =>
+  userachievements.deleteTableData(req, res, db)
+);
 
 app.post("/usermanagedorgs", (req, res) =>
   usermanagedorgs.postTableData(req, res, db)
@@ -140,6 +189,8 @@ app.post("/usermanagedevents", (req, res) =>
   usermanagedevents.postTableData(req, res, db)
 );
 app.post("/userevents", (req, res) => userevents.postTableData(req, res, db));
+app.post("/userfriends", (req, res) => userfriends.postTableData(req, res, db));
+
 app.post("/specificevent", (req, res) =>
   specificevent.postTableData(req, res, db)
 );
@@ -151,12 +202,19 @@ app.post("/specificorg", (req, res) => specificorg.postTableData(req, res, db));
 app.post("/verifymembership", (req, res) =>
   verifymembership.postTableData(req, res, db)
 );
+app.post("/verifyfriendship", (req, res) =>
+  verifyfriendship.postTableData(req, res, db)
+);
 
 app.post("/verifyrsvp", (req, res) => verifyrsvp.postTableData(req, res, db));
 
 app.get("/upcomingevents", (req, res) =>
   upcomingevents.getTableData(req, res, db)
 );
+
+app.post("/orgcount", (req, res) => orgcount.postTableData(req, res, db));
+app.post("/eventcount", (req, res) => eventcount.postTableData(req, res, db));
+app.post("/friendcount", (req, res) => friendcount.postTableData(req, res, db));
 
 // app.get('/organizations', (req, res) => organizations.getTableData(req, res, db))
 // app.post('/organizations', (req, res) => organizations.postTableData(req, res, db))

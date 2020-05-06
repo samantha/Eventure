@@ -11,6 +11,11 @@
   transform: translate3d(100%, 0, 0);
 }*/
 
+::-webkit-scrollbar {
+  width: 0px; /* Remove scrollbar space */
+  background: transparent; /* Optional: just make scrollbar invisible */
+}
+
 .sidebar-container {
   border-bottom: 2px solid #191919;
   padding-bottom: 15px;
@@ -23,7 +28,13 @@
   border-bottom: 2px solid #191919;
   border-top-left-radius: 0;
   border-top-right-radius: 0;
-  width: 330px;
+  width: 350px;
+  position: relative;
+}
+
+.header-block {
+  display: block;
+  width: 100%;
 }
 
 .modal-header a:hover {
@@ -35,7 +46,7 @@
 */
   background-color: #2f2f2f;
   height: 80vh;
-  width: 330px;
+  width: 350px;
 }
 
 .menu-sidebar.modal {
@@ -43,7 +54,7 @@
 */
   color: white;
   z-index: 1040;
-  width: 330px;
+  width: 350px;
   height: 100vh;
   /*  box-shadow: 5px 0 10px;
 */
@@ -134,8 +145,7 @@ h4 {
   color: #17a2b8;
 }
 .btn-info {
-  padding: 1px 5px;
-  font-size: 12px;
+  padding: 3px 6px;
 }
 
 .my-orgs {
@@ -143,7 +153,8 @@ h4 {
   width: 100%;
   padding-top: 5px;
   padding-bottom: 5px;
-  border-bottom: 2px solid #111111;
+  /*  border-bottom: 2px solid #111111;
+*/
 }
 
 .my-orgs a:hover {
@@ -153,10 +164,13 @@ h4 {
 
 .manage {
   margin-top: 15px;
+  font-weight: bold;
+  font-size: 15px;
+  width: 100%;
 }
 
 img {
-  width: 200px;
+  width: 300px;
 }
 
 .center {
@@ -165,4 +179,21 @@ img {
 
 .center h1 {
   color: #17b87e;
+}
+
+.edit.btn.btn-primary {
+  margin-top: 5px;
+  color: white;
+  border-color: #7bb6a0;
+  background-color: #7bb6a0;
+  font-size: 16px;
+  font-weight: bold;
+  padding: 2px 8px;
+  margin-bottom: 5px;
+  width: 100%;
+}
+
+.edit.btn.btn-primary:hover {
+  background-color: #496d60;
+  border-color: #496d60;
 }
