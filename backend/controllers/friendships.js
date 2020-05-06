@@ -15,13 +15,28 @@ const getTableData = (req, res, db) => {
 // POST function that will add a row to the table
 const postTableData = (req, res, db) => {
   const { username, friendname } = req.body;
-  db("friendships")
-    .insert({ username, friendname })
-    .returning("*")
+  db.raw(
+    "INSERT INTO friendships(username, friendname) SELECT '" +
+      username +
+      "', '" +
+      friendname +
+      "' WHERE NOT EXISTS(SELECT * FROM friendships WHERE(username = '" +
+      username +
+      "' AND friendname = '" +
+      friendname +
+      "') OR (username = '" +
+      friendname +
+      "' AND friendname = '" +
+      username +
+      "'))"
+  )
     .then((item) => {
       res.json(item);
     })
-    .catch((err) => res.status(400).json({ dbError: "can't add friendname" }));
+    .catch((err) => {
+      console.error(err);
+      res.status(400).json({ dbError: "can't add friendname" });
+    });
 };
 
 // PUT function that will update a row with a given username

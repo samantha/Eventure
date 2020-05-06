@@ -65,18 +65,12 @@ class UserCard extends Component {
       }),
     })
       .then((response) => response.json())
-      .then((item) => {
-        if (Array.isArray(item) && item.length) {
-          this.setState({
-            isFriend: true,
-          });
-          window.location.reload(false);
-          // console.log(this.state.allOrgs);
-        } else {
-          console.log("failure");
-        }
-      })
       .catch((err) => console.log(err));
+
+    this.setState({
+      isFriend: true,
+    });
+    window.location.reload(false);
   };
 
   cancelFriendship = (e) => {
@@ -118,7 +112,7 @@ class UserCard extends Component {
           outline
           className="friendship"
           color="primary"
-          onClick={this.cancelfriendship}
+          onClick={this.cancelFriendship}
         >
           Friends <FontAwesomeIcon icon={faCheck} />
         </Button>
@@ -128,7 +122,7 @@ class UserCard extends Component {
         <Button
           className="friendship"
           color="primary"
-          onClick={this.makefriendship}
+          onClick={this.makeFriendship}
         >
           Add Friend <FontAwesomeIcon icon={faPlus} />
         </Button>
@@ -138,7 +132,7 @@ class UserCard extends Component {
     return (
       <div className="member-card-container">
         <Card>
-          <a href={"/u/" + this.props.member.handle}>
+          <a href={"/u/" + this.props.member.username}>
             <CardImg top width="100%" src={member_image} />
           </a>
           <CardBody>
@@ -147,7 +141,7 @@ class UserCard extends Component {
             </CardText>
             <CardTitle>
               {" "}
-              <a href={"/o/" + this.props.member.handle}>
+              <a href={"/u/" + this.props.member.username}>
                 {this.props.member.first} {this.props.member.last}
               </a>
             </CardTitle>

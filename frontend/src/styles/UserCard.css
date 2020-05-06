@@ -36,10 +36,10 @@
   color: #17a2b8;
 }
 
-/* RSVPed */
-.rsvp.btn.btn-outline-primary {
-  color: #7b91b6;
-  border-color: #7b91b6;
+/* friended */
+.friendship.btn.btn-outline-primary {
+  color: #7bb6a0;
+  border-color: #7bb6a0;
   font-size: 16px;
   font-weight: bold;
   padding: 2px 8px;
@@ -47,26 +47,26 @@
   margin-bottom: 5px;
 }
 
-.rsvp.btn.btn-outline-primary:hover {
-  background-color: #7b91b6;
-  border-color: #7b91b6;
+.friendship.btn.btn-outline-primary:hover {
+  background-color: #7bb6a0;
+  border-color: #7bb6a0;
   color: white;
 }
 
-/* RSVP */
-.rsvp.btn.btn-primary {
+/* friend */
+.friendship.btn.btn-primary {
   color: white;
-  border-color: #7b91b6;
-  background-color: #7b91b6;
+  border-color: #7bb6a0;
+  background-color: #7bb6a0;
   font-size: 16px;
   font-weight: bold;
   padding: 2px 8px;
   margin-bottom: 5px;
 }
 
-.rsvp.btn.btn-primary:hover {
-  background-color: #627491;
-  border-color: #627491;
+.friendship.btn.btn-primary:hover {
+  background-color: #496d60;
+  border-color: #496d60;
 }
 
 div span {
