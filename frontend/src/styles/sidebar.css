@@ -11,6 +11,11 @@
   transform: translate3d(100%, 0, 0);
 }*/
 
+::-webkit-scrollbar {
+  width: 0px; /* Remove scrollbar space */
+  background: transparent; /* Optional: just make scrollbar invisible */
+}
+
 .sidebar-container {
   border-bottom: 2px solid #191919;
   padding-bottom: 15px;
@@ -171,4 +176,21 @@ img {
 
 .center h1 {
   color: #17b87e;
+}
+
+.edit.btn.btn-primary {
+  margin-top: 5px;
+  color: white;
+  border-color: #7bb6a0;
+  background-color: #7bb6a0;
+  font-size: 16px;
+  font-weight: bold;
+  padding: 2px 8px;
+  margin-bottom: 5px;
+  width: 100%;
+}
+
+.edit.btn.btn-primary:hover {
+  background-color: #496d60;
+  border-color: #496d60;
 }

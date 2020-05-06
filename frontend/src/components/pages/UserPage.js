@@ -12,14 +12,18 @@ import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import Sidebar from "../../components/sidebar";
 import UserCard from "../../components/cards/UserCard";
-import { Container, Row, Col } from "reactstrap";
+import { Button, Container, Row, Col } from "reactstrap";
 
 import "../../styles/dashboard.css";
 import { withRouter } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUserCircle, faHouseUser } from "@fortawesome/free-solid-svg-icons";
+import {
+  faEdit,
+  faUserCircle,
+  faHouseUser,
+} from "@fortawesome/free-solid-svg-icons";
 import { library } from "@fortawesome/fontawesome-svg-core";
-library.add(faUserCircle, faHouseUser);
+library.add(faEdit, faUserCircle, faHouseUser);
 
 class UserPage extends Component {
   constructor(props) {
@@ -27,6 +31,7 @@ class UserPage extends Component {
 
     this.state = {
       user: {},
+      currentUser: this.props.currentUser,
       orgItems: null,
       eventItems: null,
       userFriends: [],
@@ -196,14 +201,23 @@ class UserPage extends Component {
       );
     });
 
+    let editProfile;
+    if (this.state.user.username === this.state.currentUser.username) {
+      editProfile = (
+        <Button className="edit" color="primary" onClick={this.EditProfile}>
+          Edit Profile <FontAwesomeIcon icon={faEdit} />
+        </Button>
+      );
+    }
+
     return (
       <div className="sidenav">
         <Sidebar
           side="left"
           isVisible={true}
-          header={
+          image={<img width="100%" src={user_image} />}
+          name={
             <div>
-              <img width="100%" src={user_image} />
               <FontAwesomeIcon icon={faHouseUser} />{" "}
               <a href={"/u/" + this.state.user.username}>
                 {this.state.user.first + " " + this.state.user.last}
@@ -211,6 +225,7 @@ class UserPage extends Component {
             </div>
           }
           handle={"@" + this.state.user.username}
+          edit={editProfile}
         >
           <div className="sidebar-container">
             <h4>

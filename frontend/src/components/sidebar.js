@@ -9,8 +9,10 @@ export default class Sidebar extends Component {
         <Modal.Header>
           <div className="header-block">
             <Modal.Title>
-              {this.props.header}
+              {this.props.image}
+              {this.props.name}
               {this.props.handle}
+              {this.props.edit}
             </Modal.Title>
           </div>
         </Modal.Header>

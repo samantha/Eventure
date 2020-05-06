@@ -157,7 +157,10 @@ class App extends React.Component {
         />
         <Route path="/" exact component={Home} />
         <Route path="/o/:handle" component={OrganizationPage} />
-        <Route path="/u/:username" component={UserPage} />
+        <Route
+          path="/u/:username"
+          render={(props) => <UserPage {...props} currentUser={currentUser} />}
+        />
         <Route path="/e/:handle" component={EventPage} />
 
         <Route path="/test" component={Test} />
