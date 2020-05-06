@@ -24,27 +24,27 @@ class Navigation extends Component {
 
   onChangeUser = () => {
     this.state.isAuthenticated = false;
-    console.log("log out");
+    // console.log("log out");
     const loggedOutUser = {
       email: "n/a",
       first_name: "n/a",
       last_name: "n/a",
       loggedIn: false,
     };
-    console.log(loggedOutUser);
+    // console.log(loggedOutUser);
 
     this.props.changeUser(loggedOutUser);
     this.props.history.push("/");
   };
 
   render() {
-    console.log(this.props.user);
+    // console.log(this.props.user);
     const user = this.props.user;
-    console.log(user.email);
+    // console.log(user.email);
     if (user !== null) {
-      console.log(true);
+      // console.log(true);
       this.state.isAuthenticated = user.loggedIn;
-      console.log(this.state.isAuthenticated);
+      // console.log(this.state.isAuthenticated);
     }
 
     var name = user.first_name + " " + user.last_name;
