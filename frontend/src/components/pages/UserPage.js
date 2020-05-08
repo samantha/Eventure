@@ -11,6 +11,7 @@ import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import Sidebar from "../../components/sidebar";
+import ModalForm from "../../components/modals/ModalForm";
 import UserCard from "../../components/cards/UserCard";
 import AchievementCard from "../../components/cards/AchievementCard";
 
@@ -42,6 +43,7 @@ class UserPage extends Component {
       numJoinedOrgs: 0,
       numFriends: 0,
       allAchievements: [],
+      // items: []
     };
     this.getUser = this.getUser.bind(this);
     this.getUserOrgs = this.getUserOrgs.bind(this);
@@ -56,6 +58,13 @@ class UserPage extends Component {
     this.filterFriends = this.filterFriends.bind(this);
     this.filterFriendNum = this.filterFriendNum.bind(this);
   }
+
+  // addItemToState = (item) => {
+  //   this.setState(prevState => ({
+  //     items: [...prevState.items, item]
+  //   }))
+  // }
+
   updateModal(isVisible) {
     this.state.isVisible = isVisible;
     this.forceUpdate();

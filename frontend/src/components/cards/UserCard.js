@@ -70,7 +70,7 @@ class UserCard extends Component {
     this.setState({
       isFriend: true,
     });
-    window.location.reload(false);
+    // window.location.reload(false);
   };
 
   cancelFriendship = (e) => {
@@ -89,7 +89,7 @@ class UserCard extends Component {
       .catch((err) => console.log(err));
 
     this.setState({ isFriend: false });
-    window.location.reload(false);
+    // window.location.reload(false);
   };
 
   componentDidMount() {

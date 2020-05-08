@@ -55,7 +55,8 @@
   color: white;
   z-index: 1040;
   width: 350px;
-  height: 100vh;
+  /*  height: 100vh;*/
+  height: 925px;
   /*  box-shadow: 5px 0 10px;
 */
   background-color: #2f2f2f;
@@ -178,7 +179,7 @@ img {
 }
 
 .center h1 {
-  color: #17b87e;
+  color: #17a2b8;
 }
 
 .edit.btn.btn-primary {
@@ -197,3 +198,7 @@ img {
   background-color: #496d60;
   border-color: #496d60;
 }
+
+/*svg{
+  margin: 10px;
+}*/

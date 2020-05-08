@@ -70,7 +70,6 @@ class EventCard extends Component {
           this.setState({
             isRSVPed: true,
           });
-          window.location.reload(false);
           // console.log(this.state.allOrgs);
         } else {
           console.log("failure");
@@ -95,7 +94,6 @@ class EventCard extends Component {
       .catch((err) => console.log(err));
 
     this.setState({ isRSVPed: false });
-    window.location.reload(false);
   };
 
   componentDidMount() {
