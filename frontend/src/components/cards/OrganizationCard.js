@@ -69,7 +69,6 @@ class OrganizationCard extends Component {
           this.setState({
             isMember: true,
           });
-          window.location.reload(false);
           // console.log(this.state.allOrgs);
         } else {
           console.log("failure");
@@ -94,7 +93,6 @@ class OrganizationCard extends Component {
       .catch((err) => console.log(err));
 
     this.setState({ isMember: false });
-    window.location.reload(false);
   };
 
   componentDidMount() {
