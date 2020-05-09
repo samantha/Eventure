@@ -202,3 +202,16 @@ img {
 /*svg{
   margin: 10px;
 }*/
+
+.modal-body img {
+  margin-bottom: 15px;
+}
+
+.modal-body a:hover {
+  text-decoration: none;
+  color: #d4f5fa;
+}
+
+.left-details {
+  color: #17a2b8;
+}

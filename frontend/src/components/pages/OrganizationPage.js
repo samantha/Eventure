@@ -174,7 +174,7 @@ class OrganizationPage extends Component {
         <Sidebar
           side="left"
           isVisible={true}
-          header={
+          name={
             <div>
               <FontAwesomeIcon icon={faHouseUser} />{" "}
               <a href={"/u/" + this.state.org.handle}>{this.state.org.name}</a>
