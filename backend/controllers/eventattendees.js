@@ -1,6 +1,6 @@
 // POST function that returns all events they either manage or rsvped to
 const postTableData = (req, res, db) => {
-  const { org_handle } = req.body;
+  const { event_handle } = req.body;
   // db.select('handle,name')
   //   .from("memberships")
   //   .where({ username: username })
@@ -17,10 +17,11 @@ const postTableData = (req, res, db) => {
   //     // .where('username', "dinosaur");
   //     db.raw("SELECT event_handle AS handle FROM rsvps WHERE username='" + username + "'")
   //   ])
+
   db.raw(
-    "SELECT * FROM events WHERE org_handle='" +
-      org_handle +
-      "' AND from_date >= CURRENT_DATE ORDER BY from_date ASC"
+    "SELECT DISTINCT * FROM (SELECT rsvps.username FROM rsvps WHERE rsvps.event_handle='" +
+      event_handle +
+      "') AS attendee FULL JOIN users on attendee.username=users.username WHERE attendee.username IS NOT NULL"
   )
 
     // .join(
@@ -33,14 +34,14 @@ const postTableData = (req, res, db) => {
     // .returning("*")
     .then((item) => {
       if (item.length == 0) {
-        res.status(400).json({ dbError: "Empty: No organizations found" });
+        res.status(400).json({ dbError: "Empty: No users found" });
       } else {
         res.json(item.rows);
       }
     })
     .catch((err) => {
       console.error(err);
-      res.status(400).json({ dbError: "Error: No organizations found" });
+      res.status(400).json({ dbError: "Error: No users found" });
     });
 };
 

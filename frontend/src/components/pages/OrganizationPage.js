@@ -11,7 +11,7 @@ import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import Sidebar from "../../components/sidebar";
-import { Row, Col } from "reactstrap";
+import { Row, Col, Container } from "reactstrap";
 import "../../styles/dashboard.css";
 import { SocialMediaIconsReact } from "social-media-icons-react";
 
@@ -20,6 +20,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUserCircle, faHouseUser } from "@fortawesome/free-solid-svg-icons";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import EventCard from "../../components/cards/EventCard";
+import UserCard from "../../components/cards/UserCard";
 
 library.add(faUserCircle, faHouseUser);
 
@@ -30,10 +31,12 @@ class OrganizationPage extends Component {
     this.state = {
       org: {},
       events: [],
+      members: [],
       user: this.props.currentUser,
     };
     this.getOrg = this.getOrg.bind(this);
     this.getEvents = this.getEvents.bind(this);
+    this.getMembers = this.getMembers.bind(this);
   }
 
   getOrg() {
@@ -82,11 +85,33 @@ class OrganizationPage extends Component {
       .catch((err) => console.log(err));
   }
 
+  getMembers() {
+    console.log("get all members");
+    fetch("http://localhost:3000/memberships", {
+      method: "get",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((response) => response.json())
+      .then((item) => {
+        if (Array.isArray(item)) {
+          this.setState({
+            members: item,
+          });
+        } else {
+          console.log("failure");
+        }
+      })
+      .catch((err) => console.log(err));
+  }
+
   componentDidMount() {
     // get and set currently logged in user to state
     // if item exists, populate the state with proper data
     this.getOrg();
     this.getEvents();
+    this.getMembers();
   }
 
   render() {
@@ -124,8 +149,20 @@ class OrganizationPage extends Component {
         );
       });
 
+    let orgMembers = this.state.members
+      .filter((member) => member.org_handle === this.state.org.handle)
+      .map((member) => {
+        return (
+          <Col>
+            <UserCard member={member} user={this.state.user} />
+          </Col>
+        );
+      });
+
+    console.log(upcomingEvents.length);
+
     if (!upcomingEvents.length) {
-      pastEvents = <div>No events to display!</div>;
+      upcomingEvents = <div>No events to display!</div>;
     }
 
     if (!pastEvents.length) {
@@ -227,17 +264,20 @@ class OrganizationPage extends Component {
           <div className="main">
             <h1 className="dashboard-orgs">About</h1>
             <p>{this.state.org.description}</p>
-          </div>
-          <div className="main">
             <h1 className="dashboard-events">Upcoming Events</h1>
-            <p>{upcomingEvents}</p>
+            <Container fluid>
+              <Row>{upcomingEvents}</Row>
+            </Container>
 
             <h1 className="dashboard-events">Past Events</h1>
-            <p>{pastEvents}</p>
-          </div>
-          <div className="main">
+            <Container fluid>
+              <Row>{pastEvents}</Row>
+            </Container>
+
             <h1 className="dashboard-friends">Members</h1>
-            <p>{this.state.org.description}</p>
+            <Container fluid>
+              <Row>{orgMembers}</Row>
+            </Container>
           </div>
         </div>
       </div>

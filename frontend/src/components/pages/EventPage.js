@@ -12,6 +12,8 @@ import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import Sidebar from "../../components/sidebar";
 import SocialMedia from "../../components/SocialMedia";
+import UserCard from "../../components/cards/UserCard";
+import { Button, Container, Row, Col } from "reactstrap";
 
 import "../../styles/dashboard.css";
 import { withRouter } from "react-router-dom";
@@ -27,17 +29,35 @@ class EventPage extends Component {
 
     this.state = {
       event: {},
-      orgItems: null,
-      eventItems: null,
-      isVisible: false,
+      currentUser: this.props.currentUser,
+      attendees: [],
     };
     this.getEvent = this.getEvent.bind(this);
-    this.getUserOrgs = this.getUserOrgs.bind(this);
-    this.getUserEvents = this.getUserEvents.bind(this);
+    this.getAttendees = this.getAttendees.bind(this);
   }
-  updateModal(isVisible) {
-    this.state.isVisible = isVisible;
-    this.forceUpdate();
+
+  getAttendees() {
+    console.log("get all events");
+    fetch("http://localhost:3000/eventattendees", {
+      method: "post",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        event_handle: this.props.match.params.handle,
+      }),
+    })
+      .then((response) => response.json())
+      .then((item) => {
+        if (Array.isArray(item)) {
+          this.setState({
+            attendees: item,
+          });
+        } else {
+          console.log("failure");
+        }
+      })
+      .catch((err) => console.log(err));
   }
 
   getEvent() {
@@ -54,7 +74,6 @@ class EventPage extends Component {
       .then((response) => response.json())
       .then((item) => {
         if (Array.isArray(item)) {
-          item.forEach((element) => console.log(element));
           // const orgItems = item.map((org) => (
           //   <div className="my-orgs">
           //     <a href={"/o/" + org.handle}>{org.name}</a>
@@ -63,93 +82,29 @@ class EventPage extends Component {
           this.setState({
             event: item[0],
           });
-          console.log(this.state.event);
         } else {
           console.log("failure");
         }
       })
       .catch((err) => console.log(err));
-  }
-
-  getUserOrgs() {
-    console.log("get user orgs");
-    fetch("http://localhost:3000/userorgs", {
-      method: "post",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        username: this.props.match.params.username,
-      }),
-    })
-      .then((response) => response.json())
-      .then((item) => {
-        if (Array.isArray(item)) {
-          item.forEach((element) => console.log(element));
-          const orgItems = item.map((org) => (
-            <div className="my-orgs">
-              <a href={"/o/" + org.handle}>{org.name}</a>
-            </div>
-          ));
-          this.setState({
-            orgItems: orgItems,
-          });
-          console.log(this.state.orgItems);
-        } else {
-          console.log("failure");
-        }
-      })
-      .catch((err) => console.log(err));
-  }
-
-  getUserEvents() {
-    console.log("get user events");
-    fetch("http://localhost:3000/userevents", {
-      method: "post",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        username: this.props.match.params.username,
-      }),
-    })
-      .then((response) => response.json())
-      .then((item) => {
-        if (Array.isArray(item)) {
-          item.forEach((element) => console.log(element));
-          const eventItems = item.map((event) => (
-            <div className="my-orgs">
-              <a href={"/e/" + event.handle}>{event.name}</a>
-            </div>
-          ));
-          this.setState({
-            eventItems: eventItems,
-          });
-          console.log(this.state.eventItems);
-        } else {
-          console.log("failure");
-        }
-      })
-      .catch((err) => console.log(err));
-  }
-
-  onCreateOrg() {
-    this.props.history.push("/create-org");
-  }
-
-  onCreateEvent() {
-    this.props.history.push("/create-event");
   }
 
   componentDidMount() {
     // get and set currently logged in user to state
     // if item exis populate the state with proper data
     this.getEvent();
-    this.getUserOrgs();
-    this.getUserEvents();
+    this.getAttendees();
   }
 
   render() {
+    let eventAttendees = this.state.attendees.map((attendee) => {
+      return (
+        <Col>
+          <UserCard member={attendee} user={this.state.currentUser} />
+        </Col>
+      );
+    });
+
     return (
       <div className="sidenav">
         <Sidebar
@@ -198,7 +153,9 @@ class EventPage extends Component {
           </div>
           <div className="main">
             <h1 className="dashboard-friends">Attendees</h1>
-            <p>{this.state.event.description}</p>
+            <Container fluid>
+              <Row>{eventAttendees}</Row>
+            </Container>
           </div>
         </div>
       </div>
