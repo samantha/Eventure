@@ -11,18 +11,22 @@ import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import Sidebar from "../../components/sidebar";
-import { Row, Col, Container } from "reactstrap";
+import { Button, Row, Col, Container } from "reactstrap";
 import "../../styles/dashboard.css";
 import { SocialMediaIconsReact } from "social-media-icons-react";
 
 import { withRouter } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUserCircle, faHouseUser } from "@fortawesome/free-solid-svg-icons";
+import {
+  faEdit,
+  faUserCircle,
+  faHouseUser,
+} from "@fortawesome/free-solid-svg-icons";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import EventCard from "../../components/cards/EventCard";
 import UserCard from "../../components/cards/UserCard";
 
-library.add(faUserCircle, faHouseUser);
+library.add(faEdit, faUserCircle, faHouseUser);
 
 class OrganizationPage extends Component {
   constructor(props) {
@@ -37,6 +41,7 @@ class OrganizationPage extends Component {
     this.getOrg = this.getOrg.bind(this);
     this.getEvents = this.getEvents.bind(this);
     this.getMembers = this.getMembers.bind(this);
+    this.editOrg = this.editOrg.bind(this);
   }
 
   getOrg() {
@@ -106,6 +111,10 @@ class OrganizationPage extends Component {
       .catch((err) => console.log(err));
   }
 
+  editOrg() {
+    this.props.history.push("/settings/org/" + this.state.org.handle);
+  }
+
   componentDidMount() {
     // get and set currently logged in user to state
     // if item exists, populate the state with proper data
@@ -169,6 +178,23 @@ class OrganizationPage extends Component {
       pastEvents = <div>No events to display!</div>;
     }
 
+    let editOrg;
+    // verify if user is an admin
+    let admins = this.state.members.filter(
+      (member) =>
+        member.username === this.state.user.username &&
+        member.role === "admin" &&
+        member.org_handle === this.state.org.handle
+    );
+    console.log(admins);
+    if (admins.length) {
+      editOrg = (
+        <Button className="edit" color="primary" onClick={this.editOrg}>
+          Edit Organization <FontAwesomeIcon icon={faEdit} />
+        </Button>
+      );
+    }
+
     return (
       <div className="sidenav">
         <Sidebar
@@ -180,14 +206,12 @@ class OrganizationPage extends Component {
               <a href={"/u/" + this.state.org.handle}>{this.state.org.name}</a>
             </div>
           }
+          image={<img width="100%" src={org_image} />}
           handle={"@" + this.state.org.handle}
+          edit={editOrg}
         >
           <div>
             <div className="sidebar-container">
-              <div className="center">
-                <img src={org_image} />
-              </div>
-
               <div className="center">
                 {this.state.org.city}
                 {", "}

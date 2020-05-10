@@ -145,12 +145,20 @@ class App extends React.Component {
           <Link to={"/o/" + org.handle} />
         ))}
 
+        {this.state.allOrgs.map((org) => (
+          <Link to={"settings/org/" + org.handle} />
+        ))}
+
         {this.state.allUsers.map((user) => (
           <Link to={"/u/" + user.username} />
         ))}
 
         {this.state.allEvents.map((event) => (
           <Link to={"/e/" + event.handle} />
+        ))}
+
+        {this.state.allEvents.map((event) => (
+          <Link to={"settings/event/" + event.handle} />
         ))}
 
         <Navigation
@@ -165,11 +173,21 @@ class App extends React.Component {
           )}
         />
         <Route
+          path="settings/org/:handle"
+          render={(props) => (
+            <OrganizationPage {...props} currentUser={currentUser} />
+          )}
+        />
+        <Route
           path="/u/:username"
           render={(props) => <UserPage {...props} currentUser={currentUser} />}
         />
         <Route
           path="/e/:handle"
+          render={(props) => <EventPage {...props} currentUser={currentUser} />}
+        />
+        <Route
+          path="settings/event/:handle"
           render={(props) => <EventPage {...props} currentUser={currentUser} />}
         />
 
@@ -198,7 +216,7 @@ class App extends React.Component {
         />
 
         <Route
-          path="/edit-profile"
+          path="/settings/profile"
           render={(props) => <EditUserForm {...props} user={currentUser} />}
         />
 

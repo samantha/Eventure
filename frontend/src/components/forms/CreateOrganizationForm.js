@@ -33,11 +33,9 @@ class CreateOrganization extends React.Component {
     this.props.changeUser(this.state.loggedInUser);
     this.props.history.push("/dashboard");
     window.location.reload(false);
-    console.log("set user");
     this.setState({
       user: this.state.loggedInUser,
     });
-    console.log(this.state.user);
   }
 
   state = {
@@ -52,7 +50,6 @@ class CreateOrganization extends React.Component {
   };
 
   onChange = (e) => {
-    console.log(e.target.value);
     this.setState({
       [e.target.name]: e.target.value,
     });

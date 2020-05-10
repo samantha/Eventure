@@ -327,7 +327,7 @@ class UserPage extends Component {
   }
 
   editProfile() {
-    this.props.history.push("/edit-profile");
+    this.props.history.push("/settings/profile");
   }
 
   componentDidMount() {
@@ -482,9 +482,7 @@ class UserPage extends Component {
                 {eventAchievements}
               </Row>
             </Container>
-          </div>
 
-          <div className="main">
             <h1>
               <span id="friends"></span> {this.state.user.first}'s Friends{" "}
             </h1>
