@@ -40,9 +40,9 @@ const putTableData = (req, res, db) => {
 
 // DELETE function that will delete a row with a given id
 const deleteTableData = (req, res, db) => {
-  const { email } = req.body;
+  const { username } = req.body;
   db("users")
-    .where({ email })
+    .where({ username })
     .del()
     .then(() => {
       res.json({ delete: "true" });

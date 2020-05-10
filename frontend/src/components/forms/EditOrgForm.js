@@ -1,190 +1,273 @@
 import React from "react";
-import { Alert, Button, Form, FormGroup, Label, Input } from "reactstrap";
-import { Message } from "semantic-ui-react";
-import "../../styles/signup.css";
+import {
+  Alert,
+  Button,
+  Form,
+  FormGroup,
+  Label,
+  Input,
+  FormFeedback,
+  FormText,
+  CustomInput,
+} from "reactstrap";
+import PropTypes from "prop-types";
+import { withRouter } from "react-router-dom";
 
-class EditUserForm extends React.Component {
+// import { UserContext} from '../../components/UserContext';
+// import UserSwitcher from './UserSwitcher';
+import "../../styles/CreateOrgForm.css";
+
+class EditOrgForm extends React.Component {
+  // static contextType = UserContext;
+
   constructor(props) {
     super(props);
-
     this.state = {
-      user: this.props.user,
+      org_handle: this.props.match.params.handle,
+      org: {},
     };
+    this.getOrg = this.getOrg.bind(this);
+  }
+
+  onChangeUser() {
+    this.props.changeUser(this.state.loggedInUser);
+    this.props.history.push("/dashboard");
+    window.location.reload(false);
+    this.setState({
+      user: this.state.loggedInUser,
+    });
   }
 
   state = {
-    formError: false,
-    formSuccess: false,
-    username: this.props.user.username,
-    first: this.props.user.first_name,
-    last: this.props.user.last_name,
-    email: this.props.user.email,
-    password: this.props.user.password,
-    icon: this.props.user.icon,
+    orgCreated: false,
+    creationError: false,
+    name: "",
+    description: "",
+    city: "",
+    state: "",
+    handle: "",
+    icon: "",
   };
 
   onChange = (e) => {
-    this.setState({ [e.target.name]: e.target.value });
+    this.setState({
+      [e.target.name]: e.target.value,
+    });
   };
 
   submitFormEdit = (e) => {
     e.preventDefault();
-    console.log(this.state.username);
-    fetch("http://localhost:3000/users", {
+    console.log("updating org");
+    console.log(this.state.icon);
+    console.log(this.state.handle);
+    fetch("http://localhost:3000/orgs", {
       method: "put",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        username: this.state.username,
-        first: this.state.first,
-        last: this.state.last,
-        email: this.state.email,
-        password: this.state.password,
+        name: this.state.name,
+        description: this.state.description,
+        city: this.state.city,
+        state: this.state.state,
+        handle: this.state.handle,
         icon: this.state.icon,
       }),
     })
       .then((response) => response.json())
       .then((item) => {
-        if (Array.isArray(item)) {
-          console.log(item[0]);
-          this.setState({
-            user: item,
-          });
-        } else {
+        if (!Array.isArray(item)) {
           console.log("failure");
+          this.setState({
+            creationError: true,
+          });
         }
       })
       .catch((err) => console.log(err));
   };
 
+  invalidInput = (e) => {
+    e.preventDefault();
+    console.log("error");
+  };
+
+  getOrg() {
+    console.log("get org");
+    fetch("http://localhost:3000/specificorg", {
+      method: "post",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        handle: this.props.match.params.handle,
+      }),
+    })
+      .then((response) => response.json())
+      .then((item) => {
+        if (Array.isArray(item)) {
+          this.setState({
+            org: item[0],
+            orgCreated: true,
+          });
+          this.setState({
+            name: this.state.org.name,
+            description: this.state.org.description,
+            city: this.state.org.city,
+            state: this.state.org.state,
+            handle: this.state.org.handle,
+            icon: this.state.org.icon,
+          });
+          // console.log(this.state.org);
+        } else {
+          console.log("failure");
+        }
+      })
+      .catch((err) => console.log(err));
+  }
+
   componentDidMount() {
+    // get and set currently logged in user to state
     // if item exists, populate the state with proper data
-    if (this.props.user) {
-      const { username, first, last, email, password } = this.props.user;
-      this.setState({ username, first, last, email, password });
-    }
+    this.getOrg();
+    // if (this.props.item) {
+    //   const { name, description, city, state, handle, icon } = this.props.item;
+    //   this.setState({ name, description, city, state, handle, icon });
+    // }
   }
 
   render() {
-    // console.log(this.state.user);
-    // console.log("hello")
-    const isSignedUp = this.state.isSignedUp;
     let status;
-    if (isSignedUp) {
+    if (this.state.orgCreated) {
       status = (
         <Alert color="success">
-          Your profile was updated successfully!{" "}
-          <a href={"/u/" + this.state.username} className="alert-link">
-            Click here to view your profile page.
+          Success! {this.state.name} has been updated.{" "}
+          <a href={"/o/" + this.state.handle} className="alert-link">
+            View your organization page
+          </a>{" "}
+          or{" "}
+          <a href="/create-org" className="alert-link">
+            create another organization
           </a>
           .
         </Alert>
       );
+    } else if (this.state.creationError) {
+      status = <Alert color="warning">Could not update organization.</Alert>;
     }
-    //  else {
-    //   status = (
-    //     <Alert color="primary">
-    //       Already have an account?{" "}
-    //       <a href="/login" className="alert-link">
-    //         Log in here
-    //       </a>
-    //       .
-    //     </Alert>
-    //   );
-    // }
+
     return (
-      <div className="signup-bg">
+      <div className="org-bg">
         <div className="event-container">
-          <h1>Edit your profile.</h1>
+          <h1>Form your tribe.</h1>
           <Form onSubmit={this.submitFormEdit}>
             <FormGroup>
-              <Label for="username">Username</Label>
+              <Label for="name">Organization Name</Label>
               <Input
                 type="text"
                 required
-                name="username"
-                id="username"
+                name="name"
+                placeholder="Eg. Association of Picnic Enthusiasts"
+                id="name"
                 onChange={this.onChange}
-                value={
-                  this.state.username === null ? "" : this.state.user.username
+                defaultValue={
+                  this.state.name === null ? "" : this.state.org.name
                 }
               />
             </FormGroup>
             <FormGroup>
-              <Label for="first">First Name</Label>
+              <Label for="description">Description</Label>
               <Input
-                type="text"
+                type="textarea"
                 required
-                name="first"
-                id="first"
+                name="description"
+                placeholder="Eg. We love to have picnics. Anywhere. Anytime."
+                id="description"
                 onChange={this.onChange}
-                value={
-                  this.state.first === null ? "" : this.state.user.first_name
+                defaultValue={
+                  this.state.description === null
+                    ? ""
+                    : this.state.org.description
                 }
               />
             </FormGroup>
             <FormGroup>
-              <Label for="last">Last Name</Label>
+              <Label for="city">City</Label>
               <Input
                 type="text"
                 required
-                name="last"
-                id="last"
+                name="city"
+                placeholder="Eg. Los Angeles"
+                id="city"
                 onChange={this.onChange}
-                value={
-                  this.state.last === null ? "" : this.state.user.last_name
+                defaultValue={
+                  this.state.city === null ? "" : this.state.org.city
                 }
               />
             </FormGroup>
             <FormGroup>
-              <Label for="email">Email</Label>
+              <Label for="state">State</Label>
               <Input
-                type="email"
+                type="text"
                 required
-                name="email"
-                id="email"
+                name="state"
+                placeholder="Eg. California"
+                id="state"
                 onChange={this.onChange}
-                value={this.state.email === null ? "" : this.state.user.email}
-              />
-            </FormGroup>
-            <FormGroup>
-              <Label for="password">Password</Label>
-              <Input
-                type="password"
-                name="password"
-                id="password"
-                onChange={this.onChange}
-                placeholder="Update password"
-                value={this.state.password === null ? "" : this.state.password}
+                defaultValue={
+                  this.state.state === null ? "" : this.state.org.state
+                }
               />
             </FormGroup>
 
             <FormGroup>
-              <Label for="icon">Profile Picture</Label>
+              <Label for="handle">Organization Handle</Label>
               <Input
                 type="text"
+                required
+                name="handle"
+                placeholder="Eg. picnic-association"
+                id="handle"
+                onChange={this.onChange}
+                defaultValue={
+                  this.state.handle === null ? "" : this.state.org.handle
+                }
+              />
+              <FormText>
+                Enter a unique handle to help others find you. No whitespaces.
+              </FormText>
+            </FormGroup>
+
+            <FormGroup>
+              <Label for="icon">Organization Icon Url</Label>
+              <Input
+                type="text"
+                required
                 name="icon"
-                placeholder="Update profile picture"
+                placeholder="Eg. https://upload.wikimedia.org/picnic-association.jpg"
                 id="icon"
                 onChange={this.onChange}
-                value={this.state.icon === null ? "N/A" : this.state.user.icon}
+                defaultValue={
+                  this.state.icon === null ? "" : this.state.org.icon
+                }
               />
             </FormGroup>
 
             <div className="form-group">
               <input
                 type="submit"
-                value="Update Profile"
-                className="initial btn btn-primary"
+                defaultValue="Create Organization"
+                className="btn btn-primary"
               />
             </div>
-            {status}
           </Form>
+          {status}
         </div>
       </div>
     );
   }
 }
 
-export default EditUserForm;
+EditOrgForm.propTypes = {
+  user: PropTypes.object,
+};
+export default withRouter(EditOrgForm);

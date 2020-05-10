@@ -14,6 +14,8 @@ import Home from "./components/home";
 import Test from "./components/test";
 import Register from "./components/forms/SignUpForm";
 import EditUserForm from "./components/forms/EditUserForm";
+import EditOrgForm from "./components/forms/EditOrgForm";
+import EditEventForm from "./components/forms/EditEventForm";
 import LogIn from "./components/forms/LogInForm";
 import EditEvent from "./components/editevent_archive";
 import Dashboard from "./components/dashboard";
@@ -146,7 +148,7 @@ class App extends React.Component {
         ))}
 
         {this.state.allOrgs.map((org) => (
-          <Link to={"settings/org/" + org.handle} />
+          <Link to={"/settings/org/" + org.handle} />
         ))}
 
         {this.state.allUsers.map((user) => (
@@ -158,7 +160,7 @@ class App extends React.Component {
         ))}
 
         {this.state.allEvents.map((event) => (
-          <Link to={"settings/event/" + event.handle} />
+          <Link to={"/settings/event/" + event.handle} />
         ))}
 
         <Navigation
@@ -172,22 +174,16 @@ class App extends React.Component {
             <OrganizationPage {...props} currentUser={currentUser} />
           )}
         />
-        <Route
-          path="settings/org/:handle"
-          render={(props) => (
-            <OrganizationPage {...props} currentUser={currentUser} />
-          )}
-        />
+
+        <Route path="/settings/org/:handle" component={EditOrgForm} />
+        <Route path="/settings/event/:handle" component={EditEventForm} />
+
         <Route
           path="/u/:username"
           render={(props) => <UserPage {...props} currentUser={currentUser} />}
         />
         <Route
           path="/e/:handle"
-          render={(props) => <EventPage {...props} currentUser={currentUser} />}
-        />
-        <Route
-          path="settings/event/:handle"
           render={(props) => <EventPage {...props} currentUser={currentUser} />}
         />
 
