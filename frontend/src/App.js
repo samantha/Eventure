@@ -16,6 +16,7 @@ import Register from "./components/forms/SignUpForm";
 import LogIn from "./components/forms/LogInForm";
 import EditEvent from "./components/editevent_archive";
 import Dashboard from "./components/dashboard";
+import ChatLobby from "./components/chatlobby";
 import CreateOrganization from "./components/forms/CreateOrganizationForm";
 import CreateEvent from "./components/forms/CreateEventForm";
 import UserPage from "./components/pages/UserPage";
@@ -177,6 +178,12 @@ class App extends React.Component {
           path="/dashboard"
           render={(props) => <Dashboard {...props} user={currentUser} />}
         />
+
+        <Route
+          path="/lobby"
+          render={(props) => <ChatLobby {...props} user={currentUser} />}
+        />
+
         <Route
           path="/create-org"
           render={(props) => (

@@ -20,7 +20,6 @@ const express = require("express");
 require("dotenv").config();
 // App
 const app = express();
-
 // chatbot
 const server = http.createServer(app);
 const io = socketio(server);
@@ -303,7 +302,7 @@ app.listen(process.env.PORT || 3000, () => {
   console.log(`app is running on port ${process.env.PORT || 3000}`);
 });
 
-// chatapp
-PORT = 3002;
+// // chatapp
+// PORT = 3002;
 
-server.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+// server.listen(PORT, () => console.log(`Server running on port ${PORT}`));
