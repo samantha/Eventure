@@ -17,7 +17,8 @@
 body {
   font-family: "Roboto", sans-serif;
   font-size: 16px;
-  margin: 20px;
+  /*  margin: 20px;
+*/
 }
 
 ul {
@@ -28,14 +29,14 @@ a {
   text-decoration: none;
 }
 
-.btn {
+/*.btn {
   cursor: pointer;
   padding: 5px 15px;
   background: var(--light-color);
   color: var(--dark-color-a);
   border: 0;
   font-size: 17px;
-}
+}*/
 
 /* Chat Page */
 

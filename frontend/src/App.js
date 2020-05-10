@@ -13,6 +13,7 @@ import Home from "./components/home";
 // import CreateEvent from "./components/create-event_archive";
 import Test from "./components/test";
 import Register from "./components/forms/SignUpForm";
+import EditUserForm from "./components/forms/EditUserForm";
 import LogIn from "./components/forms/LogInForm";
 import EditEvent from "./components/editevent_archive";
 import Dashboard from "./components/dashboard";
@@ -194,6 +195,11 @@ class App extends React.Component {
         <Route
           path="/create-event"
           render={(props) => <CreateEvent {...props} user={currentUser} />}
+        />
+
+        <Route
+          path="/edit-profile"
+          render={(props) => <EditUserForm {...props} user={currentUser} />}
         />
 
         <Route
