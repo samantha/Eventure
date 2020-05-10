@@ -18,10 +18,14 @@ import { Button, Container, Row, Col } from "reactstrap";
 import "../../styles/dashboard.css";
 import { withRouter } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUserCircle, faHouseUser } from "@fortawesome/free-solid-svg-icons";
+import {
+  faEdit,
+  faUserCircle,
+  faHouseUser,
+} from "@fortawesome/free-solid-svg-icons";
 import { library } from "@fortawesome/fontawesome-svg-core";
 
-library.add(faUserCircle, faHouseUser);
+library.add(faEdit, faUserCircle, faHouseUser);
 
 class EventPage extends Component {
   constructor(props) {
@@ -31,9 +35,12 @@ class EventPage extends Component {
       event: {},
       currentUser: this.props.currentUser,
       attendees: [],
+      members: [],
     };
     this.getEvent = this.getEvent.bind(this);
     this.getAttendees = this.getAttendees.bind(this);
+    this.getMembers = this.getMembers.bind(this);
+    this.editEvent = this.editEvent.bind(this);
   }
 
   getAttendees() {
@@ -89,6 +96,27 @@ class EventPage extends Component {
       .catch((err) => console.log(err));
   }
 
+  getMembers() {
+    console.log("get all members");
+    fetch("http://localhost:3000/memberships", {
+      method: "get",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+      .then((response) => response.json())
+      .then((item) => {
+        if (Array.isArray(item)) {
+          this.setState({
+            members: item,
+          });
+        } else {
+          console.log("failure");
+        }
+      })
+      .catch((err) => console.log(err));
+  }
+
   formatTime(time) {
     var event_time = time.split(":");
     if (event_time[0] < 12) {
@@ -104,11 +132,16 @@ class EventPage extends Component {
     return event_time;
   }
 
+  editEvent() {
+    this.props.history.push("/settings/event/" + this.state.event.handle);
+  }
+
   componentDidMount() {
     // get and set currently logged in user to state
     // if item exis populate the state with proper data
     this.getEvent();
     this.getAttendees();
+    this.getMembers();
   }
 
   render() {
@@ -141,6 +174,23 @@ class EventPage extends Component {
       end_time = this.formatTime(end_time);
     }
 
+    let editEvent;
+    // verify if user is an admin
+    let admins = this.state.members.filter(
+      (member) =>
+        member.username === this.state.currentUser.username &&
+        member.role === "admin" &&
+        member.org_handle === this.state.event.org_handle
+    );
+    console.log(admins);
+    if (admins.length) {
+      editEvent = (
+        <Button className="edit" color="primary" onClick={this.editEvent}>
+          Edit Event <FontAwesomeIcon icon={faEdit} />
+        </Button>
+      );
+    }
+
     return (
       <div className="sidenav">
         <Sidebar
@@ -154,13 +204,12 @@ class EventPage extends Component {
               </a>
             </div>
           }
+          image={<img width="100%" src={event_image} />}
           handle={"@" + this.state.event.handle}
+          edit={editEvent}
         >
           <div>
             <div className="sidebar-container">
-              <div className="center">
-                <img src={event_image} />
-              </div>
               <div className="left-details">Event Name:</div>
               <div className="left">{this.state.event.name}</div>
               <div className="left-details">Start Date:</div>

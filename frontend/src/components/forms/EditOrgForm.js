@@ -81,6 +81,10 @@ class EditOrgForm extends React.Component {
           this.setState({
             creationError: true,
           });
+        } else {
+          this.setState({
+            orgCreated: true,
+          });
         }
       })
       .catch((err) => console.log(err));
@@ -107,7 +111,6 @@ class EditOrgForm extends React.Component {
         if (Array.isArray(item)) {
           this.setState({
             org: item[0],
-            orgCreated: true,
           });
           this.setState({
             name: this.state.org.name,
@@ -158,7 +161,7 @@ class EditOrgForm extends React.Component {
     return (
       <div className="org-bg">
         <div className="event-container">
-          <h1>Form your tribe.</h1>
+          <h1>Make changes to your tribe.</h1>
           <Form onSubmit={this.submitFormEdit}>
             <FormGroup>
               <Label for="name">Organization Name</Label>
@@ -255,7 +258,7 @@ class EditOrgForm extends React.Component {
             <div className="form-group">
               <input
                 type="submit"
-                defaultValue="Create Organization"
+                value="Update Organization"
                 className="btn btn-primary"
               />
             </div>

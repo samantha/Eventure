@@ -177,7 +177,12 @@ class App extends React.Component {
         />
 
         <Route path="/settings/org/:handle" component={EditOrgForm} />
-        <Route path="/settings/event/:handle" component={EditEventForm} />
+        <Route
+          path="/settings/event/:handle"
+          render={(props) => (
+            <EditEventForm {...props} currentUser={currentUser} />
+          )}
+        />
 
         <Route
           path="/u/:username"
