@@ -22,11 +22,12 @@ import { withRouter } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faEdit,
+  faFlag,
   faUserCircle,
   faHouseUser,
 } from "@fortawesome/free-solid-svg-icons";
 import { library } from "@fortawesome/fontawesome-svg-core";
-library.add(faEdit, faUserCircle, faHouseUser);
+library.add(faEdit, faFlag, faUserCircle, faHouseUser);
 
 class UserPage extends Component {
   constructor(props) {
@@ -376,6 +377,12 @@ class UserPage extends Component {
       editProfile = (
         <Button className="edit" color="primary" onClick={this.editProfile}>
           Edit Profile <FontAwesomeIcon icon={faEdit} />
+        </Button>
+      );
+    } else {
+      editProfile = (
+        <Button className="edit" color="secondary" onClick={this.reportUser}>
+          Report User <FontAwesomeIcon icon={faFlag} />
         </Button>
       );
     }

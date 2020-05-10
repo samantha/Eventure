@@ -19,6 +19,7 @@ import { withRouter } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faEdit,
+  faFlag,
   faUserCircle,
   faHouseUser,
 } from "@fortawesome/free-solid-svg-icons";
@@ -26,7 +27,7 @@ import { library } from "@fortawesome/fontawesome-svg-core";
 import EventCard from "../../components/cards/EventCard";
 import UserCard from "../../components/cards/UserCard";
 
-library.add(faEdit, faUserCircle, faHouseUser);
+library.add(faEdit, faFlag, faUserCircle, faHouseUser);
 
 class OrganizationPage extends Component {
   constructor(props) {
@@ -191,6 +192,16 @@ class OrganizationPage extends Component {
       editOrg = (
         <Button className="edit" color="primary" onClick={this.editOrg}>
           Edit Organization <FontAwesomeIcon icon={faEdit} />
+        </Button>
+      );
+    } else {
+      editOrg = (
+        <Button
+          className="edit"
+          color="secondary"
+          onClick={this.reportOrganization}
+        >
+          Report Organization <FontAwesomeIcon icon={faFlag} />
         </Button>
       );
     }

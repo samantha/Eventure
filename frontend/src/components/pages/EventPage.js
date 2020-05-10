@@ -20,12 +20,13 @@ import { withRouter } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faEdit,
+  faFlag,
   faUserCircle,
   faHouseUser,
 } from "@fortawesome/free-solid-svg-icons";
 import { library } from "@fortawesome/fontawesome-svg-core";
 
-library.add(faEdit, faUserCircle, faHouseUser);
+library.add(faEdit, faFlag, faUserCircle, faHouseUser);
 
 class EventPage extends Component {
   constructor(props) {
@@ -187,6 +188,12 @@ class EventPage extends Component {
       editEvent = (
         <Button className="edit" color="primary" onClick={this.editEvent}>
           Edit Event <FontAwesomeIcon icon={faEdit} />
+        </Button>
+      );
+    } else {
+      editEvent = (
+        <Button className="edit" color="secondary" onClick={this.reportEvent}>
+          Report Event <FontAwesomeIcon icon={faFlag} />
         </Button>
       );
     }
