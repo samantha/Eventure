@@ -91,7 +91,7 @@ class Navigation extends Component {
             Friends
           </NavDropdown.Item>
 
-          <NavDropdown.Item href="#action/3.2">Settings</NavDropdown.Item>
+          <NavDropdown.Item href="/settings/profile">Settings</NavDropdown.Item>
           <NavDropdown.Divider />
           <NavDropdown.Item href="#" onClick={this.onChangeUser}>
             Logout
