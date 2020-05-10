@@ -129,7 +129,7 @@ class OrganizationPage extends Component {
       org_image = this.state.org.icon;
     } else {
       org_image =
-        "https://images.unsplash.com/photo-1543589923-78e35f728335?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60";
+        "https://images.unsplash.com/photo-1525026198548-4baa812f1183?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60";
     }
 
     var current_date = new Date();

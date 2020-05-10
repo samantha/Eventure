@@ -232,6 +232,23 @@ class Dashboard extends Component {
   }
 
   render() {
+    // sidebar orgs
+    let administratedOrgs, memberOrgs;
+    if (this.state.orgItems) {
+      administratedOrgs = this.state.allOrgs.filter(
+        (org) => org.role === "admin"
+      );
+      memberOrgs = this.state.allOrgs.filter((org) => org.role !== "admin");
+    }
+
+    // sidebar events
+    // let administratedEvents, memberEvents;
+    // if (this.state.eventItems)
+    // {
+    //   administratedEvents = this.state.eventItems.filter((event) => event.role === 'admin');
+    //   memberEvents = this.state.eventItems.filter((event) => event.role !== 'admin');
+    // }
+
     let upComingEvents = this.state.upcomingEvents.map((event) => {
       return (
         <Col>

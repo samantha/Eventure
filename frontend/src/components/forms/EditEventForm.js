@@ -21,18 +21,19 @@ class EditEventForm extends React.Component {
   // static contextType = UserContext;
 
   constructor(props) {
-    super();
+    super(props);
     // this.getUserOrgs();
 
     this.state = {
-      user: props.user,
-      orgItems: null,
+      currentUser: this.props.currentUser,
+      event_handle: this.props.match.params.handle,
+      event: {},
     };
 
-    this.EditEventForm = this.EditEventForm.bind(this);
-    this.assignTags = this.assignTags.bind(this);
+    // this.EditEventForm = this.EditEventForm.bind(this);
+    // this.assignTags = this.assignTags.bind(this);
     this.getUserOrgs = this.getUserOrgs.bind(this);
-    this.onSelect = this.onSelect.bind(this);
+    // this.onSelect = this.onSelect.bind(this);
   }
 
   state = {
@@ -56,38 +57,38 @@ class EditEventForm extends React.Component {
   };
 
   onChange = (e) => {
-    console.log(e.target.value);
+    // console.log(e.target.value);
     this.setState({
       [e.target.name]: e.target.value,
     });
   };
 
-  onSelect(e) {
-    console.log("selection made");
-    const selectedIndex = e.target.options.selectedIndex;
-    console.log(selectedIndex);
-    console.log(e.target.options[selectedIndex].value);
-    this.setState({
-      org_handle: e.target.options[selectedIndex].value,
-    });
-    console.log(this.state.org_handle);
-  }
+  // onSelect(e) {
+  //   console.log("selection made");
+  //   const selectedIndex = e.target.options.selectedIndex;
+  //   console.log(selectedIndex);
+  //   console.log(e.target.options[selectedIndex].value);
+  //   this.setState({
+  //     org_handle: e.target.options[selectedIndex].value,
+  //   });
+  //   console.log(this.state.org_handle);
+  // }
 
   getUserOrgs() {
-    console.log("get user orgs");
+    // console.log("get user orgs");
     fetch("http://localhost:3000/usermanagedorgs", {
       method: "post",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        username: this.state.user.username,
+        username: this.state.currentUser.username,
       }),
     })
       .then((response) => response.json())
       .then((item) => {
         if (Array.isArray(item)) {
-          item.forEach((element) => console.log(element));
+          // item.forEach((element) => console.log(element));
           const orgItems = item.map((org) => (
             <option key={org.handle} value={org.handle}>
               {org.name}
@@ -96,7 +97,7 @@ class EditEventForm extends React.Component {
           this.setState({
             orgItems: orgItems,
           });
-          console.log(this.state.orgItems);
+          // console.log(this.state.orgItems);
         } else {
           console.log("failure");
         }
@@ -106,10 +107,10 @@ class EditEventForm extends React.Component {
 
   EditEventForm = (e) => {
     e.preventDefault();
-    console.log("creating event");
-    console.log(this.state.org_handle);
+    // console.log("updating event");
+    // console.log(this.state.org_handle);
     fetch("http://localhost:3000/events", {
-      method: "post",
+      method: "put",
       headers: {
         "Content-Type": "application/json",
       },
@@ -133,10 +134,13 @@ class EditEventForm extends React.Component {
       .then((response) => response.json())
       .then((item) => {
         if (Array.isArray(item)) {
-          this.assignTags();
+          // this.assignTags();
+          this.setState({
+            eventCreated: true,
+          });
           // this.props.addItemToState(item[0]);
           // this.props.toggle();
-          console.log("create events!");
+          // console.log("create events!");
         } else {
           console.log("failure");
           this.setState({
@@ -147,38 +151,79 @@ class EditEventForm extends React.Component {
       .catch((err) => console.log(err));
   };
 
-  assignTags() {
-    console.log("assigning tags");
-    var tags = this.state.tags.trim().split(",");
-    console.log(tags);
-    tags.forEach((tag) =>
-      fetch("http://localhost:3000/tags", {
-        method: "post",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          tag: tag,
-          handle: this.state.handle,
-        }),
+  // getTags() {
+  //   console.log("assigning tags");
+  //   var tags = this.state.tags.trim().split(",");
+  //   console.log(tags);
+  //   tags.forEach((tag) =>
+  //     fetch("http://localhost:3000/tags", {
+  //       method: "getEvent",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //       },
+  //       // body: JSON.stringify({
+  //       //   tag: tag,
+  //       //   handle: this.state.handle,
+  //       // }),
+  //     })
+  //       .then((response) => response.json())
+  //       .then((item) => {
+  //         if (Array.isArray(item)) {
+  //           // this.props.addItemToState(item[0]);
+  //           // this.props.toggle();
+  //           this.setState({
+  //             eventCreated: true,
+  //           });
+  //           console.log("added tags!");
+  //         } else {
+  //           console.log("failure");
+  //           this.setState({
+  //             creationError: true,
+  //           });
+  //         }
+  //       })
+  //   );
+  // }
+
+  getEvent() {
+    console.log("get org");
+    fetch("http://localhost:3000/specificevent", {
+      method: "post",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        handle: this.props.match.params.handle,
+      }),
+    })
+      .then((response) => response.json())
+      .then((item) => {
+        if (Array.isArray(item)) {
+          this.setState({
+            event: item[0],
+          });
+          this.setState({
+            name: this.state.event.name,
+            from_date: this.state.event.from_date.replace("T07:00:00.000Z", ""),
+            to_date: this.state.event.to_date.replace("T07:00:00.000Z", ""),
+            start_time: this.state.event.start_time,
+            end_time: this.state.event.end_time,
+            description: this.state.event.description,
+            street: this.state.event.street,
+            city: this.state.event.city,
+            state: this.state.event.state,
+            zipcode: this.state.event.zipcode,
+            icon: this.state.event.icon,
+            org_handle: this.state.event.org_handle,
+            cancellation_policy: this.state.event.cancellation_policy,
+            handle: this.state.event.handle,
+          });
+          // console.log(this.state.to_date);
+        } else {
+          console.log("failure");
+        }
       })
-        .then((response) => response.json())
-        .then((item) => {
-          if (Array.isArray(item)) {
-            // this.props.addItemToState(item[0]);
-            // this.props.toggle();
-            this.setState({
-              eventCreated: true,
-            });
-            console.log("added tags!");
-          } else {
-            console.log("failure");
-            this.setState({
-              creationError: true,
-            });
-          }
-        })
-    );
+      .catch((err) => console.log(err));
   }
 
   invalidInput = (e) => {
@@ -190,40 +235,41 @@ class EditEventForm extends React.Component {
     // get and set currently logged in user to state
     // if item exists, populate the state with proper data
     this.getUserOrgs();
-    if (this.props.item) {
-      const {
-        name,
-        from_date,
-        to_date,
-        start_time,
-        end_time,
-        description,
-        street,
-        city,
-        state,
-        zipcode,
-        icon,
-        org_handle,
-        cancellation_policy,
-        handle,
-      } = this.props.item;
-      this.setState({
-        name,
-        from_date,
-        to_date,
-        start_time,
-        end_time,
-        description,
-        street,
-        city,
-        state,
-        zipcode,
-        icon,
-        org_handle,
-        cancellation_policy,
-        handle,
-      });
-    }
+    this.getEvent();
+    // if (this.props.item) {
+    //   const {
+    //     name,
+    //     from_date,
+    //     to_date,
+    //     start_time,
+    //     end_time,
+    //     description,
+    //     street,
+    //     city,
+    //     state,
+    //     zipcode,
+    //     icon,
+    //     org_handle,
+    //     cancellation_policy,
+    //     handle,
+    //   } = this.props.item;
+    //   this.setState({
+    //     name,
+    //     from_date,
+    //     to_date,
+    //     start_time,
+    //     end_time,
+    //     description,
+    //     street,
+    //     city,
+    //     state,
+    //     zipcode,
+    //     icon,
+    //     org_handle,
+    //     cancellation_policy,
+    //     handle,
+    //   });
+    // }
   }
 
   render() {
@@ -231,7 +277,7 @@ class EditEventForm extends React.Component {
     if (this.state.eventCreated) {
       status = (
         <Alert color="success">
-          Success! {this.state.name} has been created.{" "}
+          Success! {this.state.name} has been successfully updated!{" "}
           <a href={"/e/" + this.state.handle} className="alert-link">
             View your event page
           </a>{" "}
@@ -243,13 +289,13 @@ class EditEventForm extends React.Component {
         </Alert>
       );
     } else if (this.state.creationError) {
-      status = <Alert color="warning">Could not create event.</Alert>;
+      status = <Alert color="warning">Could not update event.</Alert>;
     }
 
     return (
       <div className="event-bg">
         <div className="event-container">
-          <h1>Create an event.</h1>
+          <h1>Update an event.</h1>
           <Form onSubmit={this.EditEventForm.bind(this)}>
             <FormGroup>
               <Label for="org_handle">
@@ -257,7 +303,7 @@ class EditEventForm extends React.Component {
               </Label>
               <Input
                 type="select"
-                defaultValue={""}
+                defaultValue={this.state.org_handle}
                 name="org_handle"
                 id="org_handle"
                 placeholder="Choose an organization..."
@@ -313,7 +359,7 @@ class EditEventForm extends React.Component {
                     name="from_date"
                     id="from_date"
                     onChange={this.onChange}
-                    value={
+                    defaultValue={
                       this.state.from_date === null ? "" : this.state.from_date
                     }
                   />
@@ -464,7 +510,7 @@ class EditEventForm extends React.Component {
               </Col>
             </Row>
 
-            <FormGroup>
+            {/* <FormGroup>
               <Label for="tags">Tags</Label>
               <Input
                 type="text"
@@ -477,6 +523,7 @@ class EditEventForm extends React.Component {
               />
               <FormText>Enter tags separated by a comma.</FormText>
             </FormGroup>
+          */}
 
             <FormGroup>
               <Label for="icon">Event Icon Url</Label>
@@ -494,7 +541,7 @@ class EditEventForm extends React.Component {
             <div className="form-group">
               <input
                 type="submit"
-                value="Create Event"
+                value="Update Event"
                 className="btn btn-primary"
               />
             </div>
