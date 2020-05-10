@@ -21,6 +21,7 @@ class UserCard extends Component {
     this.state = {
       user: this.props.user,
       isFriend: false,
+      member: {},
     };
     this.verifyFriendship = this.verifyFriendship.bind(this);
     this.makeFriendship = this.makeFriendship.bind(this);
@@ -92,14 +93,43 @@ class UserCard extends Component {
     // window.location.reload(false);
   };
 
+  getMember() {
+    console.log("get users");
+    fetch("http://localhost:3000/specificuser", {
+      method: "post",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        username: this.props.member.username,
+      }),
+    })
+      .then((response) => response.json())
+      .then((item) => {
+        if (Array.isArray(item)) {
+          // item.forEach((element) => console.log(element));
+          // const orgItems = item.map((org) => (<Link to={'o/' + org.handle} />));
+          this.setState({
+            member: item[0],
+          });
+          console.log(this.state.member);
+        } else {
+          console.log("failure");
+        }
+      })
+      .catch((err) => console.log(err));
+  }
+
   componentDidMount() {
     this.verifyFriendship();
+    this.getMember();
   }
 
   render() {
+    console.log(this.props.member.username);
     let member_image;
-    if (this.props.member.icon !== "" && this.props.member.icon != null) {
-      member_image = this.props.member.icon;
+    if (this.state.member.icon) {
+      member_image = this.state.member.icon;
     } else {
       member_image =
         "https://images.unsplash.com/photo-1543589923-78e35f728335?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60";

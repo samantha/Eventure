@@ -40,6 +40,7 @@ class App extends React.Component {
         username: "n/a",
         first_name: "n/a",
         last_name: "n/a",
+        icon: "n/a",
         loggedIn: false,
       },
     };
