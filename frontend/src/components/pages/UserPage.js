@@ -57,6 +57,7 @@ class UserPage extends Component {
     this.filterOrgs = this.filterOrgs.bind(this);
     this.filterFriends = this.filterFriends.bind(this);
     this.filterFriendNum = this.filterFriendNum.bind(this);
+    this.editProfile = this.editProfile.bind(this);
   }
 
   // addItemToState = (item) => {
@@ -325,6 +326,10 @@ class UserPage extends Component {
     return filtered;
   }
 
+  editProfile() {
+    this.props.history.push("/settings/profile");
+  }
+
   componentDidMount() {
     // get and set currently logged in user to state
     // if item exists, populate the state with proper data
@@ -340,8 +345,19 @@ class UserPage extends Component {
 
   render() {
     let user_image;
+    let picAchievement;
+
     if (this.state.user.icon !== "" && this.state.user.icon != null) {
       user_image = this.state.user.icon;
+      picAchievement = this.state.allAchievements
+        .filter((achievement) => achievement.name === "profile_pic")
+        .map((achievement) => {
+          return (
+            <Col>
+              <AchievementCard achievement={achievement} />
+            </Col>
+          );
+        });
     } else {
       user_image =
         "https://images.unsplash.com/photo-1458852535794-f5552aa49872?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=500&q=60";
@@ -358,7 +374,7 @@ class UserPage extends Component {
     let editProfile;
     if (this.state.user.username === this.state.currentUser.username) {
       editProfile = (
-        <Button className="edit" color="primary" onClick={this.EditProfile}>
+        <Button className="edit" color="primary" onClick={this.editProfile}>
           Edit Profile <FontAwesomeIcon icon={faEdit} />
         </Button>
       );
@@ -460,14 +476,13 @@ class UserPage extends Component {
             </h1>
             <Container fluid>
               <Row>
+                {picAchievement}
                 {friendAchievements}
                 {orgAchievements}
                 {eventAchievements}
               </Row>
             </Container>
-          </div>
 
-          <div className="main">
             <h1>
               <span id="friends"></span> {this.state.user.first}'s Friends{" "}
             </h1>

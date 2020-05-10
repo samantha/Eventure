@@ -17,16 +17,16 @@ import { withRouter } from "react-router-dom";
 // import UserSwitcher from './UserSwitcher';
 import "../../styles/CreateOrgForm.css";
 
-class CreateOrganization extends React.Component {
+class EditOrgForm extends React.Component {
   // static contextType = UserContext;
 
   constructor(props) {
-    super();
+    super(props);
     this.state = {
-      user: props.user,
+      org_handle: this.props.match.params.handle,
+      org: {},
     };
-    this.createOrg = this.createOrg.bind(this);
-    this.assignMembership = this.assignMembership.bind(this);
+    this.getOrg = this.getOrg.bind(this);
   }
 
   onChangeUser() {
@@ -55,32 +55,13 @@ class CreateOrganization extends React.Component {
     });
   };
 
-  // uploadFile(e) {
-  //    let file = e.target.files[0];
-  //     console.log(file.name);
-  //    if (file)
-  //      {
-  //      let path = "img/" + file.name;
-  //      console.log(path);
-  //      this.setState({
-  //    [e.target.name]: {path}
-  //  });
-  //    }
-  //      // if (file) {
-  //      //   let data = new FormData();
-  //      //   data.append('file', file);
-  //      //   console.log(data);
-  //      //   // axios.post('/files', data)...
-  //      // }
-
-  //    };
-
-  createOrg = (e) => {
+  submitFormEdit = (e) => {
     e.preventDefault();
-    console.log("creating org");
+    console.log("updating org");
     console.log(this.state.icon);
+    console.log(this.state.handle);
     fetch("http://localhost:3000/orgs", {
-      method: "post",
+      method: "put",
       headers: {
         "Content-Type": "application/json",
       },
@@ -95,11 +76,7 @@ class CreateOrganization extends React.Component {
     })
       .then((response) => response.json())
       .then((item) => {
-        if (Array.isArray(item)) {
-          this.assignMembership();
-          // this.props.addItemToState(item[0]);
-          // this.props.toggle();
-        } else {
+        if (!Array.isArray(item)) {
           console.log("failure");
           this.setState({
             creationError: true,
@@ -108,53 +85,54 @@ class CreateOrganization extends React.Component {
       })
       .catch((err) => console.log(err));
   };
-
-  assignMembership() {
-    console.log("assigning membership");
-    console.log(this.props.user);
-    console.log(this.props.user.username);
-    console.log(this.state.handle);
-    fetch("http://localhost:3000/memberships", {
-      method: "post",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        org_handle: this.state.handle,
-        username: this.props.user.username,
-        role: "admin",
-      }),
-    })
-      .then((response) => response.json())
-      .then((item) => {
-        if (Array.isArray(item)) {
-          this.setState({
-            orgCreated: true,
-          });
-          // this.props.addItemToState(item[0]);
-          // this.props.toggle();
-        } else {
-          console.log("failure");
-          this.setState({
-            creationError: true,
-          });
-        }
-      })
-      .catch((err) => console.log(err));
-  }
 
   invalidInput = (e) => {
     e.preventDefault();
     console.log("error");
   };
 
+  getOrg() {
+    console.log("get org");
+    fetch("http://localhost:3000/specificorg", {
+      method: "post",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        handle: this.props.match.params.handle,
+      }),
+    })
+      .then((response) => response.json())
+      .then((item) => {
+        if (Array.isArray(item)) {
+          this.setState({
+            org: item[0],
+            orgCreated: true,
+          });
+          this.setState({
+            name: this.state.org.name,
+            description: this.state.org.description,
+            city: this.state.org.city,
+            state: this.state.org.state,
+            handle: this.state.org.handle,
+            icon: this.state.org.icon,
+          });
+          // console.log(this.state.org);
+        } else {
+          console.log("failure");
+        }
+      })
+      .catch((err) => console.log(err));
+  }
+
   componentDidMount() {
     // get and set currently logged in user to state
     // if item exists, populate the state with proper data
-    if (this.props.item) {
-      const { name, description, city, state, handle, icon } = this.props.item;
-      this.setState({ name, description, city, state, handle, icon });
-    }
+    this.getOrg();
+    // if (this.props.item) {
+    //   const { name, description, city, state, handle, icon } = this.props.item;
+    //   this.setState({ name, description, city, state, handle, icon });
+    // }
   }
 
   render() {
@@ -162,7 +140,7 @@ class CreateOrganization extends React.Component {
     if (this.state.orgCreated) {
       status = (
         <Alert color="success">
-          Success! {this.state.name} has been created.{" "}
+          Success! {this.state.name} has been updated.{" "}
           <a href={"/o/" + this.state.handle} className="alert-link">
             View your organization page
           </a>{" "}
@@ -174,14 +152,14 @@ class CreateOrganization extends React.Component {
         </Alert>
       );
     } else if (this.state.creationError) {
-      status = <Alert color="warning">Could not create organization.</Alert>;
+      status = <Alert color="warning">Could not update organization.</Alert>;
     }
 
     return (
       <div className="org-bg">
         <div className="event-container">
           <h1>Form your tribe.</h1>
-          <Form onSubmit={this.createOrg.bind(this)}>
+          <Form onSubmit={this.submitFormEdit}>
             <FormGroup>
               <Label for="name">Organization Name</Label>
               <Input
@@ -191,7 +169,9 @@ class CreateOrganization extends React.Component {
                 placeholder="Eg. Association of Picnic Enthusiasts"
                 id="name"
                 onChange={this.onChange}
-                value={this.state.name === null ? "" : this.state.name}
+                defaultValue={
+                  this.state.name === null ? "" : this.state.org.name
+                }
               />
             </FormGroup>
             <FormGroup>
@@ -203,8 +183,10 @@ class CreateOrganization extends React.Component {
                 placeholder="Eg. We love to have picnics. Anywhere. Anytime."
                 id="description"
                 onChange={this.onChange}
-                value={
-                  this.state.description === null ? "" : this.state.description
+                defaultValue={
+                  this.state.description === null
+                    ? ""
+                    : this.state.org.description
                 }
               />
             </FormGroup>
@@ -217,7 +199,9 @@ class CreateOrganization extends React.Component {
                 placeholder="Eg. Los Angeles"
                 id="city"
                 onChange={this.onChange}
-                value={this.state.city === null ? "" : this.state.city}
+                defaultValue={
+                  this.state.city === null ? "" : this.state.org.city
+                }
               />
             </FormGroup>
             <FormGroup>
@@ -229,7 +213,9 @@ class CreateOrganization extends React.Component {
                 placeholder="Eg. California"
                 id="state"
                 onChange={this.onChange}
-                value={this.state.state === null ? "" : this.state.state}
+                defaultValue={
+                  this.state.state === null ? "" : this.state.org.state
+                }
               />
             </FormGroup>
 
@@ -242,7 +228,9 @@ class CreateOrganization extends React.Component {
                 placeholder="Eg. picnic-association"
                 id="handle"
                 onChange={this.onChange}
-                value={this.state.handle === null ? "" : this.state.handle}
+                defaultValue={
+                  this.state.handle === null ? "" : this.state.org.handle
+                }
               />
               <FormText>
                 Enter a unique handle to help others find you. No whitespaces.
@@ -258,14 +246,16 @@ class CreateOrganization extends React.Component {
                 placeholder="Eg. https://upload.wikimedia.org/picnic-association.jpg"
                 id="icon"
                 onChange={this.onChange}
-                value={this.state.icon === null ? "" : this.state.icon}
+                defaultValue={
+                  this.state.icon === null ? "" : this.state.org.icon
+                }
               />
             </FormGroup>
 
             <div className="form-group">
               <input
                 type="submit"
-                value="Create Organization"
+                defaultValue="Create Organization"
                 className="btn btn-primary"
               />
             </div>
@@ -277,7 +267,7 @@ class CreateOrganization extends React.Component {
   }
 }
 
-CreateOrganization.propTypes = {
+EditOrgForm.propTypes = {
   user: PropTypes.object,
 };
-export default withRouter(CreateOrganization);
+export default withRouter(EditOrgForm);

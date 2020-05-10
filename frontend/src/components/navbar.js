@@ -29,6 +29,7 @@ class Navigation extends Component {
       email: "n/a",
       first_name: "n/a",
       last_name: "n/a",
+      icon: "n/a",
       loggedIn: false,
     };
     // console.log(loggedOutUser);
