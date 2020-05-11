@@ -164,7 +164,7 @@ class OrganizationPage extends Component {
       },
       body: JSON.stringify({
         username: this.state.user.username,
-        org_handle: this.props.org.handle,
+        org_handle: this.props.match.params.handle,
       }),
     })
       .then((response) => response.json())

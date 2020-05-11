@@ -262,8 +262,12 @@ class EventPage extends Component {
       );
     });
 
-    var oldDate = new Date(Date.parse(this.state.event.from_date));
-    var event_date = oldDate.toDateString();
+    var startDate = new Date(Date.parse(this.state.event.from_date));
+    var startDate = startDate.toDateString();
+
+    var endDate = new Date(Date.parse(this.state.event.to_date));
+    var endDate = endDate.toDateString();
+
     console.log(this.state.event.start_time);
     var start_time = this.state.event.start_time;
     var end_time = this.state.event.end_time;
@@ -377,9 +381,9 @@ class EventPage extends Component {
               <div className="left-details">Event Name:</div>
               <div className="left">{this.state.event.name}</div>
               <div className="left-details">Start Date:</div>
-              <div className="left">{event_date}</div>
+              <div className="left">{startDate}</div>
               <div className="left-details">End Date:</div>
-              <div className="left">{event_date}</div>
+              <div className="left">{endDate}</div>
               <div className="left-details">Time: </div>
               <div className="left">
                 {start_time} to {end_time}
