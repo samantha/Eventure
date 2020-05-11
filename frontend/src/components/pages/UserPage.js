@@ -413,7 +413,21 @@ class UserPage extends Component {
           {this.state.reportVisible && (
             <div id="modal" onClick={(e) => this.closeModal(e)}>
               <div className="modal-box">
-                <h1> I'm the AWESOME modal! </h1>
+                <h1>Report User.</h1>
+                <div class="form-group">
+                  <label for="exampleFormControlTextarea1">
+                    Help us understand the problem. What is going on?
+                  </label>
+                  <textarea
+                    class="form-control"
+                    id="exampleFormControlTextarea1"
+                    placeholder="Type problem here."
+                    rows="3"
+                  ></textarea>
+                </div>
+                <div className="modal-report-footer">
+                  <Button>Submit</Button>
+                </div>
               </div>
             </div>
           )}
