@@ -23,12 +23,14 @@ import {
   faFlag,
   faUserCircle,
   faHouseUser,
+  faCheck,
+  faPlus,
 } from "@fortawesome/free-solid-svg-icons";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import EventCard from "../../components/cards/EventCard";
 import UserCard from "../../components/cards/UserCard";
 
-library.add(faEdit, faFlag, faUserCircle, faHouseUser);
+library.add(faEdit, faFlag, faUserCircle, faHouseUser, faCheck, faPlus);
 
 class OrganizationPage extends Component {
   constructor(props) {
@@ -40,6 +42,7 @@ class OrganizationPage extends Component {
       members: [],
       user: this.props.currentUser,
       reportVisible: false,
+      isMember: false,
     };
     this.getOrg = this.getOrg.bind(this);
     this.getEvents = this.getEvents.bind(this);
@@ -127,12 +130,82 @@ class OrganizationPage extends Component {
     }
   }
 
+  verifyMembership() {
+    fetch("http://localhost:3000/verifymembership", {
+      method: "post",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        username: this.state.user.username,
+        org_handle: this.props.match.params.handle,
+      }),
+    })
+      .then((response) => response.json())
+      .then((item) => {
+        if (Array.isArray(item) && item.length) {
+          this.setState({
+            isMember: true,
+          });
+          // console.log(this.state.allOrgs);
+        } else {
+          console.log("failure");
+        }
+      })
+      .catch((err) => console.log(err));
+  }
+
+  becomeMember = (e) => {
+    e.preventDefault();
+    fetch("http://localhost:3000/memberships", {
+      method: "post",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        username: this.state.user.username,
+        org_handle: this.props.org.handle,
+      }),
+    })
+      .then((response) => response.json())
+      .then((item) => {
+        if (Array.isArray(item) && item.length) {
+          this.setState({
+            isMember: true,
+          });
+          // console.log(this.state.allOrgs);
+        } else {
+          console.log("failure");
+        }
+      })
+      .catch((err) => console.log(err));
+  };
+
+  cancelMembership = (e) => {
+    e.preventDefault();
+    fetch("http://localhost:3000/memberships", {
+      method: "delete",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        username: this.state.user.username,
+        org_handle: this.props.org.handle,
+      }),
+    })
+      .then((response) => response.json())
+      .catch((err) => console.log(err));
+
+    this.setState({ isMember: false });
+  };
+
   componentDidMount() {
     // get and set currently logged in user to state
     // if item exists, populate the state with proper data
     this.getOrg();
     this.getEvents();
     this.getMembers();
+    this.verifyMembership();
   }
 
   render() {
@@ -240,6 +313,21 @@ class OrganizationPage extends Component {
       );
     }
 
+    let membershipStatus;
+    if (this.state.isMember) {
+      membershipStatus = (
+        <Button outline color="primary" onClick={this.cancelMembership}>
+          Joined <FontAwesomeIcon icon={faCheck} />
+        </Button>
+      );
+    } else {
+      membershipStatus = (
+        <Button color="primary" onClick={this.becomeMember}>
+          Join <FontAwesomeIcon icon={faPlus} />
+        </Button>
+      );
+    }
+
     return (
       <div className="sidenav">
         <Sidebar
@@ -257,6 +345,7 @@ class OrganizationPage extends Component {
         >
           <div>
             <div className="sidebar-container">
+              <div className="center">{membershipStatus}</div>
               <div className="center">
                 {this.state.org.city}
                 {", "}
@@ -275,7 +364,7 @@ class OrganizationPage extends Component {
                   backgroundColor="rgba(28,186,223,1)"
                   iconSize="5"
                   roundness="15%"
-                  url="https://some-website.com/my-social-media-url"
+                  url={"https://twitter.com/" + this.state.org.handle}
                   size="50"
                 />
                 <SocialMediaIconsReact
@@ -287,7 +376,7 @@ class OrganizationPage extends Component {
                   backgroundColor="rgba(188,42,141,1)"
                   iconSize="5"
                   roundness="15%"
-                  url="https://some-website.com/my-social-media-url"
+                  url={"https://instagram.com/" + this.state.org.handle}
                   size="50"
                 />
                 <SocialMediaIconsReact
@@ -299,7 +388,7 @@ class OrganizationPage extends Component {
                   backgroundColor="rgba(59,89,152,1)"
                   iconSize="5"
                   roundness="15%"
-                  url="https://some-website.com/my-social-media-url"
+                  url={"https://facebook.com/" + this.state.org.handle}
                   size="50"
                 />
               </div>
