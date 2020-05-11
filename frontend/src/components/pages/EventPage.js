@@ -377,7 +377,7 @@ class EventPage extends Component {
             <div className="sidebar-container">
               <div className="center">
                 <h1>Share Event</h1>
-                <SocialMedia />
+                <SocialMedia event={this.state.event} />
               </div>
             </div>
           </div>
