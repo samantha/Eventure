@@ -13,6 +13,7 @@ import NavDropdown from "react-bootstrap/NavDropdown";
 import Sidebar from "../../components/sidebar";
 import { Button, Row, Col, Container } from "reactstrap";
 import "../../styles/dashboard.css";
+import "../../styles/ReportForm.css";
 import { SocialMediaIconsReact } from "social-media-icons-react";
 
 import { withRouter } from "react-router-dom";
@@ -38,6 +39,7 @@ class OrganizationPage extends Component {
       events: [],
       members: [],
       user: this.props.currentUser,
+      reportVisible: false,
     };
     this.getOrg = this.getOrg.bind(this);
     this.getEvents = this.getEvents.bind(this);
@@ -114,6 +116,15 @@ class OrganizationPage extends Component {
 
   editOrg() {
     this.props.history.push("/settings/org/" + this.state.org.handle);
+  }
+
+  openModal() {
+    this.setState((prevState) => ({ reportVisible: !prevState.show }));
+  }
+  closeModal(e) {
+    if (e.target.id === "modal") {
+      this.setState({ reportVisible: false });
+    }
   }
 
   componentDidMount() {
@@ -196,13 +207,36 @@ class OrganizationPage extends Component {
       );
     } else {
       editOrg = (
-        <Button
-          className="edit"
-          color="secondary"
-          onClick={this.reportOrganization}
-        >
-          Report Organization <FontAwesomeIcon icon={faFlag} />
-        </Button>
+        <div>
+          <Button
+            className="edit"
+            color="secondary"
+            onClick={() => this.openModal()}
+          >
+            Report Organization <FontAwesomeIcon icon={faFlag} />
+          </Button>
+          {this.state.reportVisible && (
+            <div id="modal" onClick={(e) => this.closeModal(e)}>
+              <div className="modal-box">
+                <h1>Report Organization.</h1>
+                <div class="form-group">
+                  <label for="exampleFormControlTextarea1">
+                    Help us understand the problem. What is going on?
+                  </label>
+                  <textarea
+                    class="form-control"
+                    id="exampleFormControlTextarea1"
+                    placeholder="Type problem here."
+                    rows="3"
+                  ></textarea>
+                </div>
+                <div className="modal-report-footer">
+                  <Button>Submit</Button>
+                </div>
+              </div>
+            </div>
+          )}
+        </div>
       );
     }
 
