@@ -25,6 +25,8 @@ import CreateEvent from "./components/forms/CreateEventForm";
 import UserPage from "./components/pages/UserPage";
 import EventPage from "./components/pages/EventPage";
 import OrganizationPage from "./components/pages/OrganizationPage";
+import EventTable from "./components/tables/EventTable";
+import OrganizationTable from "./components/tables/OrganizationTable";
 
 /*var auth = require('./auth'); // looks at index.js
  */
@@ -164,6 +166,10 @@ class App extends React.Component {
           <Link to={"/settings/event/" + event.handle} />
         ))}
 
+        {this.state.allEvents.map((event) => (
+          <Link to={"/chat/event/" + event.handle} />
+        ))}
+
         <Navigation
           user={currentUser}
           changeUser={this.onChangeUser.bind(this)}
@@ -185,6 +191,11 @@ class App extends React.Component {
         />
 
         <Route
+          path="/chat/event/:handle"
+          render={(props) => <ChatLobby {...props} currentUser={currentUser} />}
+        />
+
+        <Route
           path="/u/:username"
           render={(props) => <UserPage {...props} currentUser={currentUser} />}
         />
@@ -203,6 +214,18 @@ class App extends React.Component {
         <Route
           path="/lobby"
           render={(props) => <ChatLobby {...props} user={currentUser} />}
+        />
+
+        <Route
+          path="/manage-orgs"
+          render={(props) => (
+            <OrganizationTable {...props} user={currentUser} />
+          )}
+        />
+
+        <Route
+          path="/manage-events"
+          render={(props) => <EventTable {...props} user={currentUser} />}
         />
 
         <Route

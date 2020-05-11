@@ -70,6 +70,8 @@ class UserPage extends Component {
     this.verifyFriendship = this.verifyFriendship.bind(this);
     this.makeFriendship = this.makeFriendship.bind(this);
     this.cancelFriendship = this.cancelFriendship.bind(this);
+    this.manageOrgs = this.manageOrgs.bind(this);
+    this.manageEvents = this.manageEvents.bind(this);
   }
 
   // addItemToState = (item) => {
@@ -422,6 +424,13 @@ class UserPage extends Component {
     this.setState({ isFriend: false });
     // window.location.reload(false);
   };
+  manageOrgs() {
+    this.props.history.push("/manage-orgs");
+  }
+
+  manageEvents() {
+    this.props.history.push("/manage-events");
+  }
 
   componentDidMount() {
     // get and set currently logged in user to state
@@ -549,15 +558,77 @@ class UserPage extends Component {
           Friends <FontAwesomeIcon icon={faCheck} />
         </Button>
       );
-    } else {
+    } else if (
+      !this.state.isFriend &&
+      this.state.currentUser.username !== this.props.match.params.username
+    ) {
       friendshipStatus = (
-        <Button
-          className="friendship"
-          color="primary"
-          onClick={this.makeFriendship}
+        <div className="sidebar-container">
+          <Button
+            className="friendship"
+            color="primary"
+            onClick={this.makeFriendship}
+          >
+            Add Friend <FontAwesomeIcon icon={faPlus} />
+          </Button>
+        </div>
+      );
+    }
+
+    let displayedOrgs;
+    if (this.state.orgItems) {
+      displayedOrgs = this.state.orgItems;
+    }
+    // else{
+    //   displayedOrgs = (<p>No organizations yet!</p>)
+    // }
+
+    let displayedEvents;
+    console.log(this.state.eventItems);
+    if (this.state.eventItems) {
+      displayedEvents = this.state.eventItems;
+    }
+    // else{
+    //   displayedEvents = (<p>No events yet!</p>)
+    // }
+
+    let manageOrg, createOrg, manageEvent, createEvent;
+    if (this.state.currentUser.username === this.props.match.params.username) {
+      manageOrg = (
+        <button
+          type="button"
+          className="btn btn-info manage"
+          onClick={this.manageOrgs}
         >
-          Add Friend <FontAwesomeIcon icon={faPlus} />
-        </Button>
+          Manage Organizations
+        </button>
+      );
+      createEvent = (
+        <button
+          type="button"
+          className="btn btn-info"
+          onClick={this.onCreateEvent.bind(this)}
+        >
+          +
+        </button>
+      );
+      createOrg = (
+        <button
+          type="button"
+          className="btn btn-info"
+          onClick={this.onCreateOrg.bind(this)}
+        >
+          +
+        </button>
+      );
+      manageEvent = (
+        <button
+          type="button"
+          className="btn btn-info manage"
+          onClick={this.manageEvents}
+        >
+          Manage Events
+        </button>
       );
     }
 
@@ -578,47 +649,27 @@ class UserPage extends Component {
           handle={"@" + this.state.user.username}
           edit={editProfile}
         >
-          <div className="sidebar-container">
-            <div className="center">{friendshipStatus}</div>
-          </div>
+          <div className="center">{friendshipStatus}</div>
           <div className="sidebar-container">
             <h4>
               {" "}
-              {this.state.user.first}'s Organizations{" "}
-              <button
-                type="button"
-                className="btn btn-info"
-                onClick={this.onCreateOrg.bind(this)}
-              >
-                +
-              </button>{" "}
+              {this.state.user.first}'s Organizations {createOrg}
             </h4>
             <Nav>
-              {this.state.orgItems}
+              {displayedOrgs}
               {/*<Nav.Link href="register">Manage Organizations</Nav.Link>}*/}
-              <button type="button" className="btn btn-outline-info manage">
-                Manage Organizations
-              </button>
+              {manageOrg}
             </Nav>
           </div>
           <div className="sidebar-container">
             <h4>
               {" "}
-              {this.state.user.first}'s Events{" "}
-              <button
-                type="button"
-                className="btn btn-info"
-                onClick={this.onCreateEvent.bind(this)}
-              >
-                +
-              </button>{" "}
+              {this.state.user.first}'s Events {createEvent}
             </h4>
             <Nav>
-              {this.state.eventItems}
+              {displayedEvents}
               {/* <Nav.Link href="register">Manage Events</Nav.Link>*/}
-              <button type="button" className="btn btn-outline-info manage">
-                Manage Events
-              </button>
+              {manageEvent}
             </Nav>
           </div>
         </Sidebar>
