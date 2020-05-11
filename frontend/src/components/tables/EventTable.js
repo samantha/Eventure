@@ -46,7 +46,7 @@ class EventTable extends Component {
   }
 
   deleteEvent = (item) => {
-    let confirmDelete = window.confirm("Delete item forever?");
+    let confirmDelete = window.confirm("Delete event forever?");
     if (confirmDelete) {
       fetch("http://localhost:3000/events", {
         method: "delete",

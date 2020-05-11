@@ -29,15 +29,6 @@ class EditOrgForm extends React.Component {
     this.getOrg = this.getOrg.bind(this);
   }
 
-  onChangeUser() {
-    this.props.changeUser(this.state.loggedInUser);
-    this.props.history.push("/dashboard");
-    window.location.reload(false);
-    this.setState({
-      user: this.state.loggedInUser,
-    });
-  }
-
   state = {
     orgCreated: false,
     creationError: false,

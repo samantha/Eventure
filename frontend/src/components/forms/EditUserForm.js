@@ -9,12 +9,13 @@ class EditUserForm extends React.Component {
 
     this.state = {
       user: this.props.user,
+      deletedAccount: false,
     };
   }
 
   state = {
     formError: false,
-    formSuccess: false,
+    updated: false,
     username: this.props.user.username,
     first: this.props.user.first_name,
     last: this.props.user.last_name,
@@ -50,12 +51,56 @@ class EditUserForm extends React.Component {
           console.log(item[0]);
           this.setState({
             user: item,
+            updated: true,
           });
         } else {
           console.log("failure");
+          this.setState({
+            formError: true,
+          });
         }
       })
       .catch((err) => console.log(err));
+  };
+
+  onChangeUser = () => {
+    this.state.isAuthenticated = false;
+    // console.log("log out");
+    const loggedOutUser = {
+      email: "n/a",
+      first_name: "n/a",
+      last_name: "n/a",
+      icon: "n/a",
+      loggedIn: false,
+    };
+    // console.log(loggedOutUser);
+
+    this.props.changeUser(loggedOutUser);
+    this.setState({
+      deletedAccount: true,
+    });
+  };
+
+  deleteAccount = (item) => {
+    let confirmDelete = window.confirm("Delete user forever?");
+    if (confirmDelete) {
+      fetch("http://localhost:3000/users", {
+        method: "delete",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          username: item.username,
+        }),
+      })
+        .then((response) => response.json())
+        .then((item) => {
+          if (!Array.isArray(item)) {
+            this.onChangeUser();
+          }
+        })
+        .catch((err) => console.log(err));
+    }
   };
 
   componentDidMount() {
@@ -69,30 +114,31 @@ class EditUserForm extends React.Component {
   render() {
     // console.log(this.state.user);
     // console.log("hello")
-    const isSignedUp = this.state.isSignedUp;
+    const updated = this.state.updated;
     let status;
-    if (isSignedUp) {
+    if (updated) {
       status = (
         <Alert color="success">
           Your profile was updated successfully!{" "}
           <a href={"/u/" + this.state.username} className="alert-link">
-            Click here to view your profile page.
+            Click here to view your profile page
+          </a>
+          .
+        </Alert>
+      );
+    } else if (this.state.formError) {
+      status = <Alert color="warning">Could not update user.</Alert>;
+    } else if (this.state.deletedAccount) {
+      status = (
+        <Alert color="success">
+          Your profile was deleted successfully!{" "}
+          <a href={"/"} className="alert-link">
+            Click here to return to homepage
           </a>
           .
         </Alert>
       );
     }
-    //  else {
-    //   status = (
-    //     <Alert color="primary">
-    //       Already have an account?{" "}
-    //       <a href="/login" className="alert-link">
-    //         Log in here
-    //       </a>
-    //       .
-    //     </Alert>
-    //   );
-    // }
     return (
       <div className="signup-bg">
         <div className="event-container">
@@ -178,6 +224,12 @@ class EditUserForm extends React.Component {
                 value="Update Profile"
                 className="initial btn btn-primary"
               />
+              <Button
+                className="initial btn btn-danger"
+                onClick={() => this.deleteAccount(this.state.user)}
+              >
+                Delete Account
+              </Button>
             </div>
             {status}
           </Form>
