@@ -112,7 +112,7 @@ class UserCard extends Component {
           this.setState({
             member: item[0],
           });
-          console.log(this.state.member);
+          // console.log(this.state.member);
         } else {
           console.log("failure");
         }
@@ -126,7 +126,7 @@ class UserCard extends Component {
   }
 
   render() {
-    console.log(this.props.member.username);
+    // console.log(this.props.member.username);
     let member_image;
     if (this.state.member.icon) {
       member_image = this.state.member.icon;

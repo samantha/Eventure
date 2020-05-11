@@ -14,10 +14,13 @@ import Sidebar from "../../components/sidebar";
 import ModalForm from "../../components/modals/ModalForm";
 import UserCard from "../../components/cards/UserCard";
 import AchievementCard from "../../components/cards/AchievementCard";
+import ReportForm from "../../components/forms/ReportForm";
 
 import { Button, Container, Row, Col } from "reactstrap";
 
 import "../../styles/dashboard.css";
+import "../../styles/ReportForm.css";
+
 import { withRouter } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -40,6 +43,7 @@ class UserPage extends Component {
       eventItems: null,
       userFriends: [],
       isVisible: false,
+      reportVisible: false,
       numAttendedEvents: 0,
       numJoinedOrgs: 0,
       numFriends: 0,
@@ -59,6 +63,7 @@ class UserPage extends Component {
     this.filterFriends = this.filterFriends.bind(this);
     this.filterFriendNum = this.filterFriendNum.bind(this);
     this.editProfile = this.editProfile.bind(this);
+    this.reportUser = this.reportUser.bind(this);
   }
 
   // addItemToState = (item) => {
@@ -73,7 +78,7 @@ class UserPage extends Component {
   }
 
   getUserFriends() {
-    console.log("get friends");
+    // console.log("get friends");
     fetch("http://localhost:3000/userfriends", {
       method: "post",
       headers: {
@@ -113,7 +118,7 @@ class UserPage extends Component {
       .then((response) => response.json())
       .then((item) => {
         if (Array.isArray(item)) {
-          item.forEach((element) => console.log(element));
+          // item.forEach((element) => console.log(element));
           // const orgItems = item.map((org) => (
           //   <div className="my-orgs">
           //     <a href={"/o/" + org.handle}>{org.name}</a>
@@ -122,7 +127,7 @@ class UserPage extends Component {
           this.setState({
             user: item[0],
           });
-          console.log(this.state.user);
+          // console.log(this.state.user);
         } else {
           console.log("failure");
         }
@@ -201,7 +206,7 @@ class UserPage extends Component {
   }
 
   getAllAchievements() {
-    console.log("get achievements");
+    // console.log("get achievements");
     fetch("http://localhost:3000/achievements", {
       method: "get",
       headers: {
@@ -216,7 +221,7 @@ class UserPage extends Component {
           this.setState({
             allAchievements: item,
           });
-          console.log(this.state.allAchievements);
+          // console.log(this.state.allAchievements);
         } else {
           console.log("failure");
         }
@@ -273,8 +278,8 @@ class UserPage extends Component {
   }
 
   getNumFriends() {
-    console.log("num friends");
-    console.log(this.props.match.params.username);
+    // console.log("num friends");
+    // console.log(this.props.match.params.username);
     fetch("http://localhost:3000/friendcount", {
       method: "post",
       headers: {
@@ -290,7 +295,7 @@ class UserPage extends Component {
           this.setState({
             numFriends: item[0].numberoffriends,
           });
-          console.log(this.state.numFriends);
+          // console.log(this.state.numFriends);
         } else {
           console.log("failure");
         }
@@ -302,7 +307,7 @@ class UserPage extends Component {
     var filtered =
       achievement.type === "events" &&
       achievement.num_to_achieve <= this.state.numAttendedEvents;
-    console.log(filtered);
+    // console.log(filtered);
   }
 
   filterOrgs(achievement) {
@@ -316,19 +321,35 @@ class UserPage extends Component {
     var filtered =
       achievement.type === "friends" &&
       achievement.num_to_achieve <= this.state.numFriends;
-    console.log(filtered);
+    // console.log(filtered);
     return filtered;
   }
 
   filterFriendNum(achievement) {
     var filtered = achievement.num_to_achieve <= this.state.numFriends;
-    console.log(filtered);
-    console.log(this.state.numFriends);
+    // console.log(filtered);
+    // console.log(this.state.numFriends);
     return filtered;
   }
 
   editProfile() {
     this.props.history.push("/settings/profile");
+  }
+
+  reportUser() {
+    this.setState({
+      reportVisible: true,
+    });
+    console.log(this.state.reportVisible);
+  }
+
+  openModal() {
+    this.setState((prevState) => ({ reportVisible: !prevState.show }));
+  }
+  closeModal(e) {
+    if (e.target.id === "modal") {
+      this.setState({ reportVisible: false });
+    }
   }
 
   componentDidMount() {
@@ -381,9 +402,22 @@ class UserPage extends Component {
       );
     } else {
       editProfile = (
-        <Button className="edit" color="secondary" onClick={this.reportUser}>
-          Report User <FontAwesomeIcon icon={faFlag} />
-        </Button>
+        <div>
+          <Button
+            className="edit"
+            color="secondary"
+            onClick={() => this.openModal()}
+          >
+            Report User <FontAwesomeIcon icon={faFlag} />
+          </Button>
+          {this.state.reportVisible && (
+            <div id="modal" onClick={(e) => this.closeModal(e)}>
+              <div className="modal-box">
+                <h1> I'm the AWESOME modal! </h1>
+              </div>
+            </div>
+          )}
+        </div>
       );
     }
 
