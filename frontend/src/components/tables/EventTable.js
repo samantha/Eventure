@@ -61,6 +61,7 @@ class EventTable extends Component {
         .then((item) => {
           if (Array.isArray(item)) {
             this.getUserManagedEvents();
+            window.location.reload(false);
           } else {
             console.log("failure");
           }

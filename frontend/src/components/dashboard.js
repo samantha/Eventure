@@ -37,6 +37,8 @@ class Dashboard extends Component {
     this.getAllOrgs = this.getAllOrgs.bind(this);
     this.getAllUsers = this.getAllUsers.bind(this);
     this.manageFriends = this.manageFriends.bind(this);
+    this.manageOrgs = this.manageOrgs.bind(this);
+    this.manageEvents = this.manageEvents.bind(this);
   }
   updateModal(isVisible) {
     this.state.isVisible = isVisible;
@@ -220,6 +222,14 @@ class Dashboard extends Component {
     this.props.history.push("/u/" + this.state.user.username + "#friends");
   }
 
+  manageOrgs() {
+    this.props.history.push("/manage-orgs");
+  }
+
+  manageEvents() {
+    this.props.history.push("/manage-events");
+  }
+
   componentDidMount() {
     // get and set currently logged in user to state
     // if item exists, populate the state with proper data
@@ -305,7 +315,11 @@ class Dashboard extends Component {
             <Nav>
               {this.state.orgItems}
               {/*<Nav.Link href="register">Manage Organizations</Nav.Link>}*/}
-              <button type="button" className="btn btn-info manage">
+              <button
+                type="button"
+                className="btn btn-info manage"
+                onClick={this.manageOrgs}
+              >
                 Manage Organizations
               </button>
             </Nav>
@@ -325,7 +339,11 @@ class Dashboard extends Component {
             <Nav>
               {this.state.eventItems}
               {/* <Nav.Link href="register">Manage Events</Nav.Link>*/}
-              <button type="button" className="btn btn-info manage">
+              <button
+                type="button"
+                className="btn btn-info manage"
+                onClick={this.manageEvents}
+              >
                 Manage Events
               </button>
             </Nav>

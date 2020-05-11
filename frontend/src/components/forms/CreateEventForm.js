@@ -482,7 +482,6 @@ class CreateEvent extends React.Component {
               <Label for="icon">Event Icon Url</Label>
               <Input
                 type="text"
-                required
                 name="icon"
                 placeholder="Eg. https://upload.wikimedia.org/picnic-event.jpg"
                 id="icon"
