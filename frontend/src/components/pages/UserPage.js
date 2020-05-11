@@ -549,15 +549,20 @@ class UserPage extends Component {
           Friends <FontAwesomeIcon icon={faCheck} />
         </Button>
       );
-    } else {
+    } else if (
+      !this.state.isFriend &&
+      this.state.currentUser.username !== this.props.match.params.username
+    ) {
       friendshipStatus = (
-        <Button
-          className="friendship"
-          color="primary"
-          onClick={this.makeFriendship}
-        >
-          Add Friend <FontAwesomeIcon icon={faPlus} />
-        </Button>
+        <div className="sidebar-container">
+          <Button
+            className="friendship"
+            color="primary"
+            onClick={this.makeFriendship}
+          >
+            Add Friend <FontAwesomeIcon icon={faPlus} />
+          </Button>
+        </div>
       );
     }
 
@@ -578,9 +583,7 @@ class UserPage extends Component {
           handle={"@" + this.state.user.username}
           edit={editProfile}
         >
-          <div className="sidebar-container">
-            <div className="center">{friendshipStatus}</div>
-          </div>
+          <div className="center">{friendshipStatus}</div>
           <div className="sidebar-container">
             <h4>
               {" "}

@@ -164,6 +164,10 @@ class App extends React.Component {
           <Link to={"/settings/event/" + event.handle} />
         ))}
 
+        {this.state.allEvents.map((event) => (
+          <Link to={"/chat/event/" + event.handle} />
+        ))}
+
         <Navigation
           user={currentUser}
           changeUser={this.onChangeUser.bind(this)}
@@ -182,6 +186,11 @@ class App extends React.Component {
           render={(props) => (
             <EditEventForm {...props} currentUser={currentUser} />
           )}
+        />
+
+        <Route
+          path="/chat/event/:handle"
+          render={(props) => <ChatLobby {...props} currentUser={currentUser} />}
         />
 
         <Route

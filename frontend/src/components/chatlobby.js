@@ -2,11 +2,19 @@ import React, { Component } from "react";
 import "../styles/chat.css";
 import { Button } from "reactstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPaperPlane } from "@fortawesome/free-solid-svg-icons";
+import { faPaperPlane, faUserCircle } from "@fortawesome/free-solid-svg-icons";
 import { library } from "@fortawesome/fontawesome-svg-core";
-library.add(faPaperPlane);
+library.add(faPaperPlane, faUserCircle);
 
 class ChatLobby extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      event_handle: this.props.match.params.handle,
+      currentUser: this.props.currentUser,
+    };
+  }
   render() {
     return (
       <div class="chat-container">
@@ -19,13 +27,18 @@ class ChatLobby extends Component {
         <main class="chat-main">
           <div class="chat-sidebar">
             <h3>
-              <i class="fas fa-comments"></i>Event Name:
+              <i class="fas fa-comments"></i>Event:
             </h3>
-            <h2 id="room-name"></h2>
+            <h2 className="center" id="room-name">
+              {this.props.match.params.handle}
+            </h2>
             <h3>
               <i class="fas fa-users"></i>Online Users:
             </h3>
-            <ul id="users"></ul>
+            <ul className="center" id="users">
+              <FontAwesomeIcon className="online" icon={faUserCircle} />{" "}
+              {this.state.currentUser.username}
+            </ul>
           </div>
           <div class="chat-messages"></div>
         </main>

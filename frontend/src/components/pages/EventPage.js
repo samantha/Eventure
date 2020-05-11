@@ -26,10 +26,19 @@ import {
   faHouseUser,
   faCheck,
   faPlus,
+  faComments,
 } from "@fortawesome/free-solid-svg-icons";
 import { library } from "@fortawesome/fontawesome-svg-core";
 
-library.add(faEdit, faFlag, faUserCircle, faHouseUser, faCheck, faPlus);
+library.add(
+  faEdit,
+  faFlag,
+  faUserCircle,
+  faHouseUser,
+  faCheck,
+  faPlus,
+  faComments
+);
 
 class EventPage extends Component {
   constructor(props) {
@@ -47,6 +56,7 @@ class EventPage extends Component {
     this.getAttendees = this.getAttendees.bind(this);
     this.getMembers = this.getMembers.bind(this);
     this.editEvent = this.editEvent.bind(this);
+    this.joinChat = this.joinChat.bind(this);
   }
 
   getAttendees() {
@@ -140,6 +150,10 @@ class EventPage extends Component {
 
   editEvent() {
     this.props.history.push("/settings/event/" + this.state.event.handle);
+  }
+
+  joinChat() {
+    this.props.history.push("/chat/event/" + this.state.event.handle);
   }
 
   openModal() {
@@ -350,7 +364,16 @@ class EventPage extends Component {
         >
           <div>
             <div className="sidebar-container">
-              {rsvpStatus}
+              <div className="center">
+                {rsvpStatus}{" "}
+                <Button
+                  className="rsvp"
+                  color="primary"
+                  onClick={this.joinChat}
+                >
+                  Join Event Chat <FontAwesomeIcon icon={faComments} />
+                </Button>
+              </div>
               <div className="left-details">Event Name:</div>
               <div className="left">{this.state.event.name}</div>
               <div className="left-details">Start Date:</div>

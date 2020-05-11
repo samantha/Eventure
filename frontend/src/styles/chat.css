@@ -204,3 +204,7 @@ h1 {
   height: 40px;
   margin-left: 10px;
 }
+
+.online {
+  color: #00ff00 !important;
+}
