@@ -42,14 +42,18 @@ const putTableData = (req, res, db) => {
 
 // DELETE function that will delete a row with a given id
 const deleteTableData = (req, res, db) => {
-  const { id } = req.body;
+  const { handle } = req.body;
   db("organizations")
     .where({ handle })
     .del()
     .then(() => {
       res.json({ delete: "true" });
     })
-    .catch((err) => res.status(400).json({ dbError: "db error" }));
+
+    .catch((err) => {
+      console.error(err);
+      res.status(400).json({ dbError: "Error: Can't delete org" });
+    });
 };
 
 module.exports = {

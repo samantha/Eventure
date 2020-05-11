@@ -1,0 +1,18 @@
+.table-responsive {
+  margin-top: 50px !important;
+  padding: 25px;
+}
+
+table th,
+table td {
+  white-space: normal;
+}
+
+caption {
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
+  color: #17a2b8;
+  text-align: center;
+  caption-side: top;
+  font-size: 36px;
+}
