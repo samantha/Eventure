@@ -24,10 +24,12 @@ import {
   faFlag,
   faUserCircle,
   faHouseUser,
+  faCheck,
+  faPlus,
 } from "@fortawesome/free-solid-svg-icons";
 import { library } from "@fortawesome/fontawesome-svg-core";
 
-library.add(faEdit, faFlag, faUserCircle, faHouseUser);
+library.add(faEdit, faFlag, faUserCircle, faHouseUser, faCheck, faPlus);
 
 class EventPage extends Component {
   constructor(props) {
@@ -39,6 +41,7 @@ class EventPage extends Component {
       attendees: [],
       members: [],
       reportVisible: false,
+      isRSVPed: false,
     };
     this.getEvent = this.getEvent.bind(this);
     this.getAttendees = this.getAttendees.bind(this);
@@ -148,12 +151,84 @@ class EventPage extends Component {
     }
   }
 
+  verifyRSVP() {
+    console.log(this.state.currentUser.username);
+    console.log(this.state.event.handle);
+    fetch("http://localhost:3000/verifyrsvp", {
+      method: "post",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        username: this.state.currentUser.username,
+        event_handle: this.props.match.params.handle,
+      }),
+    })
+      .then((response) => response.json())
+      .then((item) => {
+        if (Array.isArray(item) && item.length) {
+          this.setState({
+            isRSVPed: true,
+          });
+          // console.log(this.state.allOrgs);
+        } else {
+          console.log("failure");
+        }
+      })
+      .catch((err) => console.log(err));
+  }
+
+  makeRSVP = (e) => {
+    e.preventDefault();
+    fetch("http://localhost:3000/rsvps", {
+      method: "post",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        username: this.state.currentUser.username,
+        event_handle: this.state.event.handle,
+      }),
+    })
+      .then((response) => response.json())
+      .then((item) => {
+        if (Array.isArray(item) && item.length) {
+          this.setState({
+            isRSVPed: true,
+          });
+          // console.log(this.state.allOrgs);
+        } else {
+          console.log("failure");
+        }
+      })
+      .catch((err) => console.log(err));
+  };
+
+  cancelRSVP = (e) => {
+    e.preventDefault();
+    fetch("http://localhost:3000/rsvps", {
+      method: "delete",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        username: this.state.currentUser.username,
+        event_handle: this.state.event_handle,
+      }),
+    })
+      .then((response) => response.json())
+      .catch((err) => console.log(err));
+
+    this.setState({ isRSVPed: false });
+  };
+
   componentDidMount() {
     // get and set currently logged in user to state
     // if item exis populate the state with proper data
     this.getEvent();
     this.getAttendees();
     this.getMembers();
+    this.verifyRSVP();
   }
 
   render() {
@@ -236,6 +311,26 @@ class EventPage extends Component {
       );
     }
 
+    let rsvpStatus;
+    if (this.state.isRSVPed) {
+      rsvpStatus = (
+        <Button
+          outline
+          className="rsvp"
+          color="primary"
+          onClick={this.cancelRSVP}
+        >
+          Going <FontAwesomeIcon icon={faCheck} />
+        </Button>
+      );
+    } else {
+      rsvpStatus = (
+        <Button className="rsvp" color="primary" onClick={this.makeRSVP}>
+          RSVP <FontAwesomeIcon icon={faPlus} />
+        </Button>
+      );
+    }
+
     return (
       <div className="sidenav">
         <Sidebar
@@ -255,6 +350,7 @@ class EventPage extends Component {
         >
           <div>
             <div className="sidebar-container">
+              {rsvpStatus}
               <div className="left-details">Event Name:</div>
               <div className="left">{this.state.event.name}</div>
               <div className="left-details">Start Date:</div>
