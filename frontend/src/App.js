@@ -136,7 +136,6 @@ class App extends React.Component {
     // if item exists, populate the state with proper data
     this.getOrgs();
     this.getUsers();
-    this.getUsers();
   }
 
   render() {
@@ -242,7 +241,13 @@ class App extends React.Component {
 
         <Route
           path="/settings/profile"
-          render={(props) => <EditUserForm {...props} user={currentUser} />}
+          render={(props) => (
+            <EditUserForm
+              {...props}
+              changeUser={this.onChangeUser.bind(this)}
+              user={currentUser}
+            />
+          )}
         />
 
         <Route

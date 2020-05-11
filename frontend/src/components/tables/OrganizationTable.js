@@ -46,7 +46,7 @@ class OrganizationTable extends Component {
   }
 
   deleteOrg = (item) => {
-    let confirmDelete = window.confirm("Delete item forever?");
+    let confirmDelete = window.confirm("Delete organization forever?");
     if (confirmDelete) {
       fetch("http://localhost:3000/orgs", {
         method: "delete",
@@ -61,6 +61,7 @@ class OrganizationTable extends Component {
         .then((item) => {
           if (Array.isArray(item)) {
             this.getUserManagedOrgs();
+            window.location.reload(false);
           } else {
             console.log("failure");
           }
