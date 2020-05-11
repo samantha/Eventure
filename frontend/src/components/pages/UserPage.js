@@ -28,9 +28,11 @@ import {
   faFlag,
   faUserCircle,
   faHouseUser,
+  faPlus,
+  faCheck,
 } from "@fortawesome/free-solid-svg-icons";
 import { library } from "@fortawesome/fontawesome-svg-core";
-library.add(faEdit, faFlag, faUserCircle, faHouseUser);
+library.add(faEdit, faFlag, faUserCircle, faHouseUser, faPlus, faCheck);
 
 class UserPage extends Component {
   constructor(props) {
@@ -48,6 +50,7 @@ class UserPage extends Component {
       numJoinedOrgs: 0,
       numFriends: 0,
       allAchievements: [],
+      isFriend: false,
       // items: []
     };
     this.getUser = this.getUser.bind(this);
@@ -64,6 +67,9 @@ class UserPage extends Component {
     this.filterFriendNum = this.filterFriendNum.bind(this);
     this.editProfile = this.editProfile.bind(this);
     this.reportUser = this.reportUser.bind(this);
+    this.verifyFriendship = this.verifyFriendship.bind(this);
+    this.makeFriendship = this.makeFriendship.bind(this);
+    this.cancelFriendship = this.cancelFriendship.bind(this);
   }
 
   // addItemToState = (item) => {
@@ -352,6 +358,71 @@ class UserPage extends Component {
     }
   }
 
+  verifyFriendship() {
+    fetch("http://localhost:3000/verifyfriendship", {
+      method: "post",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        username: this.state.currentUser.username,
+        friendname: this.props.match.params.username,
+      }),
+    })
+      .then((response) => response.json())
+      .then((item) => {
+        if (Array.isArray(item) && item.length) {
+          this.setState({
+            isFriend: true,
+          });
+          // console.log(this.state.allOrgs);
+        } else {
+          console.log("failure");
+        }
+      })
+      .catch((err) => console.log(err));
+  }
+
+  makeFriendship = (e) => {
+    e.preventDefault();
+    fetch("http://localhost:3000/friendships", {
+      method: "post",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        username: this.state.currentUser.username,
+        friendname: this.props.match.params.username,
+      }),
+    })
+      .then((response) => response.json())
+      .catch((err) => console.log(err));
+
+    this.setState({
+      isFriend: true,
+    });
+    // window.location.reload(false);
+  };
+
+  cancelFriendship = (e) => {
+    e.preventDefault();
+    fetch("http://localhost:3000/friendships", {
+      method: "delete",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        username: this.state.currentUser.username,
+        friendname: this.props.match.params.username,
+      }),
+    })
+      .then((response) => response.json())
+      .catch((err) => console.log(err));
+
+    this.setState({ isFriend: false });
+    // window.location.reload(false);
+  };
+
   componentDidMount() {
     // get and set currently logged in user to state
     // if item exists, populate the state with proper data
@@ -363,6 +434,7 @@ class UserPage extends Component {
     this.getNumJoinedOrgs();
     this.getNumFriends();
     this.getAllAchievements();
+    this.verifyFriendship();
   }
 
   render() {
@@ -465,6 +537,30 @@ class UserPage extends Component {
         );
       });
 
+    let friendshipStatus;
+    if (this.state.isFriend) {
+      friendshipStatus = (
+        <Button
+          outline
+          className="friendship"
+          color="primary"
+          onClick={this.cancelFriendship}
+        >
+          Friends <FontAwesomeIcon icon={faCheck} />
+        </Button>
+      );
+    } else {
+      friendshipStatus = (
+        <Button
+          className="friendship"
+          color="primary"
+          onClick={this.makeFriendship}
+        >
+          Add Friend <FontAwesomeIcon icon={faPlus} />
+        </Button>
+      );
+    }
+
     return (
       <div className="sidenav">
         <Sidebar
@@ -482,6 +578,9 @@ class UserPage extends Component {
           handle={"@" + this.state.user.username}
           edit={editProfile}
         >
+          <div className="sidebar-container">
+            <div className="center">{friendshipStatus}</div>
+          </div>
           <div className="sidebar-container">
             <h4>
               {" "}
