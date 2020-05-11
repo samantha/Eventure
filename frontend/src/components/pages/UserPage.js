@@ -469,7 +469,7 @@ class UserPage extends Component {
     let userFriends = this.state.userFriends.map((friend) => {
       return (
         <Col>
-          <UserCard member={friend} user={this.state.user} />
+          <UserCard member={friend} user={this.state.currentUser} />
         </Col>
       );
     });
