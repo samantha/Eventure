@@ -16,16 +16,20 @@ import UserCard from "../../components/cards/UserCard";
 import { Button, Container, Row, Col } from "reactstrap";
 
 import "../../styles/dashboard.css";
+import "../../styles/ReportForm.css";
 import { withRouter } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faEdit,
+  faFlag,
   faUserCircle,
   faHouseUser,
+  faCheck,
+  faPlus,
 } from "@fortawesome/free-solid-svg-icons";
 import { library } from "@fortawesome/fontawesome-svg-core";
 
-library.add(faEdit, faUserCircle, faHouseUser);
+library.add(faEdit, faFlag, faUserCircle, faHouseUser, faCheck, faPlus);
 
 class EventPage extends Component {
   constructor(props) {
@@ -36,6 +40,8 @@ class EventPage extends Component {
       currentUser: this.props.currentUser,
       attendees: [],
       members: [],
+      reportVisible: false,
+      isRSVPed: false,
     };
     this.getEvent = this.getEvent.bind(this);
     this.getAttendees = this.getAttendees.bind(this);
@@ -136,12 +142,93 @@ class EventPage extends Component {
     this.props.history.push("/settings/event/" + this.state.event.handle);
   }
 
+  openModal() {
+    this.setState((prevState) => ({ reportVisible: !prevState.show }));
+  }
+  closeModal(e) {
+    if (e.target.id === "modal") {
+      this.setState({ reportVisible: false });
+    }
+  }
+
+  verifyRSVP() {
+    console.log(this.state.currentUser.username);
+    console.log(this.state.event.handle);
+    fetch("http://localhost:3000/verifyrsvp", {
+      method: "post",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        username: this.state.currentUser.username,
+        event_handle: this.props.match.params.handle,
+      }),
+    })
+      .then((response) => response.json())
+      .then((item) => {
+        if (Array.isArray(item) && item.length) {
+          this.setState({
+            isRSVPed: true,
+          });
+          // console.log(this.state.allOrgs);
+        } else {
+          console.log("failure");
+        }
+      })
+      .catch((err) => console.log(err));
+  }
+
+  makeRSVP = (e) => {
+    e.preventDefault();
+    fetch("http://localhost:3000/rsvps", {
+      method: "post",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        username: this.state.currentUser.username,
+        event_handle: this.state.event.handle,
+      }),
+    })
+      .then((response) => response.json())
+      .then((item) => {
+        if (Array.isArray(item) && item.length) {
+          this.setState({
+            isRSVPed: true,
+          });
+          // console.log(this.state.allOrgs);
+        } else {
+          console.log("failure");
+        }
+      })
+      .catch((err) => console.log(err));
+  };
+
+  cancelRSVP = (e) => {
+    e.preventDefault();
+    fetch("http://localhost:3000/rsvps", {
+      method: "delete",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        username: this.state.currentUser.username,
+        event_handle: this.state.event_handle,
+      }),
+    })
+      .then((response) => response.json())
+      .catch((err) => console.log(err));
+
+    this.setState({ isRSVPed: false });
+  };
+
   componentDidMount() {
     // get and set currently logged in user to state
     // if item exis populate the state with proper data
     this.getEvent();
     this.getAttendees();
     this.getMembers();
+    this.verifyRSVP();
   }
 
   render() {
@@ -189,6 +276,59 @@ class EventPage extends Component {
           Edit Event <FontAwesomeIcon icon={faEdit} />
         </Button>
       );
+    } else {
+      editEvent = (
+        <div>
+          <Button
+            className="edit"
+            color="secondary"
+            onClick={() => this.openModal()}
+          >
+            Report Event <FontAwesomeIcon icon={faFlag} />
+          </Button>
+          {this.state.reportVisible && (
+            <div id="modal" onClick={(e) => this.closeModal(e)}>
+              <div className="modal-box">
+                <h1>Report Event.</h1>
+                <div class="form-group">
+                  <label for="exampleFormControlTextarea1">
+                    Help us understand the problem. What is going on?
+                  </label>
+                  <textarea
+                    class="form-control"
+                    id="exampleFormControlTextarea1"
+                    placeholder="Type problem here."
+                    rows="3"
+                  ></textarea>
+                </div>
+                <div className="modal-report-footer">
+                  <Button>Submit</Button>
+                </div>
+              </div>
+            </div>
+          )}
+        </div>
+      );
+    }
+
+    let rsvpStatus;
+    if (this.state.isRSVPed) {
+      rsvpStatus = (
+        <Button
+          outline
+          className="rsvp"
+          color="primary"
+          onClick={this.cancelRSVP}
+        >
+          Going <FontAwesomeIcon icon={faCheck} />
+        </Button>
+      );
+    } else {
+      rsvpStatus = (
+        <Button className="rsvp" color="primary" onClick={this.makeRSVP}>
+          RSVP <FontAwesomeIcon icon={faPlus} />
+        </Button>
+      );
     }
 
     return (
@@ -210,6 +350,7 @@ class EventPage extends Component {
         >
           <div>
             <div className="sidebar-container">
+              {rsvpStatus}
               <div className="left-details">Event Name:</div>
               <div className="left">{this.state.event.name}</div>
               <div className="left-details">Start Date:</div>
@@ -236,7 +377,7 @@ class EventPage extends Component {
             <div className="sidebar-container">
               <div className="center">
                 <h1>Share Event</h1>
-                <SocialMedia />
+                <SocialMedia event={this.state.event} />
               </div>
             </div>
           </div>
